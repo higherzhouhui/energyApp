@@ -47,7 +47,7 @@
             "path" : "pages/xiangmu/xiangmu",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "项目",
                 "enablePullDownRefresh": false
             }
             
@@ -65,7 +65,7 @@
             "path" : "pages/tuiguang/tuiguang",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "项目",
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             
