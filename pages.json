@@ -7,7 +7,7 @@
 				"titleNView": false
 				}
 			}
-		} ,{
+		},{
             "path" : "pages/login/login",
             "style" :                                                                                    
             {
@@ -33,39 +33,63 @@
                 "navigationBarTitleText": "忘记密码",
                 "enablePullDownRefresh": false
             }
-        }
-        ,{
+        },{
             "path" : "pages/wode/wode",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": false
+				}
             }
-            
-        }
-        ,{
+        },{
             "path" : "pages/xiangmu/xiangmu",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "项目",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#D4E8FC"
             }
             
-        }
-        ,{
+        },{
             "path" : "pages/kefu/kefu",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
+                "navigationBarTitleText": "客服",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#FFF"
             }
             
-        }
-        ,{
+        },{
             "path" : "pages/tuiguang/tuiguang",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
+                "app-plus": {
+                	"titleNView": false
+				}
+			}
+        },{
+            "path" : "pages/index/newsDetail/newsDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新闻动态",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#FFF"
+            }
+        },{
+            "path" : "pages/login/personal/personal",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "用户协议",
+                "enablePullDownRefresh": false
+            }
+        },{
+            "path" : "pages/login/privacy/privacy",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "隐私协议",
                 "enablePullDownRefresh": false
             }
             

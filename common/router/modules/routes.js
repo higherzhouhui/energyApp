@@ -7,6 +7,20 @@ const routes = [
 		 },
 	},
 	{
+	  path: '/pages/login/personal/personal',
+	  name: 'personal',
+	    meta: {
+	        title: '用户协议',
+	    },
+	},
+	{
+	  path: '/pages/login/privacy/privacy',
+	  name: 'privacy',
+	    meta: {
+	        title: '隐私协议',
+	    },
+	},
+	{
 		path: "/pages/register/register",
 		name: 'register',
 			meta: {
@@ -26,6 +40,13 @@ const routes = [
       name: 'index',
         meta: {
 	        title: '首页',
+	    },
+	},
+	{
+	  path: '/pages/index/newsDetail/newsDetail',
+	  name: 'newsDetail',
+	    meta: {
+	        title: '新闻动态',
 	    },
 	},
 	{

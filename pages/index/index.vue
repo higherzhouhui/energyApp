@@ -79,13 +79,14 @@
 				setTimeout(() => {
 					this.loading = false
 					const list = [
-						{src: 'https://ossimg.fbs55.com/common/common_1685704442000_53864.png', title: '塔克拉玛干沙漠腹地一光伏电站正式并网发电', time: '2023-06-01 18:00:00'},
-						{src: 'https://ossimg.fbs55.com/common/common_1685704514000_77437.png', title: '总投资约16.3亿元 会理市33万千瓦光伏发电项目开工建设', time: '2023-06-02 11:30:11'},
-						{src: 'https://ossimg.fbs55.com/common/common_1685704529000_87162.png', title: '2022年12月28日，三峡集团在川两个新能源项目：凉山州会理市33万千瓦光伏发电项目、甘孜州道孚县亚日50万千瓦光伏发电项目开工建设。项目总投资42.3亿元，总装机83万千瓦', time: '2023-05-01 18:00:00'},
+						{src: 'https://ossimg.fbs55.com/common/common_1685704442000_53864.png', title: '中核集团田湾核电4台机组通过竣工验收', time: '2023-06-02 10:11', id: 0},
+						{src: 'https://ossimg.fbs55.com/common/common_1685704514000_77437.png', title: '广州中南部地区供电能力增长53%,随着高压线路传输电能至500千伏楚庭变电站内，500千伏楚庭输变电工程的', time: '2023-05-31 10:15', id: 1},
+						{src: 'https://ossimg.fbs55.com/common/common_1685704529000_87162.png', title: '广西海上风电项目海域使用权实现“零”的突破', time: '2023-06-02 10:20', id: 2},
+						{src: 'https://ossimg.fbs55.com/common/common_1685704529000_87162.png', title: '新能源发展让新型交通技术实现成为可能', time: '2023-05-31 10:17', id: 3},
 					]
 					const temp = this.newsList.concat(list)
 					this.newsList = temp
-				}, 1000)
+				}, 100)
 			},
 			handleTap(type) {
 				switch(type) {

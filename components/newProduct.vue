@@ -1,5 +1,5 @@
 <template>
-	<view class="product">
+	<view class="product" @tap="routeToDetail()">
 		<view class="left">
 			<image :src="product.src" class="cover"></image>
 		</view>
@@ -19,6 +19,12 @@
 		data() {
 			return {
 			};
+		},
+		methods: {
+			routeToDetail() {
+				uni.navigateTo({url: `/pages/index/newsDetail/newsDetail?id=${this.product.id}`});
+				
+			}
 		}
 	}
 </script>
