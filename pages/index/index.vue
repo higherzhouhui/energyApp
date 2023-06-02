@@ -1,47 +1,29 @@
 <template>
-	<view>
-		<home :cur="PageCur" v-if="PageCur=='home'" :key="commponent1Key"></home>
-		<people v-if="PageCur=='people'" :key="commponent2Key"></people>
-		<view class="cu-bar tabbar bg-white shadow foot">
-			<view :class="PageCur=='home'?'action text-green':'action text-gray'" @click="NavChange" data-cur="home">
-				<view class='cuIcon-homefill'></view>主页
-			</view>
-			<view :class="PageCur=='peoplelis'?'action text-green':'action text-gray'" @click="NavChange" data-cur="peoplelis">
-				<view class='cuIcon-peoplelist'></view>审批
-			</view>
-			<view :class="PageCur=='profile'?'action text-green':'action text-gray'" @click="NavChange" data-cur="profile">
-				<view class='cuIcon-profile'></view>发起
-			</view>
-			<view :class="PageCur=='people'?'action text-green':'action text-gray'" @click="NavChange" data-cur="people">
-				<view class='cuIcon-people'></view>个人
-			</view>
-		</view>
+	<view class="container">
+		
+		<view class="intro">本项目已包含uni ui组件，无需import和注册，可直接使用。在代码区键入字母u，即可通过代码助手列出所有可用组件。光标置于组件名称处按F1，即可查看组件文档。</view>
+		<text class="intro">详见：</text>
+		<uni-link :href="href" :text="href"></uni-link>
 	</view>
 </template>
 
 <script>
 	export default {
 		data() {
-		return {
-				PageCur: 'home',
-				commponent1Key: 0,
-				commponent2Key: 0,
+			return {
+				href: 'https://uniapp.dcloud.io/component/README?id=uniui'
 			}
-		},
-		onLoad:function(){
-			this.PageCur='home'
-			++this.commponent1Key
-			++this.commponent2Key
 		},
 		methods: {
-			NavChange: function(e) {
-				this.PageCur = e.currentTarget.dataset.cur
-			}
-			
+
 		}
 	}
 </script>
 
 <style>
-
+	.container {
+		padding: 20px;
+		font-size: 14px;
+		line-height: 24px;
+	}
 </style>

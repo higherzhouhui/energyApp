@@ -10,7 +10,7 @@ const router = new Router({
     routes: [...modules]//路由表
 });
 
-const whiteList = ['/pages/login/login', '/pages/register/register'] 
+const whiteList = ['/pages/login/login', '/pages/register/register', '/pages/forget/forget'] 
 //全局路由前置守卫
 router.beforeEach((to, from, next) => {
 	let token=uni.getStorageSync(ACCESS_TOKEN);

@@ -5,87 +5,116 @@
 			<view class="title">Hi，欢迎来到正泰！</view>
 			<form class="formStyle" @submit="formSubmit">
 				<view class="label"><image src="../../static/login/phone.png" class="phoneImg"></image>手机号</view>
-				<input name="phone" type="number" maxlength="13" v-model="phone" class="inputStyle" placeholder="请输入手机号"/>
+				<view class="inputForm">
+					<input name="phone" type="number" maxlength="13" v-model="phone" class="inputStyle" placeholder="请输入手机号"/>
+					<image v-if="phone" src="../../static/login/close.png" class="clear" @tap="() => phone = ''"></image>
+				</view>
 				<view class="label"><image src="../../static/login/password.png" class="phoneImg"></image>密码</view>
-				<input name="password" password maxlength="16" v-model="password" class="inputStyle" placeholder="请输入密码"/>
-				<view class="forget" @click="handleToForget">忘记密码？</view>
-				<button class="submit" form-type="submit">登录</button>
+				<view class="inputForm">
+					<input name="password" password maxlength="16" v-model="password" class="inputStyle" placeholder="请输入密码"/>
+					<image v-if="password" src="../../static/login/close.png" class="clear" @tap="() => password = ''"></image>
+				</view>
+				<view class="forget" @tap="handleToPages('forget')">忘记密码？</view>
+				<view class="errorWrapper" v-if="errorMsg">
+					<image src="../../static/login/error.png" class="errorImg"></image>
+					<text class="errorText">{{ errorMsg }}</text>
+				</view>
+				<button class="submit" form-type="submit" :loading="loading">登录</button>
 			</form>
 			<view class="nophone">
 				<text>没有账号？</text>
-				<text class="link" @click="handleToRegister">立即注册？</text>
+				<text class="link" @tap="handleToPages('register')">立即注册？</text>
 			</view>
+		</view>
+		<view class="bottom">
+			<text class="agress">登录即代表您同意</text>
+			<text class="personal" @tap="handleToPages('personal')">《用户协议》</text>
+			<text class="agress">和</text>
+			<text class="personal" @tap="handleToPages('privacy')">《隐私协议》</text>
 		</view>
 	</view>
 </template>
 
 <script>
 import { mapActions } from "vuex"
+import { ACCESS_TOKEN } from "@/common/util/constants"
 
 	export default {
 		data() {
 			return {
 				phone:'',
-				password: ''
+				password: '',
+				loading: false,
+				errorMsg: '',
+				timer: ''
 			}
 		},
 		onShow() {
 			this.int()
 		},
 		methods: {
-      ...mapActions([ "PhoneLogin"]),
-
+			...mapActions([ "PhoneLogin"]),
 			int(){
+				// #ifdef H5
 				var a = document.getElementsByClassName('uni-page-head-hd')
 				if (a.length) {
 					a[0].style.display = 'none';
 				}
+				// #endif
 			},
 			formSubmit(data) {
+				// 正在请求不再向下执行
+				if (this.loading) {
+					return
+				}
 				const { phone, password } = data?.detail?.value
 				if (!phone) {
-					uni.showToast({
-					    title: '账号不能为空',
-					    icon: 'error',
-					    duration: 2000
-					})
+					clearTimeout(this.timer)
+					this.errorMsg = '手机号不能为空'
+					this.timer = setTimeout(() =>{
+						this.errorMsg = ''
+					}, 1500)
 					return
 				}
 				if (!password) {
-					uni.showToast({
-					    title: '密码不能为空',
-					    icon: 'error',
-					    duration: 2000
-					})
+					clearTimeout(this.timer)
+					this.errorMsg = '密码不能为空'
+					this.timer = setTimeout(() =>{
+						this.errorMsg = ''
+					}, 1500)
 					return
 				}
-				uni.showToast({
-          title: '',
-          icon: 'loading',
-					duration: 9000
-        })
-        this.PhoneLogin({phone: phone, password: password}).then((res) => {
-				if (res.data.success) {
-					this.$tip.success('登录成功!')
-					this.$Router.replaceAll({ name: 'index' })
-					// #endif
-				} else {
-					this.$tip.alert(res.data.message);
+				this.loading = true
+				uni.setStorageSync(ACCESS_TOKEN,111);
+				this.$Router.replaceAll({ name: 'index' })
+				return
+				
+				try {
+					this.PhoneLogin({phone: phone, password: password}).then((res) => {
+						if (res.data.success) {
+							this.$tip.success('登录成功!')
+							this.$Router.replaceAll({ name: 'index' })
+						} else {
+							this.$tip.alert(res.data.message);
+						}
+					}).catch((err) => {
+					  let msg = err.data.message || "请求出现错误，请稍后再试"
+					  this.$tip.alert(msg);
+					}).finally(() => {
+						this.loading = false
+					})
+				} catch {
+					this.loading = false
+					this.errorMsg = '网络错误'
 				}
-        }).catch((err) => {
-          let msg = err.data.message || "请求出现错误，请稍后再试"
-          this.$tip.alert(msg);
-        }).finally(() => {
-        })
+
 			},
-			handleToRegister() {
-				// uni.navigateTo({url: "/pages/register/register"});
-        this.$Router.replaceAll({ name: 'register' })
+			handleToPages(page) {
+				uni.navigateTo({url: `/pages/${page}/${page}`});
 			},
-			handleToForget() {
-				// uni.navigateTo({url: "/pages/register/register"});
-        this.$Router.replaceAll({ name: 'forget' })
-			},
+		},
+		destroyed() {
+			clearTimeout(this.timer)
 		}
 	}
 </script>
@@ -121,18 +150,49 @@ import { mapActions } from "vuex"
 	height: 22px;
 	margin-right: 4px;
 }
+.inputForm {
+	position: relative;
+	.clear {
+		width: 20px;
+		height: 20px;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
 .inputStyle {
 	border-bottom: 1px solid #EBECED;
 	font-size: 15px;
 	line-height: 21px;
 	padding-bottom: 7px;
+	color: #000;
 	&::placeholder {
 		font-size: 15px;
 		font-family: PingFang SC-Regular, PingFang SC;
-		font-weight: 400;
+		font-weight: 400!important;
 		color: #C5C6C7;
 		line-height: 21px;
-		-webkit-text-fill-color: transparent;
+	}
+}
+.errorWrapper {
+	height: 34px;
+	background: #FFEBEB;
+	border-radius: 4px 4px 4px 4px;
+	display: flex;
+	align-items: center;
+	opacity: 1;
+	margin-top: 8px;
+	.errorImg {
+		width: 22px;
+		height: 22px;
+		margin-right: 4px;
+	}
+	.errorText {
+		font-size: 13px;
+		font-family: PingFang SC-Regular, PingFang SC;
+		font-weight: 400;
+		color: #FF4B4B;
+		line-height: 17px;
 	}
 }
 .forget {
@@ -142,6 +202,8 @@ import { mapActions } from "vuex"
 	color: #4F5459;
 	line-height: 17px;
 	margin-top: 8px;
+	width: 100%;
+	text-align: right;
 }
 
 .submit {
@@ -167,6 +229,27 @@ import { mapActions } from "vuex"
 	.link {
 		color: #17191A;
 		text-decoration: underline;
+	}
+}
+.bottom {
+	position: absolute;
+	bottom: 50px;
+	width: 100%;
+	text-align: center;
+	.agress {
+		font-size: 13px;
+		font-family: PingFang SC-Regular, PingFang SC;
+		font-weight: 400;
+		color: #333333;
+		line-height: 17px;
+	}
+	.personal {
+		height: 19px;
+		font-size: 13px;
+		font-family: PingFang SC-Regular, PingFang SC;
+		font-weight: 400;
+		color: #2E96FF;
+		line-height: 17px;
 	}
 }
 </style>

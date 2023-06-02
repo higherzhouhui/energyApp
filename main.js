@@ -2,17 +2,11 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import MinCache from'./common/util/MinCache.js'
-import tip from'./common/util/tip.js'
 import configService from'./common/service/config.service.js'
 
 import router from './common/router'
 import {RouterMount} from './plugin/uni-simple-router/index.js'
 
-//引入mescroll插件
-import MescrollBody from "@/components/mescroll-uni/mescroll-body.vue"
-import MescrollUni from "@/components/mescroll-uni/mescroll-uni.vue"
-Vue.component('mescroll-body', MescrollBody);
-Vue.component('mescroll-uni', MescrollUni);
 
 // 注册缓存器
 Vue.use(MinCache,{timeout: 6})
@@ -20,7 +14,6 @@ Vue.use(MinCache,{timeout: 6})
 // store
 Vue.prototype.$store=store;
 // tip
-Vue.prototype.$tip=tip;
 // config
 Vue.prototype.$config=configService;
 
@@ -28,37 +21,6 @@ Vue.prototype.$config=configService;
 import { http } from '@/common/service/service.js' 
 Vue.prototype.$http = http
 
-import home from './pages/home/home.vue'
-Vue.component('home',home)
-
-
-import people from './pages/user/people.vue'
-Vue.component('people',people)
-
-// 自定义组件
-import mySelect from './components/my-componets/my-select.vue'
-Vue.component('mySelect',mySelect)
-
-import myImageUpload from './components/my-componets/my-image-upload.vue'
-Vue.component('myImageUpload',myImageUpload)
-
-
-import myPage from './components/my-componets/my-page.vue'
-Vue.component('myPage',myPage)
-
-
-
-import basics from './pages/basics/home.vue'
-Vue.component('basics',basics)
-
-import components from './pages/component/home.vue'
-Vue.component('components',components)
-
-import plugin from './pages/plugin/home.vue'
-Vue.component('plugin',plugin)
-
-import cuCustom from './plugin/colorui/components/cu-custom.vue'
-Vue.component('cu-custom',cuCustom)
 
 // import VConsole from './js_sdk/vconsole.min'
 
