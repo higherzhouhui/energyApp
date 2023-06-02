@@ -1,2 +1,6 @@
-# energyApp
-energyApp
+# uniapp 2023-6-1
+
+# git clone https://github.com/higherzhouhui/energyApp.git
+
+# study uniapp https://uniapp.dcloud.net.cn/
+# HBuilderX version 3.8.4
