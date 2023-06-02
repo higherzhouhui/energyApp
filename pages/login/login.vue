@@ -46,7 +46,7 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 				password: '',
 				loading: false,
 				errorMsg: '',
-				timer: ''
+				timer: '',
 			}
 		},
 		onShow() {
