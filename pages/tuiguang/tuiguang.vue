@@ -44,7 +44,10 @@
 		onShow() {
 		},
 		methods: {
+<<<<<<< HEAD
 			
+=======
+>>>>>>> ce72e408c4ad77cb28a7328c2c5551221716c5bf
 		}
 	}
 </script>

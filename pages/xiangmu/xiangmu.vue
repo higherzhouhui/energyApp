@@ -58,17 +58,8 @@
 			}
 		},
 		onShow() {
-			this.int()
 		},
 		methods: {
-			int(){
-				// #ifdef H5
-				var a = document.getElementsByClassName('uni-page-head')
-				if (a.length) {
-					a[0].style.backgroundColor = '#D4E8FC'
-				}
-				// #endif
-			},
 		}
 	}
 </script>

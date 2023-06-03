@@ -46,7 +46,7 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 				password: '',
 				loading: false,
 				errorMsg: '',
-				timer: ''
+				timer: '',
 			}
 		},
 		onShow() {
@@ -110,6 +110,10 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 
 			},
 			handleToPages(page) {
+				if (page === 'personal' || page === 'privacy') {
+					uni.navigateTo({url: `/pages/login/${page}/${page}`});
+					return
+				}
 				uni.navigateTo({url: `/pages/${page}/${page}`});
 			},
 		},
