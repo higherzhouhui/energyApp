@@ -95,6 +95,7 @@
 				}
 			},
 			ScrollImgLeft() {
+			if(!document) return
 			  let speed = 30;
 			  let MyMar = null;
 			  let scroll_begin = document.getElementById("scroll_begin");
