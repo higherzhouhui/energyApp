@@ -69,7 +69,7 @@
 				font-size: 14px;
 				font-family: PingFang SC-Regular, PingFang SC;
 				font-weight: 400;
-				color: #4F5459;
+				color: #4F5459; 
 			}
 		}
 	}
