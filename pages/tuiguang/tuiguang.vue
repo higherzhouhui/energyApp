@@ -42,17 +42,9 @@
 			}
 		},
 		onShow() {
-			this.int()
 		},
 		methods: {
-			int(){
-				// #ifdef H5
-				var a = document.getElementsByClassName('uni-page-head')
-				if (a.length) {
-					a[0].remove()
-				}
-				// #endif
-			},
+			
 		}
 	}
 </script>
