@@ -11,7 +11,7 @@
 				</view>
 				<view class="right">
 					<image src="../../static/my/jinbi.png" class="jinbiImg"></image>
-					<text class="signText">签到</text>
+					<text class="signText" @tap="signToday()">签到</text>
 				</view>
 			</view>
 			<view class="moneyContainer">
@@ -94,7 +94,10 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 			logOut() {
 				uni.removeStorageSync(ACCESS_TOKEN)
 				this.$Router.replaceAll({ name: 'index' })
-			}
+			},
+			signToday() {
+				uni.showToast({title: '签到成功！'})
+			},
 		}
 	}
 </script>

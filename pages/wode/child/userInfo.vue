@@ -31,11 +31,11 @@
 				<image class="copy-icon" src="../../../static/wode/copy-icon.png" mode=""></image>
 			</view>
 		</view>
-		<view class="item no-border">
+		<view class="item no-border" @click="linkTo">
 			<view class="key">
 				修改密码
 			</view>
-			<view class="value" @click="linkTo">
+			<view class="value">
 				<image class="right-icon" src="../../../static/wode/right-icon.png" mode=""></image>
 			</view>
 		</view>

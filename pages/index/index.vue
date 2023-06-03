@@ -64,23 +64,44 @@
 
 <script>
 	import newProduct from '@/components/newProduct.vue'
-	import loadList from '@/components/loadList.vue'
 	export default {
 		data() {
 			return {
 				href: 'https://uniapp.dcloud.io/component/README?id=uniui',
 				gonggao: '为全面推进能源革命,全力建设新能源全产业链,大力发展煤基新材料产业,聚集全球专家智库和产业精英,共同交流技术创新、产业创新、政策创新、商业模式创新的成功经验与发展趋势',
 				newsList: [],
-				loading: false
+				loading: false,
+				timer: '',
 			}
-		},
-		mounted() {
-			this.scrollImgLeft();
-			this.getNewsList()
 		},
 		components: {
 			newProduct,
-			loadList
+		},
+		mounted() {
+			this.getNewsList()
+			this.scrollImgLeft();
+			if (!document) {
+				return
+			}
+			let speed = 30;
+			  let scroll_begin = document.getElementById('scroll_begin');
+			  let scroll_end = document.getElementById('scroll_end');;
+			  let scroll_div = document.getElementById('scroll_div');;
+			  scroll_end.innerHTML = scroll_begin.innerHTML;
+			  const Marquee = () => {
+			    if (scroll_end.offsetWidth - scroll_div.scrollLeft <= 0)
+			      scroll_div.scrollLeft -= scroll_begin.offsetWidth;
+			    else {
+			      scroll_div.scrollLeft++;
+			    }
+			  }
+			  this.timer = setInterval(Marquee, speed);
+			  scroll_div.onmouseover = function () {
+			    clearInterval(this.timer);
+			  }
+			  scroll_div.onmouseout = function () {
+			    this.timer = setInterval(Marquee, speed);
+			  }
 		},
 		methods: {
 			getNewsList() {
@@ -104,26 +125,7 @@
 				}
 			},
 			scrollImgLeft() {
-			  let speed = 30;
-			  let MyMar = null;
-			  let scroll_begin = this.$refs.scrollBegin;
-			  let scroll_end = this.$refs.scrollEnd;
-			  let scroll_div = this.$refs.scrollDiv;
-			  scroll_end.innerHTML = this.gonggao;
-			  const Marquee = () => {
-			    if (scroll_end.offsetWidth - scroll_div.scrollLeft <= 0)
-			      scroll_div.scrollLeft -= scroll_begin.offsetWidth;
-			    else {
-			      scroll_div.scrollLeft++;
-			    }
-			  }
-			  MyMar = setInterval(Marquee, speed);
-			  scroll_div.onmouseover = function () {
-			    clearInterval(MyMar);
-			  }
-			  scroll_div.onmouseout = function () {
-			    MyMar = setInterval(Marquee, speed);
-			  }
+			  
 			},
 			onPageScroll(e) {
 			   let scrollHeight = e.scrollHeight
@@ -140,6 +142,9 @@
 			      })
 			   }
 			},
+		},
+		destroyed() {
+			clearInterval(this.timer)
 		}
 	}
 </script>
