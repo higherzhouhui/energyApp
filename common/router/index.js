@@ -26,6 +26,6 @@ router.beforeEach((to, from, next) => {
 })
 // 全局路由后置守卫
 router.afterEach((to, from) => {
-	console.log("afterEach")
+	// console.log("afterEach")
 })
 export default router;

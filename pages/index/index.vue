@@ -109,7 +109,7 @@
 			  let scroll_begin = this.$refs.scrollBegin;
 			  let scroll_end = this.$refs.scrollEnd;
 			  let scroll_div = this.$refs.scrollDiv;
-			  scroll_end.innerHTML = scroll_begin.innerHTML;
+			  scroll_end.innerHTML = this.gonggao;
 			  const Marquee = () => {
 			    if (scroll_end.offsetWidth - scroll_div.scrollLeft <= 0)
 			      scroll_div.scrollLeft -= scroll_begin.offsetWidth;

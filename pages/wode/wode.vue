@@ -6,7 +6,7 @@
 					<image src="../../static/home/kefu.png" class="avatar"></image>
 					<view class="info">
 						<view class="name">未实名</view>
-						<view class="ziliao" @tap="handleRouteTo('gerenziliao')">个人资料</view>
+						<view class="ziliao" @tap="handleRouteTo('userInfo')">个人资料</view>
 					</view>
 				</view>
 				<view class="right">
@@ -73,8 +73,8 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 		data() {
 			return {
 				navList: [
-					{title: '我的团队', logo: 'tuandui', link: 'tuandui'},
-					{title: '交易', logo: 'jiaoyi', link: 'jiaoyi'},
+					{title: '我的团队', logo: 'tuandui', link: 'myteam'},
+					{title: '交易', logo: 'jiaoyi', link: 'transaction'},
 					{title: '银行卡', logo: 'yhk', link: 'yhk'},
 					{title: '实名认证', logo: 'smrz', link: 'smrz'},
 				]
@@ -88,7 +88,7 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 			},
 			handleRouteTo(link) {
 				uni.navigateTo({
-					url:`/pages/wode/${link}/${link}`
+					url:`/pages/wode/child/${link}`
 				})
 			},
 			logOut() {

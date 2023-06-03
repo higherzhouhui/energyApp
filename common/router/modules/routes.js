@@ -75,42 +75,35 @@ const routes = [
 		name: 'wode',
 			meta: {
 				title: '我的',
-			},
+			}
 	},
 	{
-		path: "/pages/wode/tuandui/tuandui",
-		name: 'tuandui',
-			meta: {
-				title: '团队',
-			},
-	},
-	{
-		path: "/pages/wode/gerenziliao/gerenziliao",
-		name: 'gerenziliao',
+		path: "/pages/wode/child/userInfo",
+		name: 'userInfo',
 			meta: {
 				title: '个人资料',
-			},
+			}
 	},
 	{
-		path: "/pages/wode/jiaoyi/jiaoyi",
-		name: 'jiaoyi',
+		path: "/pages/wode/child/repassword",
+		name: 'repassword',
 			meta: {
-				title: '交易',
-			},
+				title: '修改密码',
+			}
 	},
 	{
-		path: "/pages/wode/yhk/yhk",
-		name: 'yhk',
+		path: "/pages/wode/child/myteam",
+		name: 'myteam',
 			meta: {
-				title: '银行卡',
-			},
+				title: '我的团队',
+			}
 	},
 	{
-		path: "/pages/wode/smrz/smrz",
-		name: 'smrz',
+		path: "/pages/wode/child/transaction",
+		name: 'transaction',
 			meta: {
-				title: '实名认证',
-			},
+				title: '交易明细',
+			}
 	},
 	
 ]
