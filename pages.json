@@ -31,11 +31,44 @@
                 "enablePullDownRefresh": false
             }
         },{
+            "path" : "pages/wode/child/transaction",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "交易明细",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
+            }
+        },{
             "path" : "pages/wode/wode",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
+            }
+        },{
+            "path" : "pages/wode/child/myteam",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的团队",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
+            }
+        },{
+            "path" : "pages/wode/child/userInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人资料",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
+            }
+        },{
+            "path" : "pages/wode/child/repassword",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "修改密码",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
             }
         },{
             "path" : "pages/xiangmu/xiangmu",

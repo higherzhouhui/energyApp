@@ -74,8 +74,37 @@ const routes = [
 		path: "/pages/wode/wode",
 		name: 'wode',
 			meta: {
-				title: '我的',
-			},
+				title: 'wode',
+			}
 	},
+	{
+		path: "/pages/wode/child/userInfo",
+		name: 'userInfo',
+			meta: {
+				title: '个人资料',
+			}
+	},
+	{
+		path: "/pages/wode/child/repassword",
+		name: 'repassword',
+			meta: {
+				title: '修改密码',
+			}
+	},
+	{
+		path: "/pages/wode/child/myteam",
+		name: 'myteam',
+			meta: {
+				title: '我的团队',
+			}
+	},
+	{
+		path: "/pages/wode/child/transaction",
+		name: 'transaction',
+			meta: {
+				title: '交易明细',
+			}
+	},
+	
 ]
 export default routes
