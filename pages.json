@@ -84,6 +84,51 @@
                 "enablePullDownRefresh": false
             }
             
+        },{
+            "path" : "pages/wode/tuandui/tuandui",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "团队",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+       
+        ,{
+            "path" : "pages/wode/gerenziliao/gerenziliao",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人资料",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/wode/jiaoyi/jiaoyi",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "交易",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/wode/yhk/yhk",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "银行卡",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/wode/smrz/smrz",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "实名认证",
+                "enablePullDownRefresh": false
+            }
+            
         }
     ],
 	"globalStyle": {

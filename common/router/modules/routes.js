@@ -77,5 +77,41 @@ const routes = [
 				title: '我的',
 			},
 	},
+	{
+		path: "/pages/wode/tuandui/tuandui",
+		name: 'tuandui',
+			meta: {
+				title: '团队',
+			},
+	},
+	{
+		path: "/pages/wode/gerenziliao/gerenziliao",
+		name: 'gerenziliao',
+			meta: {
+				title: '个人资料',
+			},
+	},
+	{
+		path: "/pages/wode/jiaoyi/jiaoyi",
+		name: 'jiaoyi',
+			meta: {
+				title: '交易',
+			},
+	},
+	{
+		path: "/pages/wode/yhk/yhk",
+		name: 'yhk',
+			meta: {
+				title: '银行卡',
+			},
+	},
+	{
+		path: "/pages/wode/smrz/smrz",
+		name: 'smrz',
+			meta: {
+				title: '实名认证',
+			},
+	},
+	
 ]
 export default routes

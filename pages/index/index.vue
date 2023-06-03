@@ -35,15 +35,24 @@
 			</view>
 			<view class="gonggao">
 				<image class="ggImg" src="../../static/home/gonggao.png"></image>
-				  <view id="scroll_div" class="fl">
-				    <view id="scroll_begin">
+				  <view id="scroll_div" class="fl" ref="scrollDiv">
+				    <view id="scroll_begin" ref="scrollBegin">
 						{{gonggao}}
 					</view>
-				    <view id="scroll_end"></view>
+				    <view id="scroll_end" ref="scrollEnd"></view>
 				  </view>
 			</view>
 			<view class="bg-video">
-				<video class="myVideo" src="../../static/home/gf.mp4" autoplay loop controls></video>
+				<video 
+				class="myVideo" 
+				src="../../static/home/gf.mp4" 
+				loop 
+				controls 
+				poster="../../static/home/videoCover.png" 
+				:show-mute-bt="true"
+				play-btn-position="middle"
+				mobilenet-hint-type="1"
+				:enable-play-gesture="true"></video>
 			</view>
 			<view class="newsContainer">
 				<text class="title">新闻动态</text>
@@ -66,7 +75,7 @@
 			}
 		},
 		mounted() {
-			this.ScrollImgLeft();
+			this.scrollImgLeft();
 			this.getNewsList()
 		},
 		components: {
@@ -82,7 +91,7 @@
 						{src: 'https://ossimg.fbs55.com/common/common_1685704442000_53864.png', title: '中核集团田湾核电4台机组通过竣工验收', time: '2023-06-02 10:11', id: 0},
 						{src: 'https://ossimg.fbs55.com/common/common_1685704514000_77437.png', title: '广州中南部地区供电能力增长53%,随着高压线路传输电能至500千伏楚庭变电站内，500千伏楚庭输变电工程的', time: '2023-05-31 10:15', id: 1},
 						{src: 'https://ossimg.fbs55.com/common/common_1685704529000_87162.png', title: '广西海上风电项目海域使用权实现“零”的突破', time: '2023-06-02 10:20', id: 2},
-						{src: 'https://ossimg.fbs55.com/common/common_1685704529000_87162.png', title: '新能源发展让新型交通技术实现成为可能', time: '2023-05-31 10:17', id: 3},
+						{src: 'https://ossimg.fbs55.com/common/common_1685704514000_77437.png', title: '新能源发展让新型交通技术实现成为可能', time: '2023-05-31 10:17', id: 3},
 					]
 					const temp = this.newsList.concat(list)
 					this.newsList = temp
@@ -94,12 +103,12 @@
 					default: break;
 				}
 			},
-			ScrollImgLeft() {
+			scrollImgLeft() {
 			  let speed = 30;
 			  let MyMar = null;
-			  let scroll_begin = document.getElementById("scroll_begin");
-			  let scroll_end = document.getElementById("scroll_end");
-			  let scroll_div = document.getElementById("scroll_div");
+			  let scroll_begin = this.$refs.scrollBegin;
+			  let scroll_end = this.$refs.scrollEnd;
+			  let scroll_div = this.$refs.scrollDiv;
 			  scroll_end.innerHTML = scroll_begin.innerHTML;
 			  const Marquee = () => {
 			    if (scroll_end.offsetWidth - scroll_div.scrollLeft <= 0)
@@ -167,10 +176,6 @@
 	/deep/.uni-swiper-dot-active {
 		background-color: #2E96FF;
 	}
-	/deep/.uni-swiper-dots-horizontal {
-		bottom: 0;
-	}
-	
 	.content {
 		padding: 16px 12px;
 		.gongnengList {
@@ -212,7 +217,7 @@
 			min-width: 34px;
 			min-height: 20px;
 			object-fit: fill;
-			margin-top: 3px;
+			margin-top: 5px;
 		}
 	}
 	#scroll_div {
