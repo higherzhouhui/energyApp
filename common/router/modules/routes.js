@@ -105,6 +105,14 @@ const routes = [
 				title: '交易明细',
 			}
 	},
+	{
+		path: "/pages/wode/child/authentication",
+		name: 'authentication',
+			meta: {
+				title: '实名认证',
+			}
+	},
+	
 	
 ]
 export default routes

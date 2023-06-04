@@ -31,6 +31,13 @@
                 "enablePullDownRefresh": false
             }
         },{
+            "path" : "pages/wode/child/authentication",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "实名认证",
+                "enablePullDownRefresh": false
+            }
+        },{
             "path" : "pages/wode/child/transaction",
             "style" :                                                                                    
             {
