@@ -20,15 +20,15 @@
 					<image class="lImg" src="../../static/home/jiaocheng.png"></image>
 					<view class="text">操作教程</view>
 				</view>
-				<view class="list" @tap="handleTap('caozuo')">
+				<view class="list" @tap="handleTap('zxkf')">
 					<image class="lImg" src="../../static/home/kefu.png"></image>
 					<view class="text">在线客服</view>
 				</view>
-				<view class="list" @tap="handleTap('caozuo')">
+				<view class="list" @tap="handleTap('gfql')">
 					<image class="lImg" src="../../static/home/liaotian.png"></image>
 					<view class="text">官方群聊</view>
 				</view>
-				<view class="list" @tap="handleTap('caozuo')">
+				<view class="list" @tap="handleTap('yqhy')">
 					<image class="lImg" src="../../static/home/yaoqing.png"></image>
 					<view class="text">邀请好友</view>
 				</view>
@@ -77,7 +77,7 @@
 		components: {
 			newProduct,
 		},
-		mounted() {
+		onReady() {
 			this.getNewsList()
 			this.scrollImgLeft();
 			if (!document) {
@@ -121,6 +121,9 @@
 			handleTap(type) {
 				switch(type) {
 					case 'caozuo': break;
+					case 'yqhy': break;
+					case 'zxkf': break;
+					case 'gfql': break;
 					default: break;
 				}
 			},
