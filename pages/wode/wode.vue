@@ -15,7 +15,7 @@
 				</view>
 			</view>
 			<view class="moneyContainer">
-				<view class="list">
+				<view class="list" @tap="withdrawal">
 					<view class="title">分红钱包（元）</view>
 					<view class="bot">
 						<view class="jine">5456.23</view>
@@ -97,6 +97,11 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 			},
 			signToday() {
 				uni.showToast({title: '签到成功！'})
+			},
+			withdrawal() {
+				uni.navigateTo({
+					url:`/pages/wode/child/withdrawal`
+				})
 			}
 		}
 	}

@@ -39,6 +39,14 @@
             }
         },
 		{
+		    "path" : "pages/wode/child/withdrawal",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "分红提现",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
 		    "path" : "pages/wode/child/bankcardbind",
 		    "style" :                                                                                    
 		    {

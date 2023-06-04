@@ -113,10 +113,17 @@ const routes = [
 			}
 	},
 	{
+		path: "/pages/wode/child/withdrawal",
+		name: 'authentication',
+			meta: {
+				title: '分红提现',
+			}
+	},
+	{
 		path: "/pages/wode/child/bankcardbind",
 		name: 'authentication',
 			meta: {
-				title: '实名认证',
+				title: '银行卡绑定',
 			}
 	},
 	
