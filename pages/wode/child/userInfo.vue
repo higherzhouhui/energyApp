@@ -31,7 +31,7 @@
 				<image class="copy-icon" src="../../../static/wode/copy-icon.png" mode=""></image>
 			</view>
 		</view>
-		<view class="item no-border" @click="linkTo">
+		<view class="item no-border" @click="linkTo()">
 			<view class="key">
 				修改密码
 			</view>

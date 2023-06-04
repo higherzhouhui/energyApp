@@ -35,7 +35,8 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "实名认证",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
             }
         },
 		{
@@ -44,7 +45,7 @@
 		    {
 		        "navigationBarTitleText": "分红提现",
 		        "enablePullDownRefresh": false,
-				"navigationBarBackgroundColor": "rgba(0,0,0,0)"
+				"navigationBarBackgroundColor": "#fff"
 		    }
 		},
 		{
@@ -52,7 +53,8 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "银行卡绑定",
-		        "enablePullDownRefresh": false
+		        "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
 		    }
 		},
 		{
@@ -117,7 +119,8 @@
             "path" : "pages/tuiguang/tuiguang",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "推广"
+                "navigationBarTitleText": "推广",
+				"navigationBarBackgroundColor": "#fff"
 			}
         },{
             "path" : "pages/index/newsDetail/newsDetail",
