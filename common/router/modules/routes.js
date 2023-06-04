@@ -105,6 +105,28 @@ const routes = [
 				title: '交易明细',
 			}
 	},
+	{
+		path: "/pages/wode/child/authentication",
+		name: 'authentication',
+			meta: {
+				title: '实名认证',
+			}
+	},
+	{
+		path: "/pages/wode/child/withdrawal",
+		name: 'authentication',
+			meta: {
+				title: '分红提现',
+			}
+	},
+	{
+		path: "/pages/wode/child/bankcardbind",
+		name: 'authentication',
+			meta: {
+				title: '银行卡绑定',
+			}
+	},
+	
 	
 ]
 export default routes

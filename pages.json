@@ -31,6 +31,33 @@
                 "enablePullDownRefresh": false
             }
         },{
+            "path" : "pages/wode/child/authentication",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "实名认证",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
+            }
+        },
+		{
+		    "path" : "pages/wode/child/withdrawal",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "分红提现",
+		        "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
+		    }
+		},
+		{
+		    "path" : "pages/wode/child/bankcardbind",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "银行卡绑定",
+		        "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
+		    }
+		},
+		{
             "path" : "pages/wode/child/transaction",
             "style" :                                                                                    
             {
@@ -92,7 +119,8 @@
             "path" : "pages/tuiguang/tuiguang",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "推广"
+                "navigationBarTitleText": "推广",
+				"navigationBarBackgroundColor": "#fff"
 			}
         },{
             "path" : "pages/index/newsDetail/newsDetail",

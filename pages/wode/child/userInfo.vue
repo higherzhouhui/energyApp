@@ -6,7 +6,7 @@
 			</view>
 			<image class="avatar value" :src="info.avatar" mode=""></image>
 		</view>
-		<view class="item">
+		<view class="item" @tap="linkTo('authentication')">
 			<view class="key">
 				姓名
 			</view>
@@ -31,7 +31,7 @@
 				<image class="copy-icon" src="../../../static/wode/copy-icon.png" mode=""></image>
 			</view>
 		</view>
-		<view class="item no-border" @click="linkTo">
+		<view class="item no-border" @click="linkTo()">
 			<view class="key">
 				修改密码
 			</view>
@@ -39,14 +39,15 @@
 				<image class="right-icon" src="../../../static/wode/right-icon.png" mode=""></image>
 			</view>
 		</view>
-		<view class="item center no-border">
+		<view class="item center no-border" @tap="logOut">
 			退出登录
 		</view>
 	</view>
 </template>
 
 <script>
-	const toast = uni.requireNativePlugin('Ba-Toast')
+	import { ACCESS_TOKEN } from "@/common/util/constants"
+	
 	export default {
 		data() {
 			return {
@@ -65,9 +66,13 @@
 				        data: this.info.ecode
 				    });
 			},
-			linkTo() {				
-				uni.navigateTo({url: "/pages/wode/child/repassword"});
-			}
+			linkTo(path = 'repassword') {		
+				uni.navigateTo({url: "/pages/wode/child/" + path});
+			},
+			logOut() {
+				uni.removeStorageSync(ACCESS_TOKEN)
+				this.$Router.replaceAll({ name: 'index' })
+			},
 			
 		}
 	}
