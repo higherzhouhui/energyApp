@@ -75,8 +75,8 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 				navList: [
 					{title: '我的团队', logo: 'tuandui', link: 'myteam'},
 					{title: '交易', logo: 'jiaoyi', link: 'transaction'},
-					{title: '银行卡', logo: 'yhk', link: 'yhk'},
-					{title: '实名认证', logo: 'smrz', link: 'smrz'},
+					{title: '银行卡', logo: 'yhk', link: 'bankcardbind'},
+					{title: '实名认证', logo: 'smrz', link: 'authentication'},
 				]
 			}
 		},
@@ -97,7 +97,7 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 			},
 			signToday() {
 				uni.showToast({title: '签到成功！'})
-			},
+			}
 		}
 	}
 </script>

@@ -37,7 +37,16 @@
                 "navigationBarTitleText": "实名认证",
                 "enablePullDownRefresh": false
             }
-        },{
+        },
+		{
+		    "path" : "pages/wode/child/bankcardbind",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "银行卡绑定",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
             "path" : "pages/wode/child/transaction",
             "style" :                                                                                    
             {

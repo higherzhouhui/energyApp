@@ -112,6 +112,13 @@ const routes = [
 				title: '实名认证',
 			}
 	},
+	{
+		path: "/pages/wode/child/bankcardbind",
+		name: 'authentication',
+			meta: {
+				title: '实名认证',
+			}
+	},
 	
 	
 ]
