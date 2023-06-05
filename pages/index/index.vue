@@ -27,7 +27,7 @@
 			<view class="gonggao">
 				<image class="ggImg" src="../../static/home/gonggao.png"></image>
 				<view id="scroll_div" class="fl" ref="scrollDiv">
-					<view id="scroll_begin" ref="scrollBegin" @tap="ruleVisible = true">
+					<view id="scroll_begin" ref="scrollBegin" @tap= "toggle(true)">
 						{{notice.content}}
 					</view>
 					<view id="scroll_end" ref="scrollEnd"></view>
@@ -54,7 +54,7 @@
 					</view>
 				</view>
 				<view>{{notice.content}}</view>
-				<image @click="ruleVisible = false" class="close" src="../../static/tuiguang/close.png"></image>
+				<image @click="toggle(false)" class="close" src="../../static/tuiguang/close.png"></image>
 			</view>
 
 		</view>
@@ -109,6 +109,11 @@
 			this.getHomeData()
 		},
 		methods: {
+			toggle(bol) {
+				this.ruleVisible = bol;
+				if(bol) uni.hideTabBar()
+				else uni.showTabBar()
+			},
 			handleTap(type) {
 				switch (type) {
 					case 'caozuo':uni.navigateTo({
