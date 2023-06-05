@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import {getWalletFlowList} from '@/api/bank'
 	export default {
 		data() {
 			return {
@@ -41,6 +42,9 @@
 					{name: '李四李四',price: 50000, time: '2023-06-02'}
 				]
 			}
+		},
+		onShow() {
+			getWalletFlowList({pageNum: 1, pageSize: 10, type: 'earnings'})
 		},
 		methods: {
 			upper: function(e) {

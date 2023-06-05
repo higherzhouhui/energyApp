@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="tabs">
-			<view class="tabs-item" @click="type = item.type" :class="item.type == type && 'active'" v-for="(item) in tabs" :index="item.type">
+			<view class="tabs-item" @tap="type = item.type" :class="item.type == type && 'active'" v-for="item in tabs" :index="item.type" >
 				<view class="txt">{{item.label}}(0)</view>
 			</view>
 		</view>

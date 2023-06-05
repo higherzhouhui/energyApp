@@ -85,6 +85,13 @@ const routes = [
 			},
 	},
 	{
+		path: "/pages/xiangmu/buy",
+		name: 'buy',
+			meta: {
+				title: '项目',
+			},
+	},
+	{
 		path: "/pages/kefu/kefu",
 		name: 'kefu',
 			meta: {
