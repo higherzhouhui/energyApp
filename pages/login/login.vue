@@ -76,6 +76,9 @@ import { loginRequest } from "@/api/user.js"
 					return
 				}
 				this.loading = true
+				this.$Router.replaceAll({ name: 'index' })
+				uni.setStorageSync(ACCESS_TOKEN,1111);
+				return
 				loginRequest({mobilePhone: mobilePhone, password: password}).then(res => {
 					this.loading = false
 					if (res.code === 200) {
@@ -83,6 +86,7 @@ import { loginRequest } from "@/api/user.js"
 							icon: 'success',
 							title: '登录成功'
 						})
+						this.$Router.replaceAll({ name: 'index' })
 					} else {
 						this.errorMsg = res.message
 					}
