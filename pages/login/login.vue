@@ -6,8 +6,8 @@
 			<form class="formStyle" @submit="formSubmit">
 				<view class="label"><image src="../../static/login/phone.png" class="phoneImg"></image>手机号</view>
 				<view class="inputForm">
-					<input name="phone" type="number" maxlength="13" v-model="phone" class="inputStyle" placeholder="请输入手机号"/>
-					<image v-if="phone" src="../../static/login/close.png" class="clear" @tap="() => phone = ''"></image>
+					<input name="mobilePhone" type="number" maxlength="13" v-model="mobilePhone" class="inputStyle" placeholder="请输入手机号"/>
+					<image v-if="mobilePhone" src="../../static/login/close.png" class="clear" @tap="() => mobilePhone = ''"></image>
 				</view>
 				<view class="label"><image src="../../static/login/password.png" class="phoneImg"></image>密码</view>
 				<view class="inputForm">
@@ -38,15 +38,14 @@
 <script>
 import { mapActions } from "vuex"
 import { ACCESS_TOKEN } from "@/common/util/constants"
-
+import { loginRequest } from "@/api/user.js"
 	export default {
 		data() {
 			return {
-				phone:'',
+				mobilePhone:'',
 				password: '',
 				loading: false,
 				errorMsg: '',
-				timer: '',
 			}
 		},
 		onShow() {
@@ -67,47 +66,27 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 				if (this.loading) {
 					return
 				}
-				const { phone, password } = data?.detail?.value
-				if (!phone) {
-					clearTimeout(this.timer)
+				const { mobilePhone, password } = data?.detail?.value
+				if (!mobilePhone) {
 					this.errorMsg = '手机号不能为空'
-					this.timer = setTimeout(() =>{
-						this.errorMsg = ''
-					}, 1500)
 					return
 				}
 				if (!password) {
-					clearTimeout(this.timer)
 					this.errorMsg = '密码不能为空'
-					this.timer = setTimeout(() =>{
-						this.errorMsg = ''
-					}, 1500)
 					return
 				}
 				this.loading = true
-				uni.setStorageSync(ACCESS_TOKEN,111);
-				this.$Router.replaceAll({ name: 'index' })
-				return
-				
-				try {
-					this.PhoneLogin({phone: phone, password: password}).then((res) => {
-						if (res.data.success) {
-							this.$tip.success('登录成功!')
-							this.$Router.replaceAll({ name: 'index' })
-						} else {
-							this.$tip.alert(res.data.message);
-						}
-					}).catch((err) => {
-					  let msg = err.data.message || "请求出现错误，请稍后再试"
-					  this.$tip.alert(msg);
-					}).finally(() => {
-						this.loading = false
-					})
-				} catch {
+				loginRequest({mobilePhone: mobilePhone, password: password}).then(res => {
 					this.loading = false
-					this.errorMsg = '网络错误'
-				}
-
+					if (res.code === 200) {
+						uni.showToast({
+							icon: 'success',
+							title: '登录成功'
+						})
+					} else {
+						this.errorMsg = res.message
+					}
+				})
 			},
 			handleToPages(page) {
 				if (page === 'personal' || page === 'privacy') {
@@ -117,8 +96,13 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 				uni.navigateTo({url: `/pages/${page}/${page}`});
 			},
 		},
-		destroyed() {
-			clearTimeout(this.timer)
+		watch: {
+			mobilePhone(newVal, oldVal){
+				this.errorMsg = ''
+			},
+			password(newVal, oldVal){
+				this.errorMsg = ''
+			}
 		}
 	}
 </script>

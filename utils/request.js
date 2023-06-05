@@ -3,7 +3,7 @@ import {baseURL} from '@/config/index.js'
 uni.addInterceptor('request', {
     invoke(args) {//拦截前触发
 	console.log(args)
-        args.url = "http://fbs-web.testlive.vip/api/config-client/config-client/config/advert"
+        args.url = baseURL + args.url
         args.header["Content-Type"] = "application/json;charset=UTF-8"
         //获取token
         let token = uni.getStorageSync('token')
@@ -153,33 +153,37 @@ uni.addInterceptor('request', {
         if (args.statusCode !== 200) {
             uni.showToast({
                 title: args.message,
+				icon: 'error'
             })
             return Promise.reject(args.message);
         }
-        if(!args.data || !args.data.code || !args.data.msg){
+        if(!args.data || !args.data.code || !args.data.message){
             return Promise.reject("错误的数据内容。");
         }
         //处理消息码
         if (args.data && args.data.code !== 200) {
-            uni.showToast({
-                title: args.data.msg,
-            })
-            return Promise.reject(args.data.msg);
+    //         uni.showToast({
+    //             title: args.data.message,
+				// icon:'error'
+    //         })
+            return Promise.resolve(args.data);
         }
         //返回消息 
-        return Promise.resolve(args.data.data)
+        return Promise.resolve(args.data)
     },
     fail() {//失败回调拦截
         uni.showToast({
             title: "无法发起请求",
+			icon: 'error'
         })
     },
 })
  
-function request(url, params = {}) {
+function request(url, method, params = {}) {
     const promise = new Promise((resolve, reject) => {
         uni.request({
             url: url,
+			method: method,
             data: params,
             header: {},//必须的，用于拦截请求
             success: (res) => {
