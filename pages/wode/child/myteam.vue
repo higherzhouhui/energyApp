@@ -56,6 +56,7 @@
 </template>
 
 <script>
+	import {myTeam} from '@/api/myteam'
 	export default {
 		data() {
 			return {
@@ -84,6 +85,9 @@
 					{name: '李四李四', phone: '132****1223', price: '50000', time: '2023.6.2'}
 				]
 			}
+		},
+		onShow() {
+			myTeam({})
 		},
 		methods: {
 			upper: function(e) {

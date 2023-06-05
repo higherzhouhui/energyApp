@@ -6,9 +6,9 @@ uni.addInterceptor('request', {
         args.url = baseURL + args.url
         args.header["Content-Type"] = "application/json;charset=UTF-8"
         //获取token
-        let token = uni.getStorageSync('token')
+        let token = uni.getStorageSync('Access-Token')
         if (token) {
-            args.header["Authorization"] = token
+            args.header["Access-Token"] = token
         }
     },
     success(args) {//成功回调拦截
