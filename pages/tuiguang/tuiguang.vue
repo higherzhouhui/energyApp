@@ -31,7 +31,7 @@
 			<view class="item" v-for="(item, index) in list" :key="item.id">
 				<view class="top-info">
 					<view class="avatar-box">
-						<img class="avatar" :src="item.icon" :onerror="`this.src='${icon}'`" alt="12" />
+						<img class="avatar" :src="item.icon" :onerror="`this.src='${icon}'`" alt="" />
 						<view class="avatar-info">
 							<view class="name">{{ item.amount }}</view>
 							<view class="num">
@@ -53,7 +53,7 @@ import { getExpandList, getExpandRule, receiveExpand } from '@/api/promotion'
 export default {
 	data() {
 		return {
-			icon: require('../../static/tuiguang/icon.png'),
+			icon: 'https://alipic.lanhuapp.com/web475b3b1e-96fa-4a25-be45-7c2868ddce63',
 			rules: '',
 			list: [],
 			ruleVisible: false
@@ -70,7 +70,7 @@ export default {
 					uni.showToast({title: '领取成功'})
 					this.$set(this.list[index], 'receiveState', 1)
 				}else {
-					uni.showToast({title: '领取失败'})
+					uni.showToast({title:  rt.message || '领取失败'})
 				}
 			})
 		},
