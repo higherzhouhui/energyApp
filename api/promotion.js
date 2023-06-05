@@ -1,8 +1,11 @@
 // 推广
 import { request } from '@/utils/request.js' 
-export function loginRequest(params) {
-	return request('/user/login', 'GET', params)	
+export function getExpandList(params) {
+	return request('/expand/getExpandList', 'GET', params)	
 }
-export function registerRequest(params) {
-	return request('/user/register', 'POST', params)	
+export function getExpandRule(params) {
+	return request('/expand/getExpandRule', 'GET', params)	
+}
+export function receiveExpand(id) {
+	return request('/expand/receiveExpand/' + id, 'POST', {id})	
 }

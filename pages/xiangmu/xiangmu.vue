@@ -3,9 +3,9 @@
 		<view class="item" v-for="item in list" :key="item.id">
 			<view class="top-info">
 				<view class="avatar-box">
-					<img class="avatar" :src="item.avatar" alt="">
+					<img class="avatar" :onerror="`this.src='${avatar}'`" :src="item.image" alt="">
 					<view class="avatar-info">
-						<view class="name">{{item.name}}</view>
+						<view class="name">{{item.title}}</view>
 						<view class="num">
 							<view class="fh">￥</view>{{item.price}}</view>
 					</view>
@@ -16,15 +16,15 @@
 			</view>
 			<view class="botton-info">
 				<view class="in-item">
-					<view class="value">{{item.v1}}</view>
+					<view class="value">{{item.chntSubsidy}}</view>
 					<view class="txt">正泰补贴(元)</view>
 				</view>
 				<view class="in-item">
-					<view class="value2 value">{{item.v2}}</view>
+					<view class="value2 value">{{item.dayEarnings}}</view>
 					<view class="txt">每日收益</view>
 				</view>
 				<view class="in-item">
-					<view class="value">{{item.v3}}</view>
+					<view class="value">{{item.period}}</view>
 					<view class="txt">周期(天)</view>
 				</view>
 			</view>
@@ -33,31 +33,18 @@
 </template>
 
 <script>
+	import {getProjectList} from '@/api/project'
 	export default {
 		data() {
 			return {
-				list: [{
-					id: 1,
-					name: '商品1',
-					avatar: 'https://alipic.lanhuapp.com/web475b3b1e-96fa-4a25-be45-7c2868ddce63',
-					price: '3000',
-					v1:3000,
-					v2: 30,
-					v3: 30
-					
-				},{
-					id: 2,
-					name: '商品2',
-					avatar: 'https://alipic.lanhuapp.com/web475b3b1e-96fa-4a25-be45-7c2868ddce63',
-					price: '3000',
-					v1:3000,
-					v2: 30,
-					v3: 30
-					
-				}]
+				avatar: 'https://alipic.lanhuapp.com/web475b3b1e-96fa-4a25-be45-7c2868ddce63',
+				list: []
 			}
 		},
 		onShow() {
+			getProjectList().then(rt=>{
+				this.list = rt.data
+			})
 		},
 		methods: {
 		}
