@@ -49,6 +49,27 @@ const routes = [
 	        title: '新闻动态',
 	    },
 	},
+	{	
+	  path: '/pages/index/chat/chat',
+	  name: 'chat',
+	    meta: {
+	        title: '官方群聊',
+	    },
+	},
+	{
+	  path: '/pages/index/course/course',
+	  name: 'course',
+	    meta: {
+	        title: '操作教程',
+	    },
+	},
+	{
+	  path: '/pages/index/invite/invite',
+	  name: 'invite',
+	    meta: {
+	        title: '邀请好友',
+	    },
+	},
 	{
 		path: "/pages/tuiguang/tuiguang",
 		name: 'tuiguang',

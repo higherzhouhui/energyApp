@@ -6,4 +6,6 @@ export function registerRequest(params) {
 	return request('/user/register', 'POST', params)	
 }
 
-
+export function resetPasswordRequest(params) {
+	return request('/user/resetPassword', 'PUT', params)	
+}

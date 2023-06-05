@@ -1,7 +1,7 @@
 {
     "name" : "正泰新能源",
     "appid" : "__UNI__130537C",
-    "description" : "新能源",
+    "description" : "正泰新能源",
     "versionName" : "1.0.0",
     "versionCode" : "100",
     "transformPx" : false,
@@ -17,7 +17,9 @@
             "delay" : 0
         },
         "modules" : {
-            "VideoPlayer" : {}
+            "VideoPlayer" : {},
+            "Camera" : {},
+            "Contacts" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -35,10 +37,12 @@
                     "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
                     "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
                     "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>",
                     "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
                     "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
                     "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
                     "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>",
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
                 ]
             },

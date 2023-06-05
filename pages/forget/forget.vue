@@ -6,13 +6,13 @@
 			<form class="formStyle" @submit="formSubmit">
 				<view class="label"><image src="../../static/login/people.png" class="phoneImg"></image>姓名</view>
 				<view class="inputForm">
-					<input name="name" type="number" maxlength="13" v-model="name" class="inputStyle" placeholder="请输入姓名"/>
+					<input name="name" maxlength="11" v-model="name" class="inputStyle" placeholder="请输入姓名"/>
 					<image v-if="name" src="../../static/login/close.png" class="clear" @tap="() => name = ''"></image>
 				</view>
 				<view class="label"><image src="../../static/login/id.png" class="phoneImg"></image>身份证号</view>
 				<view class="inputForm">
-					<input name="id" type="number" maxlength="13" v-model="id" class="inputStyle" placeholder="请输入身份证号"/>
-					<image v-if="id" src="../../static/login/close.png" class="clear" @tap="() => id = ''"></image>
+					<input name="idCard" type="number" maxlength="18" v-model="idCard" class="inputStyle" placeholder="请输入身份证号"/>
+					<image v-if="idCard" src="../../static/login/close.png" class="clear" @tap="() => idCard = ''"></image>
 				</view>
 				<view class="label"><image src="../../static/login/password.png" class="phoneImg"></image>设置密码</view>
 				<view class="inputForm">
@@ -37,7 +37,7 @@
 
 <script>
 import { mapActions } from "vuex"
-
+import { resetPasswordRequest } from "@/api/user.js"
 	export default {
 		data() {
 			return {
@@ -46,8 +46,7 @@ import { mapActions } from "vuex"
 				rePassword: '',
 				loading: false,
 				errorMsg: '',
-				timer: '',
-				id: '',
+				idCard: '',
 			}
 		},
 		onShow() {
@@ -59,75 +58,72 @@ import { mapActions } from "vuex"
 				if (this.loading) {
 					return
 				}
-				const { name, password, id, rePassword } = data?.detail?.value
+				const { name, password, idCard, rePassword } = data?.detail?.value
 				if (!name) {
-					clearTimeout(this.timer)
 					this.errorMsg = '手机号不能为空'
-					this.timer = setTimeout(() =>{
-						this.errorMsg = ''
-					}, 1500)
 					return
 				}
-				if (!id) {
-					clearTimeout(this.timer)
-					this.errorMsg = '推荐码不能为空'
-					this.timer = setTimeout(() =>{
-						this.errorMsg = ''
-					}, 1500)
+				if (!idCard) {
+					this.errorMsg = '身份证号不能为空'
 					return
 				}
 				if (!password) {
-					clearTimeout(this.timer)
 					this.errorMsg = '密码不能为空'
-					this.timer = setTimeout(() =>{
-						this.errorMsg = ''
-					}, 1500)
 					return
 				}
 				if (!rePassword) {
-					clearTimeout(this.timer)
 					this.errorMsg = '密码不能为空'
-					this.timer = setTimeout(() =>{
-						this.errorMsg = ''
-					}, 1500)
 					return
 				}
 				if (password !== rePassword) {
-					clearTimeout(this.timer)
 					this.errorMsg = '两次密码不一致'
-					this.timer = setTimeout(() =>{
-						this.errorMsg = ''
-					}, 1500)
 					return
 				}
 				this.loading = true
-				try {
-					this.PhoneLogin({name: name, password: password}).then((res) => {
-						if (res.data.success) {
-							this.$tip.success('登录成功!')
-							this.$Router.replaceAll({ name: 'index' })
-						} else {
-							this.$tip.alert(res.data.message);
-						}
-					}).catch((err) => {
-					  let msg = err.data.message || "请求出现错误，请稍后再试"
-					  this.$tip.alert(msg);
-					}).finally(() => {
-						this.loading = false
-					})
-				} catch {
-					this.loading = false
-					this.errorMsg = '网络错误'
+				const params = {
+					name,
+					idCard,
+					password
 				}
-
+				resetPasswordRequest(params).then(response => {
+					this.loading = false
+					if (response.code === 200) {
+						this.loading = true
+						this.PhoneLogin({mobilePhone, password}).then(res => {
+							this.loading = false
+							if (res.code === 200) {
+								uni.showToast({
+									icon: 'success',
+									title: '注册成功'
+								})
+								this.$Router.replaceAll({ name: 'index' })
+							} else {
+								this.errorMsg = res.message
+							}
+						})
+					} else {
+						this.errorMsg = response.message
+					}
+				})
 			},
 			handleToPages(page) {
 				// uni.navigateTo({url: `/pages/${page}/${page}`});
 			   this.$Router.replaceAll({ name: page })
 			},
 		},
-		destroyed() {
-			clearTimeout(this.timer)
+		watch: {
+			name(newVal, oldVal){
+				this.errorMsg = ''
+			},
+			idCard(newVal, oldVal){
+				this.errorMsg = ''
+			},
+			password(newVal, oldVal){
+				this.errorMsg = ''
+			},
+			rePassword(newVal, oldVal){
+				this.errorMsg = ''
+			}
 		}
 	}
 </script>

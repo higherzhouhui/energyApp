@@ -47,6 +47,7 @@
 <script>
 import { mapActions } from "vuex"
 import { registerRequest } from "@/api/user.js"
+import { getQueryString } from "@/utils/common.js"
 	export default {
 		data() {
 			return {
@@ -62,10 +63,11 @@ import { registerRequest } from "@/api/user.js"
 		onShow() {
 		},
 		onLoad(options) {
-			if (options.inviteCode) {
+			const inviteCode = getQueryString('inviteCode')
+			if (inviteCode) {
 				// 注册类型 1:app注册 2:连接注册
 				this.registerType = 2
-				this.inviteCode = options.inviteCode
+				this.inviteCode = inviteCode
 			}
 		},
 		methods: {
@@ -104,10 +106,12 @@ import { registerRequest } from "@/api/user.js"
 					password,
 					registerType: this.registerType
 				}
-				registerRequest(params).then(res => {
+				registerRequest(params).then(response => {
 					this.loading = false
-					if (res.code === 200) {
-						PhoneLogin({mobilePhone, password}).then(res => {
+					if (response.code === 200) {
+						this.loading = true
+						this.PhoneLogin({mobilePhone, password}).then(res => {
+							this.loading = false
 							if (res.code === 200) {
 								uni.showToast({
 									icon: 'success',
@@ -119,7 +123,7 @@ import { registerRequest } from "@/api/user.js"
 							}
 						})
 					} else {
-						this.errorMsg = res.message
+						this.errorMsg = response.message
 					}
 				})
 			},

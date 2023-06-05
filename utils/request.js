@@ -173,8 +173,9 @@ uni.addInterceptor('request', {
     },
     fail() {//失败回调拦截
         uni.showToast({
-            title: "无法发起请求",
-			icon: 'error'
+            title: "无法发起请求, 请检查网络",
+			icon: 'error',
+			duration: 3000
         })
     },
 })

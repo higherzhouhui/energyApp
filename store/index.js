@@ -34,14 +34,16 @@ export default new Vuex.Store({
         loginRequest(userInfo).then(response => {
           if(response.code ==200){
             const userInfo = response.data
-            // uni.setStorageSync(ACCESS_TOKEN,response.token);
-            // uni.setStorageSync(USER_INFO,userInfo);
-            commit('SET_TOKEN', response.token)
+            uni.setStorageSync(ACCESS_TOKEN,userInfo.token);
+            uni.setStorageSync(USER_INFO,userInfo);
+            commit('SET_TOKEN', userInfo.token)
             commit('SET_NAME', { name: userInfo.name,realname: userInfo.realname})
             commit('SET_AVATAR', userInfo.avatar)
           }
           resolve(response)
-        })
+        }).catch((error) => {
+			reject(error)
+		})
       })
     },
     // 登出

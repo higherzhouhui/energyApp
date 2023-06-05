@@ -23,7 +23,6 @@
 		methods: {
 			routeToDetail() {
 				uni.navigateTo({url: `/pages/index/newsDetail/newsDetail?id=${this.product.id}`});
-				
 			}
 		}
 	}
