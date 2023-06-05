@@ -8,5 +8,11 @@ export function personalInfo(params) {
 export function registerRequest(params) {
 	return request('/user/register', 'POST', params)	
 }
+export function updatePassword(params) {
+	return request('/user/updatePassword', 'PUT', params)	
+}
+export function realName(params) {
+	return request('/user/realName', 'PUT', params)	
+}
 
 

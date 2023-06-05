@@ -1,79 +1,115 @@
 <template>
 	<view class="container">
 		<view class="top-title">请填写您本人的身份信息</view>
-		<form @submit="formSubmit" @reset="formRest">
+		<form>
 			<view class="form-box">
 				<view class="uni-form-item uni-column">
-					<view class="title">真实姓名</view>
-					<input class="uni-input" placeholder="请输入您的真实姓名" />
+					<view class="input-box">
+						<view class="title">真实姓名</view>
+						<input class="uni-input" v-model="name" placeholder="请输入您的真实姓名" />
+						<image v-if="name" src="../../../static/login/close.png" class="clear"
+							@tap="() => name = ''"></image>
+					</view>
 				</view>
 			</view>
 			<view class="form-box">
 				<view class="uni-form-item uni-column">
-					<view class="title">身份证号</view>
-					<input class="uni-input" placeholder="请输入您的身份证号"/>
+					<view class="input-box">
+						<view class="title">身份证号</view>
+						<input class="uni-input" v-model="idCard" placeholder="请输入您的身份证号" />
+						<image v-if="idCard" src="../../../static/login/close.png" class="clear"
+							@tap="() => idCard = ''"></image>
+					</view>
 				</view>
 			</view>
 		</form>
-		<view class="sure-btn">立即认证</view>
+		<view class="sure-btn" @tap="formSubmit">立即认证</view>
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				form: {
-					oldPassword: '',
-					newPassword: '',
-					reNewPassword: ''
-				}
+import { realName } from '@/api/user'
+export default {
+	data() {
+		return {
+			form: {
+				idCard: '',
+				name: '',
 			}
+		}
+	},
+	methods: {
+		volid() {
+			let bol = true;
+			let msg = ''
+			if (!this.name || !this.name.trim()) {
+				bol = false
+				msg = '请输入真实姓名'
+			} else if (!this.idCard || !this.idCard.trim()) {
+				bol = false
+				msg = '请输入身份证号'
+			}
+			if(msg) {
+				uni.showToast({ title: msg })
+			}
+			return bol
 		},
-		methods: {
-			formSubmit() {
-				
-			},
-			formRest() {
-				
+		formSubmit() {
+			if (this.volid()) {
+				realName({name: this.name, idCard: this.idCard}).then(rt=>{
+					if (rt.data) {
+						uni.showToast({ title: '认证成功' })
+						setTimeout(() => {
+							uni.navigateBack({
+								delta: 1
+							});
+						}, 1000)
+
+					} else {
+						uni.showToast({ title: '认证失败' })
+					}
+				})
 			}
-			
 		}
 	}
+}
 </script>
 
 <style scoped lang="scss">
-.container{
-	.top-title{
+.container {
+	.top-title {
 		padding: 13px;
 		font-size: 13px;
 		font-family: PingFang SC-Regular, PingFang SC;
 		font-weight: 400;
 		color: #969899;
 	}
-	.form-box{
+
+	.form-box {
 		padding: 0 16px;
 		background-color: #Fff;
-		
-		.uni-form-item{
+
+		.uni-form-item {
 			padding: 16px 0 10px;
 			border-bottom: 1px solid #EBECED;
-			.uni-input{
+
+			.uni-input {
 				margin-top: 16px;
 				font-size: 15px;
 				font-family: PingFang SC-Regular, PingFang SC;
 				font-weight: 400;
 			}
-			
-			.title{
+
+			.title {
 				font-size: 14px;
 				font-family: PingFang SC-Regular, PingFang SC;
 				font-weight: 400;
-				color: #4F5459; 
+				color: #4F5459;
 			}
 		}
 	}
-	.sure-btn{
+
+	.sure-btn {
 		padding: 11px 0;
 		width: 86.7%;
 		margin: 24px auto;
