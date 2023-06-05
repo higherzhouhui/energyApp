@@ -80,10 +80,10 @@ import {getUserWallet, insert} from '@/api/user'
 					{title: '实名认证', logo: 'smrz', link: 'authentication'},
 				],
 				wallet: {
-					bonus: 100, // 分红钱包
-					extend: 100, // 推广钱包
-					earnings: 100, // 收益钱包
-					chnt: 100 //正泰补贴金
+					bonus: 0, // 分红钱包
+					extend: 0, // 推广钱包
+					earnings: 0, // 收益钱包
+					chnt: 0 //正泰补贴金
 				}
 			}
 		},

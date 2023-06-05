@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { realName } from '@/api/user'
+import { realName, personalInfo } from '@/api/user'
 export default {
 	data() {
 		return {
@@ -36,7 +36,17 @@ export default {
 			name: '',
 		}
 	},
+	onShow() {
+		this.getUserInfo()
+	},
 	methods: {
+		getUserInfo() {
+			personalInfo().then(rt=>{
+				let {idCard, name} = rt.data
+				this.idCard = idCard
+				this.name = name
+			})
+		},
 		volid() {
 			let bol = true;
 			let msg = ''
