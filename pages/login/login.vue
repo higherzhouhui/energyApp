@@ -43,7 +43,7 @@ import { ACCESS_TOKEN, USER_INFO } from "@/common/util/constants"
 			return {
 				mobilePhone:'',
 				password: '',
-				loading: false,
+				loading: false, 
 				errorMsg: '',
 			}
 		},

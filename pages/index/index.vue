@@ -176,11 +176,7 @@
 				}), getHomeBaseRequest(), getNewNoticeRequest()]).then(res => {
 					// 停止刷新转动
 					uni.stopPullDownRefresh()
-					const banner = res[0]
-					const newsList = res[1]
-					const baseInfo = res[2]
-					const noticeInfo = res[3]
-					
+					const [banner, newsList, baseInfo, noticeInfo] = res
 					if (banner.code === 200) {
 						const data = banner.data
 						this.bannersList = [
@@ -235,7 +231,7 @@
 					}
 					if (noticeInfo.code === 200) {
 						// 公告每天一看
-						this.notice = noticeInfo.data || '暂无公告'
+						this.notice = noticeInfo.data.content || '暂无公告'
 						const lastLookTime = uni.getStorageSync(HOME_NOTICE)
 						if (lastLookTime) {
 							// 超过一天展示

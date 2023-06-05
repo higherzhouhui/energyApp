@@ -18,3 +18,7 @@ export function realName(params) {
 export function resetPasswordRequest(params) {
 	return request('/user/resetPassword', 'PUT', params)	
 }
+
+export function personalInfoRequest(params) {
+	return request('/user/personalInfo', 'GET', params)	
+}

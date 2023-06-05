@@ -69,6 +69,7 @@
 
 <script>
 import { ACCESS_TOKEN } from "@/common/util/constants"
+import { mapActions } from "vuex"
 	export default {
 		data() {
 			return {
@@ -80,7 +81,11 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 				]
 			}
 		},
+		onLoad() {
+			
+		},
 		methods: {
+			...mapActions(["Logout"]),
 			handleWithDraw(type) {
 				switch(type) {
 					case 'fenhong': break;
@@ -92,8 +97,21 @@ import { ACCESS_TOKEN } from "@/common/util/constants"
 				})
 			},
 			logOut() {
-				uni.removeStorageSync(ACCESS_TOKEN)
-				this.$Router.replaceAll({ name: 'index' })
+				const _this = this
+				uni.showModal({
+					title: '提示',
+					content: '确认退出登录？',
+					success: function (res) {
+						if (res.confirm) {
+							_this.Logout().then(res => {
+								_this.$Router.replaceAll({ name: 'index' })
+							})
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				});
+				
 			},
 			signToday() {
 				uni.showToast({title: '签到成功！'})
