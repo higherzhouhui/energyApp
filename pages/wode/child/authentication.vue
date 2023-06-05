@@ -28,17 +28,25 @@
 </template>
 
 <script>
-import { realName } from '@/api/user'
+import { realName, personalInfo } from '@/api/user'
 export default {
 	data() {
 		return {
-			form: {
-				idCard: '',
-				name: '',
-			}
+			idCard: '',
+			name: '',
 		}
 	},
+	onShow() {
+		this.getUserInfo()
+	},
 	methods: {
+		getUserInfo() {
+			personalInfo().then(rt=>{
+				let {idCard, name} = rt.data
+				this.idCard = idCard
+				this.name = name
+			})
+		},
 		volid() {
 			let bol = true;
 			let msg = ''
@@ -50,7 +58,7 @@ export default {
 				msg = '请输入身份证号'
 			}
 			if(msg) {
-				uni.showToast({ title: msg })
+				uni.showToast({ title: msg, icon: 'error' })
 			}
 			return bol
 		},
@@ -66,7 +74,7 @@ export default {
 						}, 1000)
 
 					} else {
-						uni.showToast({ title: '认证失败' })
+						uni.showToast({ title: '认证失败', icon: 'error' })
 					}
 				})
 			}

@@ -15,31 +15,31 @@
 				</view>
 			</view>
 			<view class="moneyContainer">
-				<view class="list" @tap="withdrawal">
+				<view class="list" @tap="withdrawal('bonus', wallet.bonus)">
 					<view class="title">分红钱包（元）</view>
 					<view class="bot">
-						<view class="jine">5456.23</view>
+						<view class="jine">{{ wallet.bonus }}</view>
 						<view class="tixian" @tap="handleWithDraw('fenhong')">提现</view>
 					</view>
 				</view>
-				<view class="list">
+				<view class="list" @tap="withdrawal('extend', wallet.extend)">
 					<view class="title">推广钱包（元）</view>
 					<view class="bot">
-						<view class="jine">500.23</view>
+						<view class="jine">{{ wallet.extend }}</view>
 						<view class="tixian" @tap="handleWithDraw('tuiguang')">提现</view>
 					</view>
 				</view>
-				<view class="list">
+				<view class="list" @tap="withdrawal('earnings', wallet.earnings)">
 					<view class="title">收益钱包（元）</view>
 					<view class="bot">
-						<view class="jine">966.00</view>
+						<view class="jine">{{ wallet.earnings }}</view>
 						<view class="tixian" @tap="handleWithDraw('shouyi')">提现</view>
 					</view>
 				</view>
-				<view class="list">
+				<view class="list" @tap="withdrawal('chnt', wallet.chnt)">
 					<view class="title">正泰补贴金（元）</view>
 					<view class="bot">
-						<view class="jine">5000.00</view>
+						<view class="jine">{{ wallet.chnt }}</view>
 						<view class="tixian" @tap="handleWithDraw('zhengtai')">提现</view>
 					</view>
 				</view>
@@ -68,8 +68,8 @@
 </template>
 
 <script>
-import { ACCESS_TOKEN } from "@/common/util/constants"
 import { mapActions } from "vuex"
+import {getUserWallet, insert} from '@/api/user'
 	export default {
 		data() {
 			return {
@@ -78,14 +78,28 @@ import { mapActions } from "vuex"
 					{title: '交易', logo: 'jiaoyi', link: 'transaction'},
 					{title: '银行卡', logo: 'yhk', link: 'bankcardbind'},
 					{title: '实名认证', logo: 'smrz', link: 'authentication'},
-				]
+				],
+				wallet: {
+					bonus: 0, // 分红钱包
+					extend: 0, // 推广钱包
+					earnings: 0, // 收益钱包
+					chnt: 0 //正泰补贴金
+				}
 			}
 		},
 		onLoad() {
 			
 		},
+		onShow() {
+			this.getWallet()
+		},
 		methods: {
 			...mapActions(["Logout"]),
+			getWallet() {
+				getUserWallet().then(rt=>{
+					this.wallet = rt.data
+				})
+			},
 			handleWithDraw(type) {
 				switch(type) {
 					case 'fenhong': break;
@@ -114,11 +128,17 @@ import { mapActions } from "vuex"
 				
 			},
 			signToday() {
-				uni.showToast({title: '签到成功！'})
+				insert().then(rt=>{
+					if(rt.code == 200) {
+						uni.showToast({title: '签到成功！'})
+					}else{
+						uni.showToast({title: rt.message || '签到失败！', icon: 'error'})
+					}
+				})
 			},
-			withdrawal() {
+			withdrawal(type, amount) {
 				uni.navigateTo({
-					url:`/pages/wode/child/withdrawal`
+					url:`/pages/wode/child/withdrawal?type=${type}&amount=${amount}`
 				})
 			}
 		}

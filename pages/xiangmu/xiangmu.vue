@@ -10,7 +10,7 @@
 							<view class="fh">￥</view>{{item.price}}</view>
 					</view>
 				</view>
-				<view class="button">
+				<view class="button" @tap="toBuy(item)">
 					立即购买
 				</view>
 			</view>
@@ -21,7 +21,7 @@
 				</view>
 				<view class="in-item">
 					<view class="value2 value">{{item.dayEarnings}}</view>
-					<view class="txt">每日收益</view>
+					<view class="txt">每日收益(元)</view>
 				</view>
 				<view class="in-item">
 					<view class="value">{{item.period}}</view>
@@ -47,6 +47,9 @@
 			})
 		},
 		methods: {
+			toBuy(item) {
+				uni.navigateTo({ url: "/pages/xiangmu/buy?item=" + encodeURIComponent(JSON.stringify(item)) });
+			}
 		}
 	}
 </script>

@@ -40,6 +40,15 @@
 				"navigationBarBackgroundColor": "#fff"
             }
         },
+        {
+            "path" : "pages/xiangmu/buy",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "立即支付",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
+            }
+        },
 		{
 		    "path" : "pages/wode/child/withdrawal",
 		    "style" :                                                                                    
@@ -63,7 +72,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "交易明细",
-                "enablePullDownRefresh": false,
+                "enablePullDownRefresh": true,
 				"navigationBarBackgroundColor": "#fff"
             }
         },{

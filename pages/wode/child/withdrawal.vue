@@ -9,7 +9,7 @@
 					<view class="fh">
 						￥
 					</view>
-						{{price}}
+						{{amount}}
 				</view>
 			</view>
 			
@@ -24,25 +24,53 @@
 						<view class="fh">￥</view>
 						<input type="numeric" v-model="txPrice">
 					</view>
-					<view class="all" @tap="txPrice = price">
+					<view class="all" @tap="txPrice = amount">
 						全部提现
 					</view>
 				</view>
 			</view>
-			<view class="sure-btn">申请提现</view>
+			<view class="sure-btn" @tap="withdrawal">申请提现</view>
 		</view>
 		
 	</view>
 </template>
 
 <script>
+import {walletWithdraw} from '@/api/user'
 	export default {
 		data() {
 			return {
-				price: 10000,
-				txPrice: null
+				amount: 10000,
+				txPrice: null,
+				type: ''
 			}
-		}
+		},
+		onLoad(option) {
+			this.type = option.type;
+			this.amount = option.amount;
+		},
+		methods: {
+			withdrawal() {
+				if(!this.txPrice) {
+					return uni.showToast({ title: '请填写提现金额', icon: 'error' })
+				}else if(this.txPrice > this.amount) {
+					return uni.showToast({ title: '提现金额不可大于可提现金额', icon: 'error' })
+				}
+				walletWithdraw({amount: this.txPrice, type: this.type}).then(rt=>{
+					if (rt.data) {
+						uni.showToast({ title: '提现成功' })
+						setTimeout(() => {
+							uni.navigateBack({
+								delta: 1
+							});
+						}, 1000)
+
+					} else {
+						uni.showToast({ title: rt.message || '提现失败', icon: 'error' })
+					}
+				})
+			}
+		},
 	}
 </script>
 
@@ -117,6 +145,7 @@
 					.all{
 						font-size: 15px;
 						color: #2E96FF;
+						white-space: nowrap;
 					}
 				}
 			}
