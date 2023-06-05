@@ -28,12 +28,15 @@
 				<image class="ggImg" src="../../static/home/gonggao.png"></image>
 				<view id="scroll_div" class="fl" ref="scrollDiv">
 					<view id="scroll_begin" ref="scrollBegin" @tap="ruleVisible = true">
-						{{notice}}
+						{{notice.content}}
 					</view>
 					<view id="scroll_end" ref="scrollEnd"></view>
 				</view>
 			</view>
-			<view class="bg-video">
+			<view class="bg-video bg-video2" v-if="ruleVisible">
+				<image class="video-img" src="../../static/home/videoCover.png"></image>
+			</view>
+			<view class="bg-video" v-else>
 				<video class="myVideo" :src="videoUrl" loop controls
 					poster="../../static/home/videoCover.png" :show-mute-bt="true" play-btn-position="middle"
 					mobilenet-hint-type="1" :enable-play-gesture="true"></video>
@@ -50,7 +53,7 @@
 						公告信息
 					</view>
 				</view>
-				<view>{{notice}}</view>
+				<view>{{notice.content}}</view>
 				<image @click="ruleVisible = false" class="close" src="../../static/tuiguang/close.png"></image>
 			</view>
 
@@ -371,7 +374,9 @@
 		font-weight: 400;
 		color: #17191A;
 	}
-
+	.video-img{
+		width: 75%;
+	}
 	.bg-video {
 		margin-top: 12px;
 		width: 100%;
@@ -380,7 +385,11 @@
 		padding-bottom: 42%;
 		height: 0;
 		position: relative;
+		&.bg-video{
+			background-color: rgb(0, 0, 0);
+			text-align: center;
 
+		}
 		.myVideo {
 			position: absolute;
 			width: 100%;

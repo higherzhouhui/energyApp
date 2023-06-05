@@ -18,7 +18,7 @@
 				<view>
 					{{ rules }}
 				</view>
-				<image @click="ruleVisible = false" class="close" src="../../static/tuiguang/close.png"></image>
+				<image @click="ruleHide" class="close" src="../../static/tuiguang/close.png"></image>
 			</view>
 
 		</view>
@@ -76,6 +76,11 @@ export default {
 		},
 		ruleShow() {
 			this.ruleVisible = true
+			uni.hideTabBar()
+		},
+		ruleHide() {
+			this.ruleVisible = false
+			uni.showTabBar()
 		},
 		getList() {
 			getExpandList().then(rt => {
