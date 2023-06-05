@@ -38,15 +38,16 @@
 							{{item.name}}
 						</view>
 						<view class="phone item">
-							{{item.phone}}
+							{{item.mobilePhone}}
 						</view>
 						<view class="price item">
-							{{item.price}}
+							{{item.consume}}
 						</view>
 						<view class="time item">
-							{{item.time}}
+							{{item.registerDate}}
 						</view>
 					</view>
+					<view class="no-data">暂无数据</view>
 					
 				</scroll-view>
 			</view>
@@ -60,7 +61,14 @@
 	export default {
 		data() {
 			return {
-				total: 54800.00,
+				info: {
+					teamOne: [],
+					teamOneConsume: 0,
+					teamTwo: [],
+					teamThreeConsume: 0,
+					teamThree: [],
+					teamTwoConsume: 0
+				},
 				type: 1,
 				tabs: [{
 					type: 1,
@@ -77,19 +85,29 @@
 					old: {
 						scrollTop: 0
 					}
-				},
-				list: [
-					{name: '李四', phone: '132****1223', price: '50000', time: '2023.6.2'},
-					{name: '李四李', phone: '132****1223', price: '50000', time: '2023.6.2'},
-					{name: '李四李四', phone: '132****1223', price: '50000', time: '2023.6.2'},
-					{name: '李四李四', phone: '132****1223', price: '50000', time: '2023.6.2'}
-				]
+				}
+			}
+		},
+		computed: {
+			total() {
+				let {teamOneConsume, teamThreeConsume, teamTwoConsume} = this.info
+				return [teamOneConsume, teamTwoConsume, teamThreeConsume][this.type - 1]
+			},
+			list() {
+				let {teamOne, teamThree, teamTwo} = this.info
+				return [teamOne, teamTwo, teamThree][this.type - 1]
 			}
 		},
 		onShow() {
-			myTeam({})
+			this.getMyTeam()
 		},
 		methods: {
+			getMyTeam() {
+				myTeam().then(rt=>{
+					this.info = rt.data
+				})
+				
+			},
 			upper: function(e) {
 				console.log(e)
 			},
@@ -201,6 +219,12 @@
 				}
 			
 			}
+		}
+		.no-data{
+			padding: 20px 0;
+			font-size: 14px;
+			color: rgba(23, 25, 26, .5);
+			text-align: center;
 		}
 	}
 	
