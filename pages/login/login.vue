@@ -6,7 +6,7 @@
 			<form class="formStyle" @submit="formSubmit">
 				<view class="label"><image src="../../static/login/phone.png" class="phoneImg"></image>手机号</view>
 				<view class="inputForm">
-					<input name="mobilePhone" type="number" maxlength="13" v-model="mobilePhone" class="inputStyle" placeholder="请输入手机号"/>
+					<input name="mobilePhone" type="number" maxlength="11" v-model="mobilePhone" class="inputStyle" placeholder="请输入手机号"/>
 					<image v-if="mobilePhone" src="../../static/login/close.png" class="clear" @tap="() => mobilePhone = ''"></image>
 				</view>
 				<view class="label"><image src="../../static/login/password.png" class="phoneImg"></image>密码</view>
@@ -37,8 +37,7 @@
 
 <script>
 import { mapActions } from "vuex"
-import { ACCESS_TOKEN } from "@/common/util/constants"
-import { loginRequest } from "@/api/user.js"
+import { ACCESS_TOKEN, USER_INFO } from "@/common/util/constants"
 	export default {
 		data() {
 			return {
@@ -76,19 +75,19 @@ import { loginRequest } from "@/api/user.js"
 					return
 				}
 				this.loading = true
-				this.$Router.replaceAll({ name: 'index' })
-				uni.setStorageSync(ACCESS_TOKEN,1111);
-				return
-				loginRequest({mobilePhone: mobilePhone, password: password}).then(res => {
+				this.PhoneLogin({mobilePhone: mobilePhone, password: password}).then(response => {
 					this.loading = false
-					if (res.code === 200) {
+					if (response.code === 200) {
+						const userInfo = response.data
+						uni.setStorageSync(ACCESS_TOKEN,userInfo.token);
+						uni.setStorageSync(USER_INFO,userInfo);
 						uni.showToast({
 							icon: 'success',
 							title: '登录成功'
 						})
 						this.$Router.replaceAll({ name: 'index' })
 					} else {
-						this.errorMsg = res.message
+						this.errorMsg = response.message
 					}
 				})
 			},

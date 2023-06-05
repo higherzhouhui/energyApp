@@ -6,22 +6,22 @@
 			<form class="formStyle" @submit="formSubmit">
 				<view class="label"><image src="../../static/login/phone.png" class="phoneImg"></image>手机号</view>
 				<view class="inputForm">
-					<input name="phone" type="number" maxlength="13" v-model="phone" class="inputStyle" placeholder="请输入手机号"/>
-					<image v-if="phone" src="../../static/login/close.png" class="clear" @tap="() => phone = ''"></image>
+					<input name="mobilePhone" type="number" maxlength="11" v-model="mobilePhone" class="inputStyle" placeholder="请输入手机号"/>
+					<image v-if="mobilePhone" src="../../static/login/close.png" class="clear" @tap="() => mobilePhone = ''"></image>
 				</view>
 				<view class="label"><image src="../../static/login/yzm.png" class="phoneImg"></image>推荐码</view>
 				<view class="inputForm">
-					<input name="recommend" type="number" maxlength="13" v-model="recommend" class="inputStyle" placeholder="请输入推荐码"/>
-					<image v-if="recommend" src="../../static/login/close.png" class="clear" @tap="() => recommend = ''"></image>
+					<input :disabled="registerType === 2" name="inviteCode" type="number" maxlength="12" v-model="inviteCode" class="inputStyle" placeholder="请输入推荐码"/>
+					<image v-if="inviteCode && registerType === 1" src="../../static/login/close.png" class="clear" @tap="() => inviteCode = ''"></image>
 				</view>
 				<view class="label"><image src="../../static/login/password.png" class="phoneImg"></image>设置密码</view>
 				<view class="inputForm">
-					<input name="password" password maxlength="16" v-model="password" class="inputStyle" placeholder="请输入密码"/>
+					<input name="password" password maxlength="12" v-model="password" class="inputStyle" placeholder="请输入密码"/>
 					<image v-if="password" src="../../static/login/close.png" class="clear" @tap="() => password = ''"></image>
 				</view>
 				<view class="label"><image src="../../static/login/password.png" class="phoneImg"></image>确认密码</view>
 				<view class="inputForm">
-					<input name="rePassword" password maxlength="16" v-model="rePassword" class="inputStyle" placeholder="请再次输入密码"/>
+					<input name="rePassword" password maxlength="12" v-model="rePassword" class="inputStyle" placeholder="请再次输入密码"/>
 					<image v-if="rePassword" src="../../static/login/close.png" class="clear" @tap="() => rePassword = ''"></image>
 				</view>
 				<view class="errorWrapper" v-if="errorMsg">
@@ -46,89 +46,82 @@
 
 <script>
 import { mapActions } from "vuex"
-
+import { registerRequest } from "@/api/user.js"
 	export default {
 		data() {
 			return {
-				phone:'',
+				mobilePhone:'',
 				password: '',
 				rePassword: '',
 				loading: false,
 				errorMsg: '',
-				timer: '',
-				recommend: '',
+				inviteCode: '',
+				registerType: 1
 			}
 		},
 		onShow() {
 		},
+		onLoad(options) {
+			if (options.inviteCode) {
+				// 注册类型 1:app注册 2:连接注册
+				this.registerType = 2
+				this.inviteCode = options.inviteCode
+			}
+		},
 		methods: {
-			...mapActions([ "PhoneLogin"]),
+			...mapActions(["PhoneLogin"]),
 			formSubmit(data) {
 				// 正在请求不再向下执行
 				if (this.loading) {
 					return
 				}
-				const { phone, password, recommend, rePassword } = data?.detail?.value
-				if (!phone) {
-					clearTimeout(this.timer)
+				const { mobilePhone, password, inviteCode, rePassword } = data?.detail?.value
+				if (!mobilePhone) {
 					this.errorMsg = '手机号不能为空'
-					this.timer = setTimeout(() =>{
-						this.errorMsg = ''
-					}, 1500)
 					return
 				}
-				if (!recommend) {
-					clearTimeout(this.timer)
+				if (!inviteCode) {
 					this.errorMsg = '推荐码不能为空'
-					this.timer = setTimeout(() =>{
-						this.errorMsg = ''
-					}, 1500)
 					return
 				}
 				if (!password) {
-					clearTimeout(this.timer)
 					this.errorMsg = '密码不能为空'
-					this.timer = setTimeout(() =>{
-						this.errorMsg = ''
-					}, 1500)
 					return
 				}
+				if (password.length < 6)
 				if (!rePassword) {
-					clearTimeout(this.timer)
-					this.errorMsg = '密码不能为空'
-					this.timer = setTimeout(() =>{
-						this.errorMsg = ''
-					}, 1500)
+					this.errorMsg = '密码长度不能小于6'
 					return
 				}
 				if (password !== rePassword) {
-					clearTimeout(this.timer)
 					this.errorMsg = '两次密码不一致'
-					this.timer = setTimeout(() =>{
-						this.errorMsg = ''
-					}, 1500)
 					return
 				}
 				this.loading = true
-				try {
-					this.PhoneLogin({phone: phone, password: password}).then((res) => {
-						if (res.data.success) {
-							this.$tip.success('登录成功!')
-							this.$Router.replaceAll({ name: 'index' })
-						} else {
-							this.$tip.alert(res.data.message);
-						}
-					}).catch((err) => {
-					  let msg = err.data.message || "请求出现错误，请稍后再试"
-					  this.$tip.alert(msg);
-					}).finally(() => {
-						this.loading = false
-					})
-				} catch {
-					this.loading = false
-					this.errorMsg = '网络错误'
+				const params = {
+					mobilePhone,
+					inviteCode,
+					password,
+					registerType: this.registerType
 				}
-
+				registerRequest(params).then(res => {
+					this.loading = false
+					if (res.code === 200) {
+						PhoneLogin({mobilePhone, password}).then(res => {
+							if (res.code === 200) {
+								uni.showToast({
+									icon: 'success',
+									title: '注册成功'
+								})
+								this.$Router.replaceAll({ name: 'index' })
+							} else {
+								this.errorMsg = res.message
+							}
+						})
+					} else {
+						this.errorMsg = res.message
+					}
+				})
 			},
 			handleToPages(page) {
 				if (page === 'login') {
@@ -138,8 +131,19 @@ import { mapActions } from "vuex"
 			   uni.navigateTo({url: `/pages/${page}/${page}`});
 			},
 		},
-		destroyed() {
-			clearTimeout(this.timer)
+		watch: {
+			mobilePhone(newVal, oldVal){
+				this.errorMsg = ''
+			},
+			inviteCode(newVal, oldVal){
+				this.errorMsg = ''
+			},
+			password(newVal, oldVal){
+				this.errorMsg = ''
+			},
+			rePassword(newVal, oldVal){
+				this.errorMsg = ''
+			}
 		}
 	}
 </script>
