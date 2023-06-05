@@ -77,6 +77,17 @@ export default {
 
 <style scoped lang="scss">
 .container {
+	.input-box {
+		position: relative;
+	}
+
+	.clear {
+		width: 20px;
+		height: 20px;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
 	.top-title {
 		padding: 13px;
 		font-size: 13px;
