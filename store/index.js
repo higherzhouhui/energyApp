@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-	userInfo: '',
+	userInfo: uni.getStorageSync(USER_INFO),
   },
   mutations: {
     SET_USERINFO: (state, userInfo) => {
@@ -16,14 +16,15 @@ export default new Vuex.Store({
   },
   actions: {
     //手机号登录
-    PhoneLogin({commit, userInfo}) {
+    PhoneLogin({state}, userInfo) {
       return new Promise((resolve, reject) => {
         loginRequest(userInfo).then(response => {
-          if(response.code ==200){
+          if(response.code ==200) {
             const userInfo = response.data
             uni.setStorageSync(ACCESS_TOKEN,userInfo.token);
             uni.setStorageSync(USER_INFO,userInfo);
-            commit('SET_USERINFO', userInfo)
+            // commit('SET_USERINFO', userInfo)
+			state.userInfo = userInfo
           }
           resolve(response)
         }).catch((error) => {

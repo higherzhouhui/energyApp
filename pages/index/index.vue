@@ -100,6 +100,7 @@
 		},
 		onLoad() {
 			this.getHomeData()
+			console.log(this.$store.state)
 		},
 		onReady() {
 			this.scrollImgLeft();
