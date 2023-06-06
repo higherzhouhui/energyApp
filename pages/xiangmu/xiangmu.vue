@@ -41,8 +41,15 @@
 				list: []
 			}
 		},
-		onShow() {
+		onLoad() {
 			getProjectList().then(rt=>{
+				this.list = rt.data
+			})
+		},
+		onPullDownRefresh() {
+			// 执行刷新操作
+			getProjectList().then(rt=>{
+				uni.stopPullDownRefresh()
 				this.list = rt.data
 			})
 		},

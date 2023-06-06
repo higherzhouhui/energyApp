@@ -83,7 +83,7 @@ export default {
 		formSubmit() {
 			if (this.volid()) {
 				saveOrUpdateCard(this.form).then(rt => {
-					if (rt.data) {
+					if (rt.code === 200) {
 						uni.showToast({ title: '绑定成功' })
 						setTimeout(() => {
 							uni.navigateBack({

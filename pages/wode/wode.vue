@@ -5,7 +5,7 @@
 				<view class="left">
 					<image src="../../static/home/kefu.png" class="avatar"></image>
 					<view class="info">
-						<view class="name">未实名</view>
+						<view class="name">{{ $store.state.userInfo.name || '未实名' }}</view>
 						<view class="ziliao" @tap="handleRouteTo('userInfo')">个人资料</view>
 					</view>
 				</view>
@@ -46,7 +46,7 @@
 			</view>
 		</view>
 		<view class="mainContent">
-			<view class="invite">
+			<view class="invite" @tap="handleToInvitePage">
 				<image src="../../static/my/yaoqing.png" class="yaoqingImg"></image>
 			</view>
 			<view class="routeList">
@@ -69,7 +69,7 @@
 
 <script>
 import { mapActions } from "vuex"
-import {getUserWallet, insert} from '@/api/user'
+import {getUserWallet, insert, personalInfoRequest} from '@/api/user'
 	export default {
 		data() {
 			return {
@@ -88,13 +88,22 @@ import {getUserWallet, insert} from '@/api/user'
 			}
 		},
 		onLoad() {
-			
+			this.getWallet()
+		},
+		onPullDownRefresh() {
+			// 执行刷新操作
+			this.freshCurrentPage()
 		},
 		onShow() {
-			this.getWallet()
 		},
 		methods: {
 			...mapActions(["Logout"]),
+			async freshCurrentPage() {
+				const res = await Promise.all([personalInfoRequest(), getUserWallet()])
+				uni.stopPullDownRefresh()
+				this.$store.commit('SET_USERINFO', res[0].data)
+				this.wallet = res[1].data
+			},
 			getWallet() {
 				getUserWallet().then(rt=>{
 					this.wallet = rt.data
@@ -108,6 +117,11 @@ import {getUserWallet, insert} from '@/api/user'
 			handleRouteTo(link) {
 				uni.navigateTo({
 					url:`/pages/wode/child/${link}`
+				})
+			},
+			handleToInvitePage(link) {
+				uni.navigateTo({
+					url:'/pages/index/invite/invite'
 				})
 			},
 			logOut() {
@@ -125,7 +139,6 @@ import {getUserWallet, insert} from '@/api/user'
 						}
 					}
 				});
-				
 			},
 			signToday() {
 				insert().then(rt=>{

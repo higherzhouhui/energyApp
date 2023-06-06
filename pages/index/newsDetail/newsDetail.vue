@@ -1,21 +1,25 @@
 <template>
 	<view class="container">
 		<view class="title">
-			{{staticData[id].title}}
+			{{newsDetail.title}}
 		</view>
 		<view class="desc">
-			<text class="origin">{{staticData[id].time}}</text>
-			<text class="origin">{{staticData[id].origin}}</text>
+			<text class="origin">{{newsDetail.createTime}}</text>
+			<text class="origin">{{newsDetail.publisher}}</text>
 		</view>
-		<view v-html="staticData[id].content"></view>
+		<view v-html="newsDetail.content"></view>
 	</view>
 </template>
 
 <script>
+	import {
+		getNewsListRequest
+	} from '@/api/home.js'
 	export default {
 		data() {
 			return {
 				id: 0,
+				newsDetail: {},
 				staticData:[
 					{
 						id: 0,
@@ -100,10 +104,25 @@
 			}
 		},
 		methods: {
-			
+			initData() {
+				getNewsListRequest({pageNum: 1, pageSize: 100}).then(res => {
+					const { list } = res.data
+					uni.stopPullDownRefresh()
+					list.forEach(item => {
+						if (item.id == this.id) {
+							this.newsDetail = item
+						}
+					})
+				})
+			}
 		},
 		onLoad(options) {
 			this.id = options.id
+			this.initData()
+		},
+		onPullDownRefresh() {
+			// 执行刷新操作
+			this.initData()
 		}
 	}
 </script>

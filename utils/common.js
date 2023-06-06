@@ -27,3 +27,11 @@ export const stitchUrl = (url, data) => {
   return newUrl
 }
 
+// 拼接字符串
+export const hideMiddlePhone = (phone) => {
+  if (typeof phone === 'string') {
+    return phone.substring(0, 3) + '****' + phone.substring(7,11)
+  }
+  return ''
+}
+

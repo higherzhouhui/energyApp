@@ -80,7 +80,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的",
-                "enablePullDownRefresh": false,
+                "enablePullDownRefresh": true,
 				"navigationBarBackgroundColor": "#fff"
             }
         },{
@@ -88,7 +88,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的团队",
-                "enablePullDownRefresh": false,
+                "enablePullDownRefresh": true,
 				"navigationBarBackgroundColor": "#fff"
             }
         },{
@@ -112,7 +112,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "项目",
-                "enablePullDownRefresh": false,
+                "enablePullDownRefresh": true,
 				"navigationBarBackgroundColor": "#D4E8FC"
             }
             
@@ -130,14 +130,15 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "推广",
-				"navigationBarBackgroundColor": "#fff"
+				"navigationBarBackgroundColor": "#fff",
+				"enablePullDownRefresh": true
 			}
         },{
             "path" : "pages/index/newsDetail/newsDetail",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "新闻动态",
-                "enablePullDownRefresh": false,
+                "enablePullDownRefresh": true,
 				"navigationBarBackgroundColor": "#FFF"
             }
         },{

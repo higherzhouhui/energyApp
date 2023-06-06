@@ -15,10 +15,8 @@
 						</view>
 					</view>
 				</view> -->
-				<view>
-					{{ rules }}
-				</view>
-				<image @click="ruleHide" class="close" src="../../static/tuiguang/close.png"></image>
+				<view class="box-content">{{ rules }}</text></view>
+				<image @tap="ruleHide" class="close" src="../../static/tuiguang/close.png"></image>
 			</view>
 
 		</view>
@@ -26,7 +24,7 @@
 		<view class="bg-box">
 			<image class="bg" src="../../static/tuiguang/bg.png" alt="" />
 		</view>
-		<view class="rule" @click="ruleShow">规则</view>
+		<view class="rule" @tap="ruleShow">规则</view>
 		<view class="box">
 			<view class="item" v-for="(item, index) in list" :key="item.id">
 				<view class="top-info">
@@ -39,7 +37,7 @@
 							<view class="txt">邀请 <view class="numed">{{ item.inviteNum }}人</view>实名认证即可领取</view>
 						</view>
 					</view>
-					<view class="button" @click="receive(item, index)">
+					<view class="button" @tap="receive(item, index)">
 						{{ item.receiveState == 1 ? '已领取' : '立即领取' }}
 					</view>
 				</view>
@@ -84,6 +82,7 @@ export default {
 		},
 		getList() {
 			getExpandList().then(rt => {
+				uni.stopPullDownRefresh()
 				this.list = rt.data
 			})
 		},
@@ -93,10 +92,14 @@ export default {
 			})
 		}
 	},
-	onShow() {
+	onLoad() {
 		this.getRules()
 		this.getList()
-
+	},
+	onPullDownRefresh() {
+		// 执行刷新操作
+		this.getRules()
+		this.getList()
 	},
 }
 </script>
@@ -161,7 +164,15 @@ export default {
 			}
 
 		}
-
+		.box-content {
+			word-break: break-all;
+			max-width: 100%;
+			max-height: 500px;
+			overflow: auto;
+			min-height: 200px;
+			font-size: 13px;
+			line-height: 21px;
+		}
 		.close {
 			position: absolute;
 			left: 50%;

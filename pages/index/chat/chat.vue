@@ -14,19 +14,19 @@
 	export default {
 		data() {
 			return {
-				groupPhoto: '../../../static/home/news1.png',
+				groupPhoto: '',
 				groupName: '',
 				groupNum: '',
-				officialGroup: '../../../static/yaoqing/qrd.png'
+				officialGroup: ''
 			}
 		},
 		onLoad(options) {
 			// 获取相关信息
 			const {groupPhoto, groupName, groupNum, officialGroup} = options
-			// this.groupPhoto = groupPhoto
+			this.groupPhoto = groupPhoto
 			this.groupName = groupName
 			this.groupNum = groupNum
-			// this.officialGroup = officialGroup
+			this.officialGroup = officialGroup
 		},
 		methods: {
 			

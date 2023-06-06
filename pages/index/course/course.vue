@@ -1,6 +1,6 @@
 <template>
-	<view>
-		
+	<view class="container">
+		<image :src="image" mode="widthFix"></image>
 	</view>
 </template>
 
@@ -8,8 +8,11 @@
 	export default {
 		data() {
 			return {
-				
+				image: ''
 			}
+		},
+		onLoad(options) {
+			this.image = options?.course
 		},
 		methods: {
 			
@@ -17,6 +20,10 @@
 	}
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.container {
+	display: flex;
+	justify-content: center;
+	padding: 12px;
+}
 </style>

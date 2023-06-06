@@ -31,3 +31,7 @@ export function resetPasswordRequest(params) {
 export function personalInfoRequest(params) {
 	return request('/user/personalInfo', 'GET', params)	
 }
+
+export function updateAvatarRequest(params) {
+	return request('/energy/user/updateAvatar', 'PUT', params)	
+}

@@ -1,5 +1,5 @@
 <template>
-	<scroll-view class="container">
+	<view class="container">
 		<swiper circular indicator-dots autoplay interval="3000" duration="1000">
 			<swiper-item v-for="(item, index) in bannersList" :key="index">
 				<image class="bannerImg" :src="item.image"></image>
@@ -38,7 +38,7 @@
 			</view>
 			<view class="bg-video" v-else>
 				<video class="myVideo" :src="videoUrl" loop controls
-					poster="../../static/home/videoCover.png" :show-mute-bt="true" play-btn-position="middle"
+					:show-mute-bt="true" play-btn-position="middle"
 					mobilenet-hint-type="1" :enable-play-gesture="true"></video>
 			</view>
 			<view class="newsContainer">
@@ -53,12 +53,12 @@
 						公告信息
 					</view>
 				</view>
-				<view>{{notice.content}}</view>
+				<view class="box-content">{{notice.content}}<text class="notice-time">{{notice.createTime}}</text></view>
 				<image @click="toggle(false)" class="close" src="../../static/tuiguang/close.png"></image>
 			</view>
 
 		</view>
-	</scroll-view>
+	</view>
 </template>
 
 <script>
@@ -80,7 +80,7 @@
 				newsList: [],
 				timer: '',
 				ruleVisible: '',
-				notice: '',
+				notice: {content: '', createTime: ''},
 				pageNum: 1,
 				pageSize: 10,
 				videoUrl: '',
@@ -100,7 +100,6 @@
 		},
 		onLoad() {
 			this.getHomeData()
-			console.log(this.$store.state)
 		},
 		onReady() {
 			this.scrollImgLeft();
@@ -175,9 +174,6 @@
 					})
 				}
 			},
-			accordTimeToShowNotice() {
-				
-			},
 			getHomeData() {
 				Promise.all([getBannerListRequest(), getNewsListRequest({
 					pageSize: this.pageSize,
@@ -188,48 +184,41 @@
 					const [banner, newsList, baseInfo, noticeInfo] = res
 					if (banner.code === 200) {
 						const data = banner.data
-						this.bannersList = [
-							{image: '../../static/home/banner1.png'},
-							{image: '../../static/home/banner1.png'},
-							{image: '../../static/home/banner1.png'},
-							{image: '../../static/home/banner1.png'},
-							{image: '../../static/home/banner1.png'}
-						]
-						// this.bannersList = data
+						this.bannersList = data
 					}
 					if (newsList.code === 200) {
-						const list = [{
-								src: 'https://ossimg.fbs55.com/common/common_1685704442000_53864.png',
-								title: '中核集团田湾核电4台机组通过竣工验收',
-								time: '2023-06-02 10:11',
-								id: 0
-							},
-							{
-								src: 'https://ossimg.fbs55.com/common/common_1685704514000_77437.png',
-								title: '广州中南部地区供电能力增长53%,随着高压线路传输电能至500千伏楚庭变电站内，500千伏楚庭输变电工程的',
-								time: '2023-05-31 10:15',
-								id: 1
-							},
-							{
-								src: 'https://ossimg.fbs55.com/common/common_1685704529000_87162.png',
-								title: '广西海上风电项目海域使用权实现“零”的突破',
-								time: '2023-06-02 10:20',
-								id: 2
-							},
-							{
-								src: 'https://ossimg.fbs55.com/common/common_1685704514000_77437.png',
-								title: '新能源发展让新型交通技术实现成为可能',
-								time: '2023-05-31 10:17',
-								id: 3
-							},
-						]
-						// const {list} = newsList.data
+						// const list = [{
+						// 		src: 'https://ossimg.fbs55.com/common/common_1685704442000_53864.png',
+						// 		title: '中核集团田湾核电4台机组通过竣工验收',
+						// 		time: '2023-06-02 10:11',
+						// 		id: 0
+						// 	},
+						// 	{
+						// 		src: 'https://ossimg.fbs55.com/common/common_1685704514000_77437.png',
+						// 		title: '广州中南部地区供电能力增长53%,随着高压线路传输电能至500千伏楚庭变电站内，500千伏楚庭输变电工程的',
+						// 		time: '2023-05-31 10:15',
+						// 		id: 1
+						// 	},
+						// 	{
+						// 		src: 'https://ossimg.fbs55.com/common/common_1685704529000_87162.png',
+						// 		title: '广西海上风电项目海域使用权实现“零”的突破',
+						// 		time: '2023-06-02 10:20',
+						// 		id: 2
+						// 	},
+						// 	{
+						// 		src: 'https://ossimg.fbs55.com/common/common_1685704514000_77437.png',
+						// 		title: '新能源发展让新型交通技术实现成为可能',
+						// 		time: '2023-05-31 10:17',
+						// 		id: 3
+						// 	},
+						// ]
+						const {list} = newsList.data
 						const temp = list
 						this.newsList = temp
 					}
 					if (baseInfo.code === 200) {
 						const data = baseInfo.data
-						this.videoUrl = '../../static/home/gf.mp4' || data.video
+						this.videoUrl = data.video || '../../static/home/gf.mp4'
 						this.gfql = {
 							groupName: data.groupName,
 							groupNum: data.groupNum,
@@ -239,20 +228,12 @@
 						this.course = data.course
 					}
 					if (noticeInfo.code === 200) {
-						// 公告每天一看
-						this.notice = noticeInfo.data.content || '暂无公告'
-						const lastLookTime = uni.getStorageSync(HOME_NOTICE)
-						if (lastLookTime) {
-							// 超过一天展示
-							if (lastLookTime + 86400000 < new Date().getTime()) {
-								this.ruleVisible = true
-							} else {
-								this.ruleVisible = false
-							}
-						} else {
+						// 公告内容不同再看
+						this.notice = noticeInfo.data || '暂无公告'
+						const storageNotice = uni.getStorageSync(HOME_NOTICE)
+						if (storageNotice !== this.notice.content) {
+							uni.setStorageSync(HOME_NOTICE, noticeInfo.data.content)
 							this.ruleVisible = true
-							uni.setStorageSync(HOME_NOTICE, new Date().getTime())
-						
 						}
 					}
 				}).catch(() => {
@@ -449,7 +430,6 @@
 			background: url('../../static/tuiguang/title.png');
 			background-size: 100% 100%;
 			text-align: center;
-
 			.txt {
 				position: absolute;
 				width: 100%;
@@ -460,10 +440,21 @@
 				font-family: PingFang SC-Semibold, PingFang SC;
 				font-weight: 600;
 				color: #FFFFFF;
+				
 			}
-
 		}
-
+		.box-content {
+			word-break: break-all;
+			max-width: 100%;
+			max-height: 500px;
+			overflow: auto;
+			min-height: 200px;
+			font-size: 13px;
+			line-height: 21px;
+			.notice-time {
+				color: #2E96FF;
+			}
+		}
 		.close {
 			position: absolute;
 			left: 50%;

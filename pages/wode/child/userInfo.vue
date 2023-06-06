@@ -4,8 +4,7 @@
 			<view class="key">
 				头像
 			</view>
-			<image class="avatar value" src="../../../static/wode/logo.png" v-if="onerror"></image>
-			<img class="avatar value" :src="info.avatar" v-else :onerror="onerror = true" alt="" />
+			<image class="avatar value" :src="info.avatat || '../../../static/wode/logo.png'" @click="handleUploadAvatar"></image>
 		</view>
 		<view class="item" @tap="linkTo('authentication', info.authenticated)">
 			<view class="key">
@@ -20,7 +19,7 @@
 				手机号
 			</view>
 			<view class="value">
-				{{ info.mobilePhone }}
+				{{ hideMiddlePhone(info.mobilePhone) }}
 			</view>
 		</view>
 		<view class="item">
@@ -47,20 +46,24 @@
 </template>
 
 <script>
-import { ACCESS_TOKEN } from "@/common/util/constants"
-import { personalInfo } from '@/api/user'
+import { personalInfo, updateAvatarRequest } from '@/api/user'
+import { hideMiddlePhone } from "@/utils/common"
+import { mapActions } from "vuex"
+
 export default {
 	data() {
 		return {
 			onerror: false,
 			info: {
-			}
+			},
+			hideMiddlePhone: hideMiddlePhone,
 		}
 	},
 	onShow() {
 		this.getUserInfo()
 	},
 	methods: {
+		...mapActions(["Logout"]),
 		copy() {
 			uni.showToast({ title: '复制成功' })
 			uni.setClipboardData({
@@ -72,15 +75,52 @@ export default {
 			uni.navigateTo({ url: "/pages/wode/child/" + path });
 		},
 		logOut() {
-			uni.removeStorageSync(ACCESS_TOKEN)
-			this.$Router.replaceAll({ name: 'index' })
+			const _this = this
+				uni.showModal({
+					title: '提示',
+					content: '确认退出登录？',
+					success: function (res) {
+						if (res.confirm) {
+							_this.Logout().then(res => {
+								_this.$Router.replaceAll({ name: 'index' })
+							})
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				});
 		},
 		getUserInfo() {
-			personalInfo().then(rt=>{
-				this.info = rt.data
-			})
+			// personalInfo().then(rt=>{
+			// 	this.info = rt.data
+			// })
+			this.info = this.$store.state.userInfo
+		},
+		handleUploadAvatar() {
+			// 获取图片
+			let that = this;
+			// 选择图片
+			uni.chooseImage({
+			  success(res) {
+				const tempFilePaths = res.tempFilePaths[0];
+				// 获取图片信息
+				uni.getImageInfo({
+				  src: tempFilePaths,
+				  success(res) {
+					// 将图片转为base64格式
+					uni.getFileSystemManager().readFile({
+					  filePath: tempFilePaths,
+					  encoding: 'base64',
+					  success(res) {
+						that.imageBase64 = res.data;
+						that.info.avatar = `data:image/png;base64,${res.data}`; // 将图片转为base64格式后显示
+					  }
+					});
+				  }
+				});
+			  }
+			});
 		}
-
 	}
 }
 </script>

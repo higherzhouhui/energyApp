@@ -2,6 +2,7 @@ import {
 	baseURL
 } from '@/config/index.js'
 import { ACCESS_TOKEN, USER_INFO } from "@/common/util/constants"
+let modelShow = false
 uni.addInterceptor('request', {
 	invoke(args) { //拦截前触发
 		args.url = baseURL + args.url
@@ -180,11 +181,18 @@ uni.addInterceptor('request', {
 		return Promise.resolve(args.data)
 	},
 	fail() { //失败回调拦截
-		uni.showToast({
-			title: "无法发起请求, 请检查网络",
-			image: '/static/terror.png',
-			duration: 3000
-		})
+	    if (!modelShow) {
+			modelShow = true
+			uni.showModal({
+				title: "提示",
+				content: "无法发起请求, 请检查网络",
+				showCancel: false,
+				complete() {
+					modelShow = false
+				}
+			})
+		}
+		
 	},
 })
 

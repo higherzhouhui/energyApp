@@ -1,11 +1,11 @@
 <template>
 	<view class="product" @tap="routeToDetail()">
 		<view class="left">
-			<image :src="product.src" class="cover"></image>
+			<image :src="product.image" class="cover"></image>
 		</view>
 		<view class="right">
 			<view class="title">{{ product.title || '塔克拉玛干沙漠腹地一光伏电站正式并网发电'}}</view>
-			<view class="time">{{ product.time || '2023-06-01 18:00:00'}}</view>
+			<view class="time">{{ product.createTime || '2023-06-01 18:00:00'}}</view>
 		</view>
 	</view>
 </template>

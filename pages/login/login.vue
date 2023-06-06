@@ -6,7 +6,7 @@
 			<form class="formStyle" @submit="formSubmit">
 				<view class="label"><image src="../../static/login/phone.png" class="phoneImg"></image>手机号</view>
 				<view class="inputForm">
-					<input name="mobilePhone" type="number" maxlength="11" v-model="mobilePhone" class="inputStyle" placeholder="请输入手机号"/>
+					<input name="mobilePhone" type="tel" maxlength="11" v-model="mobilePhone" class="inputStyle" placeholder="请输入手机号"/>
 					<image v-if="mobilePhone" src="../../static/login/close.png" class="clear" @tap="() => mobilePhone = ''"></image>
 				</view>
 				<view class="label"><image src="../../static/login/password.png" class="phoneImg"></image>密码</view>

@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex"
 import { resetPasswordRequest } from "@/api/user.js"
 	export default {
 		data() {
@@ -52,7 +51,6 @@ import { resetPasswordRequest } from "@/api/user.js"
 		onShow() {
 		},
 		methods: {
-			...mapActions([ "PhoneLogin"]),
 			formSubmit(data) {
 				// 正在请求不再向下执行
 				if (this.loading) {
@@ -89,18 +87,11 @@ import { resetPasswordRequest } from "@/api/user.js"
 					this.loading = false
 					if (response.code === 200) {
 						this.loading = true
-						this.PhoneLogin({mobilePhone, password}).then(res => {
-							this.loading = false
-							if (res.code === 200) {
-								uni.showToast({
-									icon: 'success',
-									title: '注册成功'
-								})
-								this.$Router.replaceAll({ name: 'index' })
-							} else {
-								this.errorMsg = res.message
-							}
+						uni.showToast({
+							icon: 'success',
+							title: '密码重置成功'
 						})
+						this.$Router.replaceAll({ name: 'login' })
 					} else {
 						this.errorMsg = response.message
 					}

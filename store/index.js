@@ -12,6 +12,7 @@ export default new Vuex.Store({
   mutations: {
     SET_USERINFO: (state, userInfo) => {
       state.userInfo = userInfo
+	  uni.setStorageSync(USER_INFO,userInfo);
     },
   },
   actions: {

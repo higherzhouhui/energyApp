@@ -98,12 +98,17 @@
 				return [teamOne, teamTwo, teamThree][this.type - 1]
 			}
 		},
-		onShow() {
+		onLoad() {
+			this.getMyTeam()
+		},
+		onPullDownRefresh() {
+			// 执行刷新操作
 			this.getMyTeam()
 		},
 		methods: {
 			getMyTeam() {
 				myTeam().then(rt=>{
+					uni.stopPullDownRefresh()
 					this.info = rt.data
 				})
 				
