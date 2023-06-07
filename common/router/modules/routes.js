@@ -88,7 +88,14 @@ const routes = [
 		path: "/pages/xiangmu/buy",
 		name: 'buy',
 			meta: {
-				title: '项目',
+				title: '购买项目',
+			},
+	},
+	{
+		path: "/pages/xiangmu/webview",
+		name: 'webview',
+			meta: {
+				title: '网页',
 			},
 	},
 	{

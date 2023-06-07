@@ -117,6 +117,15 @@
             }
             
         },{
+            "path" : "pages/xiangmu/webview",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "支付",
+                "enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
+            }
+            
+        },{
             "path" : "pages/kefu/kefu",
             "style" :                                                                                    
             {

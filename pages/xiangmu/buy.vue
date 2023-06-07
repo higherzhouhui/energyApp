@@ -1,64 +1,64 @@
 <template>
-<view class="container">
-    <view class="item">
-        <view class="top-info">
-            <view class="avatar-box">
-                <img class="avatar" :onerror="`this.src='${avatar}'`" :src="item.image" alt="">
-                <view class="avatar-info">
-                    <view class="name">{{item.title}}</view>
-                    <view class="num">
-                        <view class="fh">￥</view>{{item.price}}
+    <view class="container">
+        <view class="item">
+            <view class="top-info">
+                <view class="avatar-box">
+                    <img class="avatar" :onerror="`this.src='${avatar}'`" :src="item.image" alt="">
+                    <view class="avatar-info">
+                        <view class="name">{{ item.title }}</view>
+                        <view class="num">
+                            <view class="fh">￥</view>{{ item.price }}
+                        </view>
                     </view>
                 </view>
             </view>
-        </view>
-        <view class="botton-info">
-            <view class="in-item">
-                <view class="value">{{item.chntSubsidy}}</view>
-                <view class="txt">正泰补贴(元)</view>
-            </view>
-            <view class="in-item">
-                <view class="value2 value">{{item.dayEarnings}}</view>
-                <view class="txt">每日收益(元)</view>
-            </view>
-            <view class="in-item">
-                <view class="value">{{item.period}}</view>
-                <view class="txt">周期(天)</view>
+            <view class="botton-info">
+                <view class="in-item">
+                    <view class="value">{{ item.chntSubsidy }}</view>
+                    <view class="txt">正泰补贴(元)</view>
+                </view>
+                <view class="in-item">
+                    <view class="value2 value">{{ item.dayEarnings }}</view>
+                    <view class="txt">每日收益(元)</view>
+                </view>
+                <view class="in-item">
+                    <view class="value">{{ item.period }}</view>
+                    <view class="txt">周期(天)</view>
 
-            </view>
-        </view>
-    </view>
-    <view class="item">
-        <view class="title">支付方式</view>
-        <view>
-            <view class="pay-item" @tap="payType = 2">
-                <view>
-                    <image class="icon" src="../../static/xiangmu/zhifubao-icon.png" alt=""></image>
-                    支付宝
                 </view>
-                <view>
-                    <image class="choice" v-if="payType == 1" src="../../static/xiangmu/choice.png"></image>
-                    <image class="choice" v-else src="../../static/xiangmu/choice-active.png"></image>
-                </view>
-
-            </view>
-            <view class="pay-item" @tap="payType = 1">
-                <view>
-                    <image class="icon" src="../../static/xiangmu/wechat-icon.png" alt=""></image>
-                    微信支付
-                </view>
-                <view>
-                    <image class="choice" v-if="payType == 1" src="../../static/xiangmu/choice-active.png"></image>
-                    <image class="choice" v-else src="../../static/xiangmu/choice.png"></image>
-                </view>
-
             </view>
         </view>
+        <view class="item">
+            <view class="title">支付方式</view>
+            <view>
+                <view class="pay-item" @tap="payType = 2">
+                    <view>
+                        <image class="icon" src="../../static/xiangmu/zhifubao-icon.png" alt=""></image>
+                        支付宝
+                    </view>
+                    <view>
+                        <image class="choice" v-if="payType == 1" src="../../static/xiangmu/choice.png"></image>
+                        <image class="choice" v-else src="../../static/xiangmu/choice-active.png"></image>
+                    </view>
+
+                </view>
+                <view class="pay-item" @tap="payType = 1">
+                    <view>
+                        <image class="icon" src="../../static/xiangmu/wechat-icon.png" alt=""></image>
+                        微信支付
+                    </view>
+                    <view>
+                        <image class="choice" v-if="payType == 1" src="../../static/xiangmu/choice-active.png"></image>
+                        <image class="choice" v-else src="../../static/xiangmu/choice.png"></image>
+                    </view>
+
+                </view>
+            </view>
+        </view>
+        <view class="sure-btn" @tap="onPay">
+            立即支付
+        </view>
     </view>
-    <view class="sure-btn" @tap="onPay">
-        立即支付
-    </view>
-</view>
 </template>
 
 <script>
@@ -70,7 +70,8 @@ export default {
         return {
             avatar: 'https://alipic.lanhuapp.com/web475b3b1e-96fa-4a25-be45-7c2868ddce63',
             item: {},
-            payType: 2
+            payType: 2,
+            loading: false,
         }
     },
     onLoad(option) {
@@ -80,22 +81,30 @@ export default {
 
     },
     methods: {
-		onPay() {
-			buyProject({payType: this.payType, id: this.item.id}).then(rt => {
-					if (rt.data) {
-						uni.showToast({ title: '购买成功' })
-						setTimeout(() => {
-							uni.navigateBack({
-								delta: 1
-							});
-						}, 1000)
-
-					} else {
-						uni.showToast({ title: rt.message || '购买失败', icon: 'error' })
-					}
-				})
-		}
-	}
+        onPay() {
+            if(this.loading) return
+            this.loading = true
+            buyProject({ payType: this.payType, id: this.item.id, returnUrl: '/pages/xiangmu/xiangmu?status=1' }).then(rt => {
+                this.loading = false
+                if (rt.data) {
+                    // uni.showToast({ title: '购买成功' })
+                    // setTimeout(() => {
+                    //     uni.navigateBack({
+                    //         delta: 1
+                    //     });
+                    // }, 1000)
+                    uni.navigateTo({
+                        url: '/pages/xiangmu/webview?url=' + rt.data
+                    })
+                }
+                else {
+                    uni.showToast({ title: rt.message || '购买失败', icon: 'error' })
+                }
+            }).catch(err=>{
+                this.loading = false
+            })
+        }
+    }
 }
 </script>
 
@@ -228,15 +237,16 @@ export default {
         }
     }
 }
+
 .sure-btn {
-		padding: 11px 0;
-		margin: 24px auto;
-		background-color: rgba(46, 150, 255, 1);
-		color: #fff;
-		font-size: 15px;
-		font-family: PingFang SC-Medium, PingFang SC;
-		font-weight: 500;
-		text-align: center;
-		border-radius: 24px;
-	}
+    padding: 11px 0;
+    margin: 24px auto;
+    background-color: rgba(46, 150, 255, 1);
+    color: #fff;
+    font-size: 15px;
+    font-family: PingFang SC-Medium, PingFang SC;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 24px;
+}
 </style>
