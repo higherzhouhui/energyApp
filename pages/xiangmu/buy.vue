@@ -55,7 +55,7 @@
                 </view>
             </view>
         </view>
-        <view class="sure-btn" @tap="onPay">
+        <view class="sure-btn" :class="loading && 'loading'" @tap="onPay">
             立即支付
         </view>
     </view>
@@ -248,5 +248,8 @@ export default {
     font-weight: 500;
     text-align: center;
     border-radius: 24px;
+}
+.loading{
+    opacity: 0.5;
 }
 </style>
