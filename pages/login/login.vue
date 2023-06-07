@@ -23,7 +23,7 @@
 			</form>
 			<view class="nophone">
 				<text>没有账号？</text>
-				<text class="link" @tap="handleToPages('register')">立即注册？</text>
+				<text class="link" @tap="handleToPages('register')">立即注册</text>
 			</view>
 		</view>
 		<view class="bottom">

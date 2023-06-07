@@ -32,7 +32,7 @@
 			</form>
 			<view class="nophone">
 				<text>已有账号？</text>
-				<text class="link" @tap="handleToPages('login')">立即登录？</text>
+				<text class="link" @tap="handleToPages('login')">立即登录</text>
 			</view>
 		</view>
 		<view class="bottom">

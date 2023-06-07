@@ -155,7 +155,7 @@ uni.addInterceptor('request', {
 		if (args.statusCode !== 200) {
 			uni.showToast({
 				title: args.message,
-				icon: 'error'
+				icon: 'none'
 			})
 			return Promise.reject(args.message);
 		}
