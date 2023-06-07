@@ -8,3 +8,6 @@ export function buyProject(params) {
 export function getPayOrder(params) {
 	return request('/project/getPayOrder', 'GET', params)	
 }
+export function getMyProjectList(params) {
+	return request('/project/getMyProjectList', 'GET', params)	
+}

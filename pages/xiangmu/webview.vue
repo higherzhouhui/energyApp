@@ -37,7 +37,7 @@ export default {
                     uni.showToast({ title: '支付成功' })
                     setTimeout(()=>{
                         clearInterval(this.timer)
-                        uni.switchTab({url: `/pages/xiangmu/xiangmu`});
+                        uni.redirectTo({url: `/pages/wode/child/xiangmu`});
                     }, 1000)
                 }
             })

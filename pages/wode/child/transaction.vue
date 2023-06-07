@@ -57,7 +57,7 @@ export default {
 		this.pageNum = 1
 		this.getList()
     },
-    onShow() {
+    onLoad() {
         this.getList()
     },
     methods: {

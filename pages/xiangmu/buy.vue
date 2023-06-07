@@ -87,7 +87,7 @@ export default {
             buyProject({ payType: this.payType, id: this.item.id, returnUrl: '/pages/xiangmu/xiangmu?status=1' }).then(rt => {
                 this.loading = false
                 if (rt.data) {
-                    uni.navigateTo({
+                    uni.redirectTo({
                         url: `/pages/xiangmu/webview?url=${rt.data.payUrl}&mchOrderNo=${rt.data.mchOrderNo}`
                     })
                 }
