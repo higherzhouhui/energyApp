@@ -52,13 +52,13 @@ export default {
             kTime: (1000 * 60 * 5)
         }
     },
-    onShow() {
+    mounted() {
         this.getService()
         this.toBottom()
         this.getList(1)
         this.timer = setInterval(this.getList, 10000)
     },
-    onHide() {
+    beforeDestroy() {
         clearInterval(this.timer)
         this.timer = null
         // this.top = 0
