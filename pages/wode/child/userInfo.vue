@@ -103,9 +103,8 @@ export default {
 			uni.chooseImage({
 			  success(res) {
 				const tempFilePaths = res.tempFilePaths[0];
-				// 获取图片信息
-				that.info.avatar = tempFilePaths; // 将图片转为base64格式后显示
-				that.$store.commit('SET_USERINFO', this.info)
+				that.info.avatar = tempFilePaths;
+				that.$store.commit('SET_USERINFO', that.info)
 			  }
 			});
 		}
