@@ -4,7 +4,7 @@
 			<view class="key">
 				头像
 			</view>
-			<image class="avatar value" :src="info.avatat || '../../../static/wode/logo.png'" @click="handleUploadAvatar"></image>
+			<image class="avatar value" :src="info.avatar || '../../../static/wode/logo.png'" @click="handleUploadAvatar"></image>
 		</view>
 		<view class="item" @tap="linkTo('authentication', info.authenticated)">
 			<view class="key">
@@ -104,20 +104,8 @@ export default {
 			  success(res) {
 				const tempFilePaths = res.tempFilePaths[0];
 				// 获取图片信息
-				uni.getImageInfo({
-				  src: tempFilePaths,
-				  success(res) {
-					// 将图片转为base64格式
-					uni.getFileSystemManager().readFile({
-					  filePath: tempFilePaths,
-					  encoding: 'base64',
-					  success(res) {
-						that.imageBase64 = res.data;
-						that.info.avatar = `data:image/png;base64,${res.data}`; // 将图片转为base64格式后显示
-					  }
-					});
-				  }
-				});
+				that.info.avatar = tempFilePaths; // 将图片转为base64格式后显示
+				that.$store.commit('SET_USERINFO', this.info)
 			  }
 			});
 		}
