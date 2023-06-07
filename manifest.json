@@ -1,8 +1,8 @@
 {
     "name" : "正泰新能源",
-    "appid" : "__UNI__130537C",
-    "description" : "正泰新能源",
-    "versionName" : "1.0.0",
+    "appid" : "__UNI__B1DAD90",
+    "description" : "传统能源之外的各种能源形式。指刚开始开发利用或正在积极研究、有待推广的能源，如太阳能、地热能、风能、海洋能、生物质能和核聚变能等",
+    "versionName" : "1.0.1",
     "versionCode" : "100",
     "transformPx" : false,
     "app-plus" : {
@@ -19,7 +19,8 @@
         "modules" : {
             "VideoPlayer" : {},
             "Camera" : {},
-            "Contacts" : {}
+            "Contacts" : {},
+            "Barcode" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -88,11 +89,14 @@
             "splashscreen" : {
                 "androidStyle" : "default",
                 "android" : {
-                    "hdpi" : "static/home/banner1.png",
-                    "xhdpi" : "static/home/banner1.png",
-                    "xxhdpi" : "static/home/banner1.png"
+                    "hdpi" : "static/start.png",
+                    "xhdpi" : "static/start.png",
+                    "xxhdpi" : "static/start.png"
                 }
             }
+        },
+        "uniStatistics" : {
+            "enable" : true
         }
     },
     /* SDK配置 */
@@ -104,8 +108,66 @@
         "setting" : {
             "urlCheck" : false
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "uniStatistics" : {
+            "enable" : true
+        }
     },
     "vueVersion" : "2",
-    "locale" : "zh-Hans"
+    "locale" : "zh-Hans",
+    "uniStatistics" : {
+        "version" : "2",
+        "enable" : true,
+        "reportInterval" : "50"
+    },
+    "h5" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "mp-alipay" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "mp-baidu" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "mp-jd" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "mp-kuaishou" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "mp-lark" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "mp-qq" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "mp-toutiao" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "quickapp-webview-huawei" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    },
+    "quickapp-webview-union" : {
+        "uniStatistics" : {
+            "enable" : true
+        }
+    }
 }
