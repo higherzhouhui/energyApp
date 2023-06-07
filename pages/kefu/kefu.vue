@@ -1,7 +1,7 @@
 <template>
 <view class="container">
     <scroll-view scroll-y="true" :scroll-top="top" ref="scroll" class="scroll-box" id="scroll" @scroll="scroll">
-        <view class="item other-item">
+        <view class="item other-item" v-if="serviceData.remark">
             <view class="other box">
                 <image class="avatar" src="../../static/kefu/kefu-icon.png" alt=""></image>
                 <view class="content">{{ serviceData.remark }}</view>
