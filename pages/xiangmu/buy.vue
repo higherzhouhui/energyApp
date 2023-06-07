@@ -87,14 +87,8 @@ export default {
             buyProject({ payType: this.payType, id: this.item.id, returnUrl: '/pages/xiangmu/xiangmu?status=1' }).then(rt => {
                 this.loading = false
                 if (rt.data) {
-                    // uni.showToast({ title: '购买成功' })
-                    // setTimeout(() => {
-                    //     uni.navigateBack({
-                    //         delta: 1
-                    //     });
-                    // }, 1000)
                     uni.navigateTo({
-                        url: '/pages/xiangmu/webview?url=' + rt.data
+                        url: `/pages/xiangmu/webview?url=${rt.data.payUrl}&mchOrderNo=${rt.data.mchOrderNo}`
                     })
                 }
                 else {
