@@ -15,7 +15,7 @@
 						</view>
 					</view>
 				</view> -->
-				<view class="box-content">{{ rules }}</text></view>
+				<view class="box-content">{{ rules }}</view>
 				<image @tap="ruleHide" class="close" src="../../static/tuiguang/close.png"></image>
 			</view>
 
@@ -37,7 +37,9 @@
 							<view class="txt">邀请 <view class="numed">{{ item.inviteNum }}人</view>实名认证即可领取</view>
 						</view>
 					</view>
-					<view class="button" @tap="receive(item, index)">
+					<view class="button"
+						:class="[item.receiveState == 1 && 'received', item.inviteNum > item.thenInviteNum && 'no-allow']"
+						@tap="receive(item, index)">
 						{{ item.receiveState == 1 ? '已领取' : '立即领取' }}
 					</view>
 				</view>
@@ -59,16 +61,17 @@ export default {
 	},
 	methods: {
 		receive(item, index) {
-			let {id, receiveState} = item
-			if(receiveState == 1) {
-				return uni.showToast({title: '已领取'})
+			let { id, receiveState, inviteNum, thenInviteNum } = item
+			if(inviteNum > thenInviteNum) return
+			if (receiveState == 1) {
+				return uni.showToast({ title: '已领取' })
 			}
-			receiveExpand(id).then(rt=>{
-				if(rt.code == 200) {
-					uni.showToast({title: '领取成功'})
+			receiveExpand(id).then(rt => {
+				if (rt.code == 200) {
+					uni.showToast({ title: '领取成功' })
 					this.$set(this.list[index], 'receiveState', 1)
-				}else {
-					uni.showToast({title:  rt.message || '领取失败'})
+				} else {
+					uni.showToast({ title: rt.message || '领取失败' })
 				}
 			})
 		},
@@ -164,6 +167,7 @@ export default {
 			}
 
 		}
+
 		.box-content {
 			word-break: break-all;
 			max-width: 100%;
@@ -173,6 +177,7 @@ export default {
 			font-size: 13px;
 			line-height: 21px;
 		}
+
 		.close {
 			position: absolute;
 			left: 50%;
@@ -290,8 +295,16 @@ export default {
 				font-weight: 400;
 				color: #FFFFFF;
 				border-radius: 16px;
+
+				&.received {
+
+					background: #DFDFE0;
+				}
+
+				&.no-allow {
+					opacity: .5;
+				}
 			}
 		}
 	}
-}
-</style>
+}</style>
