@@ -6,3 +6,5 @@
 ## HBuilderX version 3.8.4
 
 ## Vue2.0
+
+## 正泰新能源
