@@ -249,7 +249,5 @@ export default {
     text-align: center;
     border-radius: 24px;
 }
-.loading{
-    opacity: 0.5;
-}
+
 </style>
