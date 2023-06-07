@@ -120,6 +120,13 @@ const routes = [
 			}
 	},
 	{
+		path: "/pages/wode/child/xiangmu",
+		name: 'myxiangmu',
+			meta: {
+				title: '我的项目',
+			}
+	},
+	{
 		path: "/pages/wode/child/repassword",
 		name: 'repassword',
 			meta: {

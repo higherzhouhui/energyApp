@@ -75,6 +75,7 @@ import {getUserWallet, insert, personalInfoRequest} from '@/api/user'
 			return {
 				navList: [
 					{title: '我的团队', logo: 'tuandui', link: 'myteam'},
+					{title: '我的项目', logo: 'xiangmu', link: 'xiangmu'},
 					{title: '交易', logo: 'jiaoyi', link: 'transaction'},
 					{title: '银行卡', logo: 'yhk', link: 'bankcardbind'},
 					{title: '实名认证', logo: 'smrz', link: 'authentication'},
