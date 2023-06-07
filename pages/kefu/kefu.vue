@@ -22,7 +22,7 @@
     </scroll-view>
     <view class="bottom-input">
         <input v-model="message" type="text">
-        <view class="txt" @tap="send">发送</view>
+        <view class="txt" @tap="send" :class="loading && 'loading'">发送</view>
 
     </view>
 </view>
@@ -42,6 +42,7 @@ export default {
         return {
             userInfo: uni.getStorageSync(USER_INFO),
             list: [],
+            loading: false,
             message: '',
             serviceData: {
                 remark: ''
@@ -107,12 +108,14 @@ export default {
             })
         },
         send() {
-            if (!this.message || !this.message.trim()) return
+            if (!this.message || !this.message.trim() || this.loading) return
+            this.loading = true
             sendMessage({
                 to: this.serviceData.id,
                 type: 1,
                 content: this.message
             }).then(rt => {
+                this.loading = false
                 if (rt.code == 200) {
                     this.list.push({
                         form: this.userInfo.id,
@@ -122,6 +125,8 @@ export default {
                     this.message = ''
                     this.toBottom()
                 }
+            }).catch(_=>{
+                this.loading = false;
             })
         }
     }
