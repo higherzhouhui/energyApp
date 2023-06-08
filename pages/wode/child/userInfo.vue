@@ -4,8 +4,7 @@
 			<view class="key">
 				头像
 			</view>
-			<img v-if="$store.state.userInfo.avatar" :src="$store.state.userInfo.avatar || '../../../static/wode/avatar.png'" class="avatar value" />
-			<image v-else src="../../../static/wode/avatar.png" @error="avatarUrlError=false" class="avatar value"></image>
+			<image :src="info.avatar || '../../../static/wode/avatar.png'" class="avatar value"></image>
 		</view>
 		<view class="item" @tap="linkTo('authentication', info.authenticated)">
 			<view class="key">
