@@ -118,7 +118,7 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	ont-size: 15px;
+	font-size: 15px;
 	font-family: PingFang SC-Regular, PingFang SC;
 	font-weight: 400;
 	border-bottom: 1px solid #EBECED;
