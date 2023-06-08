@@ -91,8 +91,7 @@
 				total: 0,
 				course: '',
 				// 视频封面图
-			    poster: '../../static/home/cover.jpg',
-				coverFlag: true,
+				poster: '../../static/home/cover.jpg',
 			}
 		},
 		components: {
