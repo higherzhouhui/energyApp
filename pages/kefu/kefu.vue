@@ -103,7 +103,7 @@ export default {
         },
         getService() {
             getService().then(rt => {
-                this.serviceData = rt.data
+                this.serviceData = rt.data || {}
             })
         },
         send() {
