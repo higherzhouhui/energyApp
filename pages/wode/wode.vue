@@ -3,8 +3,7 @@
 		<view class="topContent">
 			<view class="userInfo">
 				<view class="left">
-					<image v-if="avatarUrlError" :src="$store.state.userInfo.avatar || '../../static/wode/avatar.png'" class="avatar" @error=""></image>
-					<image v-else src="../../static/wode/avatar.png" class="avatar" @error="avatarUrlError=false"></image>
+					<image :src="$store.state.userInfo.avatar || '../../static/wode/avatar.png'" class="avatar"></image>
 					<view class="info">
 						<view class="name">{{ $store.state.userInfo.name || '未实名' }}</view>
 						<view class="ziliao" @tap="handleRouteTo('userInfo')">个人资料</view>

@@ -4,8 +4,7 @@
 			<view class="key">
 				头像
 			</view>
-			<image v-if="avatarUrlError" :src="info.avatar || '../../../static/wode/avatar.png'" class="avatar value" @error=""></image>
-			<image v-else src="../../../static/wode/avatar.png" @error="avatarUrlError=false" class="avatar value"></image>
+			<image :src="info.avatar || '../../../static/wode/avatar.png'" class="avatar value"></image>
 		</view>
 		<view class="item" @tap="linkTo('authentication', info.authenticated)">
 			<view class="key">
@@ -47,8 +46,7 @@
 </template>
 
 <script>
-import { personalInfo, updateAvatarRequest } from '@/api/user'
-import { uploadImageRequest } from '@/api/common.js'
+import { updateAvatarRequest } from '@/api/user'
 import { hideMiddlePhone } from "@/utils/common"
 import { mapActions } from "vuex"
 
@@ -122,7 +120,7 @@ export default {
 						name: that.info.name
 					}).then(avatarRes => {
 						if (avatarRes.code === 200) {
-							that.info.avatar = tempFilePaths;
+							that.info.avatar = response.data;
 							that.$store.commit('SET_USERINFO', that.info)
 						}
 					})

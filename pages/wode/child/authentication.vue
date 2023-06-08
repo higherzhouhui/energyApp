@@ -65,16 +65,14 @@ export default {
 		formSubmit() {
 			if (this.volid()) {
 				realName({name: this.name, idCard: this.idCard}).then(rt=>{
-					if (rt.data) {
+					if (rt.code === 200) {
 						uni.showToast({ title: '认证成功' })
+						this.$store.commit('SET_USERINFO', {...this.$store.state.userInfo, name: this.name})
 						setTimeout(() => {
 							uni.navigateBack({
 								delta: 1
 							});
 						}, 1000)
-
-					} else {
-						uni.showToast({ title: '认证失败', icon: 'error' })
 					}
 				})
 			}
