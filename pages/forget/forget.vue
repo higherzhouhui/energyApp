@@ -184,6 +184,8 @@ import { resetPasswordRequest } from "@/api/user.js"
 	align-items: center;
 	opacity: 1;
 	margin-top: 8px;
+	animation: doudong 1.5s .15s linear forwards;
+
 	.errorImg {
 		width: 22px;
 		height: 22px;
