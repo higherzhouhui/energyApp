@@ -95,6 +95,8 @@ import { resetPasswordRequest } from "@/api/user.js"
 					} else {
 						this.errorMsg = response.message
 					}
+				}).catch(error => {
+					this.loading = false
 				})
 			},
 			handleToPages(page) {

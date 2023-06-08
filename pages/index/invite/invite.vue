@@ -68,7 +68,7 @@
 					fail: function() {
 						uni.showToast({
 							title: '复制失败',
-							icon: 'none',
+							icon: 'error',
 						});
 					},
 				});

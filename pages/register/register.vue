@@ -125,6 +125,8 @@ import { getQueryString } from "@/utils/common.js"
 					} else {
 						this.errorMsg = response.message
 					}
+				}).catch(error => {
+					this.loading = false
 				})
 			},
 			handleToPages(page) {

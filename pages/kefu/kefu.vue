@@ -23,7 +23,6 @@
     <view class="bottom-input">
         <input v-model="message" type="text">
         <view class="txt" @tap="send" :class="loading && 'loading'">发送</view>
-
     </view>
 </view>
 </template>
