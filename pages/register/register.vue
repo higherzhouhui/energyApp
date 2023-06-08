@@ -11,7 +11,7 @@
 				</view>
 				<view class="label"><image src="../../static/login/yzm.png" class="phoneImg"></image>推荐码</view>
 				<view class="inputForm">
-					<input :disabled="registerType === 2" name="inviteCode" type="number" maxlength="12" v-model="inviteCode" class="inputStyle" placeholder="请输入推荐码"/>
+					<input :disabled="registerType === 2" name="inviteCode" maxlength="12" v-model="inviteCode" class="inputStyle" placeholder="请输入推荐码"/>
 					<image v-if="inviteCode && registerType === 1" src="../../static/login/close.png" class="clear" @tap="() => inviteCode = ''"></image>
 				</view>
 				<view class="label"><image src="../../static/login/password.png" class="phoneImg"></image>设置密码</view>
