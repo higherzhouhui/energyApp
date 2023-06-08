@@ -27,17 +27,15 @@
 			<view class="gonggao">
 				<image class="ggImg" src="../../static/home/gonggao.png"></image>
 				<view id="scroll_div" class="fl" ref="scrollDiv">
-					<view id="scroll_begin" ref="scrollBegin" @tap= "toggle(true), $ref.video.pause()">
+					<view id="scroll_begin" ref="scrollBegin" @tap= "toggle(true)">
 						{{notice.content}}
 					</view>
 					<view id="scroll_end" ref="scrollEnd"></view>
 				</view>
 			</view>
-			<view class="bg-video">
-				<video class="myVideo" ref="video" :src="videoUrl" loop controls
-					:show-mute-bt="true" play-btn-position="middle"
-					mobilenet-hint-type="1" :enable-play-gesture="true" :poster="poster"></video>
-			</view>
+			<video class="bg-video" :src="videoUrl" loop controls
+				:show-mute-bt="true" play-btn-position="middle"
+				mobilenet-hint-type="1" :enable-play-gesture="true" :poster="poster"></video>
 			<view class="newsContainer">
 				<text class="title">新闻动态</text>
 				<newProduct v-for="(item, index) in newsList" :product="item" :key="index"></newProduct>
@@ -91,7 +89,7 @@
 				total: 0,
 				course: '',
 				// 视频封面图
-				poster: '../../static/home/cover.jpg',
+				poster: '../../static/home/cover.png',
 			}
 		},
 		components: {
@@ -331,32 +329,12 @@
 		font-weight: 400;
 		color: #17191A;
 	}
-	.video-img{
-		width: 75%;
-	}
 	.bg-video {
 		margin-top: 12px;
 		width: 100%;
 		border-radius: 8px;
-		overflow: hidden;
-		padding-bottom: 42%;
-		height: 0;
-		position: relative;
-		&.bg-video{
-			background-color: rgb(0, 0, 0);
-			text-align: center;
-
-		}
-		.myVideo {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			object-fit: fill;
-			top: 0;
-			left: 0;
-		}
+		height: 180px;
 	}
-
 	.newsContainer {
 		margin-top: 12px;
 		background: #FFFFFF;
@@ -376,7 +354,7 @@
 		position: fixed;
 		left: 0;
 		top: 0;
-		z-index: 999999;
+		z-index: 999;
 		width: 100%;
 		height: 100%;
 		background-color: rgba(0, 0, 0, .6);
@@ -385,6 +363,7 @@
 	.rule-box {
 		padding: 44px 16px 16px;
 		position: absolute;
+		z-index: 998;
 		top: 50%;
 		left: 50%;
 		width: 77.3%;
