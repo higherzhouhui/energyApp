@@ -10,8 +10,9 @@ export default function appUpdate(check) {
 			const {data} = res
 			if (data.version !== version) {
 				uni.showModal({ 
-					title: '更新提示',
-					content: data.describe,
+					title: `当前版本:${version}`,
+					content: `更新提示：${data.describe},最新版本:${data.version}`,
+					confirmText: '下载',
 					success: (showResult) => {
 						if (showResult.confirm) {
 							plus.nativeUI.toast("正在准备环境，请稍后!");
@@ -33,7 +34,7 @@ export default function appUpdate(check) {
 			} else {
 				if (check) {
 					uni.showToast({
-						title: '当前已经是最新版本',
+						title: '当前已经是最新版本' + version,
 						icon: 'none'
 					})
 				}
