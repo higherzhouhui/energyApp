@@ -71,7 +71,7 @@ export default {
 					uni.showToast({ title: '领取成功' })
 					this.$set(this.list[index], 'receiveState', 1)
 				} else {
-					uni.showToast({ title: rt.message || '领取失败' })
+					uni.showToast({ title: rt.message || '领取失败', icon: 'none' })
 				}
 			})
 		},

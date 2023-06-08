@@ -92,7 +92,7 @@ export default {
                     })
                 }
                 else {
-                    uni.showToast({ title: rt.message || '购买失败', icon: 'error' })
+                    uni.showToast({ title: rt.message || '购买失败', icon: 'none' })
                 }
             }).catch(err=>{
                 this.loading = false

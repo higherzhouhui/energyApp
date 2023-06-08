@@ -41,11 +41,13 @@
 							success: function() {
 								uni.showToast({
 									title: '保存成功, 请在相册中查看',
+									icon: 'none'
 								});
 							},
 							fail: function() {
 								uni.showToast({
 									title: '保存失败, 请开启存储照片权限',
+									icon: 'none'
 								});
 							}
 						});
@@ -53,6 +55,7 @@
 					fail: function() {
 						uni.showToast({
 							title: '下载失败，请检查网络后重试',
+							icon: 'none'
 						});
 					}
 				});
@@ -63,6 +66,7 @@
 					success: function() {
 						uni.showToast({
 							title: '已复制到剪贴板',
+							icon: 'none'
 						});
 					},
 					fail: function() {

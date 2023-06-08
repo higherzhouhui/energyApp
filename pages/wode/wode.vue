@@ -153,7 +153,7 @@ import appUpdate from 'common/util/appUpdate.js'
 					if(rt.code == 200) {
 						uni.showToast({title: '签到成功！'})
 					}else{
-						uni.showToast({title: rt.message || '签到失败！', icon: 'error'})
+						uni.showToast({title: rt.message || '签到失败！', icon: 'none'})
 					}
 				})
 			},

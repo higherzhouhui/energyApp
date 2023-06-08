@@ -58,7 +58,7 @@ export default {
 				msg = '请输入身份证号'
 			}
 			if(msg) {
-				uni.showToast({ title: msg, icon: 'error' })
+				uni.showToast({ title: msg, icon: 'none' })
 			}
 			return bol
 		},
