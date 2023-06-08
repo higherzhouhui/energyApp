@@ -3,7 +3,7 @@
 		<view class="topContent">
 			<view class="userInfo">
 				<view class="left">
-					<image v-if="avatarUrlError" :src="$store.state.userInfo.avatar || '../../static/wode/avatar.png'" class="avatar" @error=""></image>
+					<img v-if="$store.state.userInfo.avatar" :src="$store.state.userInfo.avatar || '../../static/wode/avatar.png'" class="avatar" @error=""/>
 					<image v-else src="../../static/wode/avatar.png" class="avatar" @error="avatarUrlError=false"></image>
 					<view class="info">
 						<view class="name">{{ $store.state.userInfo.name || '未实名' }}</view>

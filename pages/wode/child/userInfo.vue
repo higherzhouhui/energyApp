@@ -4,7 +4,7 @@
 			<view class="key">
 				头像
 			</view>
-			<image v-if="avatarUrlError" :src="info.avatar || '../../../static/wode/avatar.png'" class="avatar value" @error=""></image>
+			<img v-if="$store.state.userInfo.avatar" :src="$store.state.userInfo.avatar || '../../../static/wode/avatar.png'" class="avatar value" />
 			<image v-else src="../../../static/wode/avatar.png" @error="avatarUrlError=false" class="avatar value"></image>
 		</view>
 		<view class="item" @tap="linkTo('authentication', info.authenticated)">
@@ -106,7 +106,6 @@ export default {
 			uni.chooseImage({
 			  success(res) {
 				const tempFilePaths = res.tempFilePaths[0];
-
 				uni.uploadFile({
 				  url: 'http://www.zhengtaixinnengyuan.com/admin/upload/uploadImage',
 				  filePath: tempFilePaths,

@@ -15,7 +15,7 @@
             </view>
             <view v-else class="own box">
                 <view class="content">{{ item.content }}</view>
-                <img v-if="userInfo.avatar" :src="userInfo.avatar" class="avatar" alt="" />
+                <img v-if="$store.state.userInfo.avatar" :src="$store.state.userInfo.avatar || '../../static/wode/avatar.png'" class="avatar" alt="" />
                 <image v-else class="avatar" src="../../static/wode/logo.png" alt=""></image>
             </view>
         </view>
