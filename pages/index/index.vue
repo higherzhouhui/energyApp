@@ -33,9 +33,12 @@
 					<view id="scroll_end" ref="scrollEnd"></view>
 				</view>
 			</view>
-			<video class="bg-video" :src="videoUrl" loop controls
+			<view class="bg-video">
+				<view v-show="ruleVisible" class="cover" />
+				<video v-show="!ruleVisible" class="video" :src="videoUrl" loop controls
 				:show-mute-bt="true" play-btn-position="middle"
 				mobilenet-hint-type="1" :enable-play-gesture="true" :poster="poster"></video>
+			</view>
 			<view class="newsContainer">
 				<text class="title">新闻动态</text>
 				<newProduct v-for="(item, index) in newsList" :product="item" :key="index"></newProduct>
@@ -51,7 +54,6 @@
 				<view class="box-content">{{notice.content}}<text class="notice-time">{{notice.createTime}}</text></view>
 				<image @click="toggle(false)" class="close" src="../../static/tuiguang/close.png"></image>
 			</view>
-
 		</view>
 	</view>
 </template>
@@ -98,9 +100,6 @@
 		onLoad() {
 			this.getHomeData()
 		},
-		onReady() {
-			this.scrollImgLeft();
-		},
 		onPullDownRefresh() {
 			// 执行刷新操作
 			this.getHomeData()
@@ -132,28 +131,6 @@
 						break;
 					default:
 						break;
-				}
-			},
-			scrollImgLeft() {
-				let speed = 30;
-				let scroll_begin = uni.createSelectorQuery().select('scroll_begin')
-				let scroll_end = uni.createSelectorQuery().select('scroll_end')
-				let scroll_div = uni.createSelectorQuery().select('scroll_div')
-				scroll_end.innerHTML = scroll_begin.innerHTML;
-				console.log(scroll_begin)
-				const Marquee = () => {
-					if (scroll_end.offsetWidth - scroll_div.scrollLeft <= 0)
-						scroll_div.scrollLeft -= scroll_begin.offsetWidth;
-					else {
-						scroll_div.scrollLeft++;
-					}
-				}
-				this.timer = setInterval(Marquee, speed);
-				scroll_div.onmouseover = function() {
-					clearInterval(this.timer);
-				}
-				scroll_div.onmouseout = function() {
-					this.timer = setInterval(Marquee, speed);
 				}
 			},
 			onPageScroll(e) {
@@ -334,6 +311,24 @@
 		width: 100%;
 		border-radius: 8px;
 		height: 180px;
+		position: relative;
+		.video {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 9;
+		}
+		.cover {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 10;
+			background-image: url('../../static/home/cover.png');
+		}
 	}
 	.newsContainer {
 		margin-top: 12px;
