@@ -69,7 +69,7 @@ export default {
 				msg = '请输入银行卡号'
 			}
 			if (msg) {
-				uni.showToast({ title: msg, icon: 'error' })
+				uni.showToast({ title: msg, icon: 'none' })
 			}
 			return bol
 		},
@@ -92,7 +92,7 @@ export default {
 						}, 1000)
 
 					} else {
-						uni.showToast({ title: rt.message || '绑定失败', icon: 'error' })
+						uni.showToast({ title: rt.message || '绑定失败', icon: 'none' })
 					}
 				})
 			}

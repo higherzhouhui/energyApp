@@ -73,6 +73,8 @@ export default {
 								delta: 1
 							});
 						}, 1000)
+					} else {
+						uni.showToast({ title: rt.message, icon: 'none' })
 					}
 				})
 			}
