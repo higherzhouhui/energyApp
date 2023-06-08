@@ -5,7 +5,11 @@ import { ACCESS_TOKEN, USER_INFO } from "@/common/util/constants"
 let modelShow = false
 uni.addInterceptor('request', {
 	invoke(args) { //拦截前触发
-		args.url = baseURL + args.url
+		let before = '/energy'
+		if (args && args.url && args.url.includes('admin')) {
+			before = ''
+		}
+		args.url = `${baseURL}${before}${args.url}`
 		args.header["Content-Type"] = "application/json;charset=UTF-8"
 		//获取token
 		let token = uni.getStorageSync('Access-Token')

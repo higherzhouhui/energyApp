@@ -1,10 +1,11 @@
 <template>
 	<view>
-		<view class="item no-border avatar-item">
+		<view class="item no-border avatar-item" @tap="handleUploadAvatar">
 			<view class="key">
 				头像
 			</view>
-			<image class="avatar value" :src="info.avatar || '../../../static/wode/logo.png'"></image>
+			<image v-if="avatarUrlError" :src="info.avatar || '../../../static/wode/avatar.png'" class="avatar value" @error=""></image>
+			<image v-else src="../../../static/wode/avatar.png" @error="avatarUrlError=false" class="avatar value"></image>
 		</view>
 		<view class="item" @tap="linkTo('authentication', info.authenticated)">
 			<view class="key">
@@ -47,6 +48,7 @@
 
 <script>
 import { personalInfo, updateAvatarRequest } from '@/api/user'
+import { uploadImageRequest } from '@/api/common.js'
 import { hideMiddlePhone } from "@/utils/common"
 import { mapActions } from "vuex"
 
@@ -57,6 +59,7 @@ export default {
 			info: {
 			},
 			hideMiddlePhone: hideMiddlePhone,
+			avatarUrlError: false
 		}
 	},
 	onShow() {
@@ -103,8 +106,30 @@ export default {
 			uni.chooseImage({
 			  success(res) {
 				const tempFilePaths = res.tempFilePaths[0];
-				that.info.avatar = tempFilePaths;
-				that.$store.commit('SET_USERINFO', that.info)
+
+				uni.uploadFile({
+				  url: 'http://www.zhengtaixinnengyuan.com/admin/upload/uploadImage',
+				  filePath: tempFilePaths,
+				  name: 'file',
+				  formData: {
+				    'user': 'test'
+				  },
+				  success: function (res) {
+				    updateAvatarRequest({
+						avatar: res.data,
+						idCard: that.info.idCard,
+						name: that.info.name
+					}).then(avatarRes => {
+						if (avatarRes.code === 200) {
+							that.info.avatar = tempFilePaths;
+							that.$store.commit('SET_USERINFO', that.info)
+						}
+					})
+				  },
+				  fail: function (res) {
+				    console.log('上传失败：', res);
+				  }
+				});
 			  }
 			});
 		}

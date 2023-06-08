@@ -3,7 +3,8 @@
 		<view class="topContent">
 			<view class="userInfo">
 				<view class="left">
-					<image src="../../static/home/kefu.png" class="avatar"></image>
+					<image v-if="avatarUrlError" :src="$store.state.userInfo.avatar || '../../static/wode/avatar.png'" class="avatar" @error=""></image>
+					<image v-else src="../../static/wode/avatar.png" class="avatar" @error="avatarUrlError=false"></image>
 					<view class="info">
 						<view class="name">{{ $store.state.userInfo.name || '未实名' }}</view>
 						<view class="ziliao" @tap="handleRouteTo('userInfo')">个人资料</view>
@@ -87,7 +88,8 @@ import appUpdate from 'common/util/appUpdate.js'
 					extend: 0, // 推广钱包
 					earnings: 0, // 收益钱包
 					chnt: 0 //正泰补贴金
-				}
+				},
+				avatarUrlError: false,
 			}
 		},
 		onLoad() {
