@@ -7,9 +7,9 @@
                 <view class="content">{{ serviceData.remark }}</view>
             </view>
         </view>
-        <view v-for="(item, index) in list" :key="index" class="item" :class="[!item.other && 'other-item', item.showTime && 'has-time']">
+        <view v-for="(item, index) in list" :key="index" class="item" :class="[item.form != serviceData.id && 'own-item', item.showTime && 'has-time']">
             <view v-if="item.showTime" class="time"> {{ item.createTime }} </view>
-            <view v-if="item.form != userInfo.id" class="other box">
+            <view v-if="item.form == serviceData.id" class="other box">
                 <image class="avatar" src="../../static/kefu/kefu-icon.png" alt=""></image>
                 <view class="content">{{ item.content }}</view>
             </view>
@@ -238,7 +238,7 @@ export default {
                 }
             }
 
-            &.other-item {
+            &.own-item {
                 flex-direction: row-reverse;
                 align-items: end;
             }
