@@ -4,7 +4,7 @@
 			<view class="key">
 				头像
 			</view>
-			<image class="avatar value" :src="info.avatar || '../../../static/wode/logo.png'" @click="handleUploadAvatar"></image>
+			<image class="avatar value" :src="info.avatar || '../../../static/wode/logo.png'"></image>
 		</view>
 		<view class="item" @tap="linkTo('authentication', info.authenticated)">
 			<view class="key">
