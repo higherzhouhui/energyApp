@@ -2,7 +2,7 @@
 	<view>
 		<view class="tabs">
 			<view class="tabs-item" @tap="type = item.type" :class="item.type == type && 'active'" v-for="item in tabs" :index="item.type" >
-				<view class="txt">{{item.label}}(0)</view>
+				<view class="txt">{{item.label}}({{ length }})</view>
 			</view>
 		</view>
 		<view class="container">
@@ -96,6 +96,10 @@
 			list() {
 				let {teamOne, teamThree, teamTwo} = this.info
 				return [teamOne, teamTwo, teamThree][this.type - 1]
+			},
+			length() {
+				let {teamOne, teamThree, teamTwo} = this.info
+				return [teamOne, teamTwo, teamThree][this.type - 1].length || 0
 			}
 		},
 		onLoad() {

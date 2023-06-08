@@ -66,6 +66,15 @@ export default {
 		this.getUserInfo()
 	},
 	methods: {
+		sm() {
+				uni.scanCode({
+					success: function (res) {
+						console.log('条码类型：' + res.scanType);
+						console.log('条码内容：' + res.result);
+					}
+				});
+
+			},
 		...mapActions(["Logout"]),
 		copy() {
 			uni.showToast({ title: '复制成功' })
