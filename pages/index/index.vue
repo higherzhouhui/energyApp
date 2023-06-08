@@ -27,19 +27,16 @@
 			<view class="gonggao">
 				<image class="ggImg" src="../../static/home/gonggao.png"></image>
 				<view id="scroll_div" class="fl" ref="scrollDiv">
-					<view id="scroll_begin" ref="scrollBegin" @tap= "toggle(true)">
+					<view id="scroll_begin" ref="scrollBegin" @tap= "toggle(true), $ref.video.pause()">
 						{{notice.content}}
 					</view>
 					<view id="scroll_end" ref="scrollEnd"></view>
 				</view>
 			</view>
-			<view class="bg-video bg-video2" v-if="ruleVisible">
-				<image class="video-img" src="../../static/home/videoCover.png"></image>
-			</view>
-			<view class="bg-video" v-else>
-				<video class="myVideo" :src="videoUrl" loop controls
+			<view class="bg-video">
+				<video class="myVideo" ref="video" :src="videoUrl" loop controls
 					:show-mute-bt="true" play-btn-position="middle"
-					mobilenet-hint-type="1" :enable-play-gesture="true"></video>
+					mobilenet-hint-type="1" :enable-play-gesture="true" :poster="poster"></video>
 			</view>
 			<view class="newsContainer">
 				<text class="title">新闻动态</text>
@@ -93,6 +90,9 @@
 				bannersList: [],
 				total: 0,
 				course: '',
+				// 视频封面图
+			    poster: '../../static/home/cover.jpg',
+				coverFlag: true,
 			}
 		},
 		components: {
@@ -187,38 +187,13 @@
 						this.bannersList = data
 					}
 					if (newsList.code === 200) {
-						// const list = [{
-						// 		src: 'https://ossimg.fbs55.com/common/common_1685704442000_53864.png',
-						// 		title: '中核集团田湾核电4台机组通过竣工验收',
-						// 		time: '2023-06-02 10:11',
-						// 		id: 0
-						// 	},
-						// 	{
-						// 		src: 'https://ossimg.fbs55.com/common/common_1685704514000_77437.png',
-						// 		title: '广州中南部地区供电能力增长53%,随着高压线路传输电能至500千伏楚庭变电站内，500千伏楚庭输变电工程的',
-						// 		time: '2023-05-31 10:15',
-						// 		id: 1
-						// 	},
-						// 	{
-						// 		src: 'https://ossimg.fbs55.com/common/common_1685704529000_87162.png',
-						// 		title: '广西海上风电项目海域使用权实现“零”的突破',
-						// 		time: '2023-06-02 10:20',
-						// 		id: 2
-						// 	},
-						// 	{
-						// 		src: 'https://ossimg.fbs55.com/common/common_1685704514000_77437.png',
-						// 		title: '新能源发展让新型交通技术实现成为可能',
-						// 		time: '2023-05-31 10:17',
-						// 		id: 3
-						// 	},
-						// ]
 						const {list} = newsList.data
 						const temp = list
 						this.newsList = temp
 					}
 					if (baseInfo.code === 200) {
 						const data = baseInfo.data
-						this.videoUrl = data.video || '../../static/home/gf.mp4'
+						this.videoUrl = data.video
 						this.gfql = {
 							groupName: data.groupName,
 							groupNum: data.groupNum,

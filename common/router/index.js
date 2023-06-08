@@ -13,6 +13,7 @@ const router = new Router({
 });
 
 const whiteList = [
+	'/pages/download/download',
 	'/pages/login/login',
 	'/pages/register/register',
 	'/pages/forget/forget',

@@ -1,5 +1,12 @@
 const routes = [
 	{
+	 path: "/pages/download/download",
+	 name: 'download',
+		 meta: {
+			 title: '正泰新能源——APP下载',
+		 },
+	},
+	{
 	 path: "/pages/login/login",
 	 name: 'login',
 		 meta: {

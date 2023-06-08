@@ -33,5 +33,8 @@ export function personalInfoRequest(params) {
 }
 
 export function updateAvatarRequest(params) {
-	return request('/energy/user/updateAvatar', 'PUT', params)	
+	return request('/user/updateAvatar', 'PUT', params)	
+}
+export function getVersionRequest(params) {
+	return request('/banner/getVersion', 'GET', params)	
 }

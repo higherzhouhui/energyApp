@@ -50,7 +50,7 @@
 				<image src="../../static/my/yaoqing.png" class="yaoqingImg"></image>
 			</view>
 			<view class="routeList">
-				<view class="listWrapper" v-for="item in navList" :key="item.link" @tap="handleRouteTo(item.link)">
+				<view class="listWrapper" v-if="!item.hidden" v-for="item in navList" :key="item.link" @tap="handleRouteTo(item.link)">
 					<view class="list">
 						<view class="left">
 							<image :src="`../../static/my/${item.logo}.png`" class="logo"></image>
@@ -70,6 +70,7 @@
 <script>
 import { mapActions } from "vuex"
 import {getUserWallet, insert, personalInfoRequest} from '@/api/user'
+import appUpdate from 'common/util/appUpdate.js'
 	export default {
 		data() {
 			return {
@@ -79,6 +80,7 @@ import {getUserWallet, insert, personalInfoRequest} from '@/api/user'
 					{title: '交易', logo: 'jiaoyi', link: 'transaction'},
 					{title: '银行卡', logo: 'yhk', link: 'bankcardbind'},
 					{title: '实名认证', logo: 'smrz', link: 'authentication'},
+					{title: '检查更新', logo: 'update', link: 'update', hidden: document ? true : false},
 				],
 				wallet: {
 					bonus: 0, // 分红钱包
@@ -116,6 +118,10 @@ import {getUserWallet, insert, personalInfoRequest} from '@/api/user'
 				}
 			},
 			handleRouteTo(link) {
+				if (link === 'update') {
+					appUpdate(true)
+					return
+				}
 				uni.navigateTo({
 					url:`/pages/wode/child/${link}`
 				})

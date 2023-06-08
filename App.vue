@@ -1,14 +1,17 @@
 <script>
+	import appUpdate from 'common/util/appUpdate.js'
+
 	export default {
 		onLaunch: function() {
-			console.log('App Launch')
+			// #ifdef APP-PLUS
+			// 检测升级
+			appUpdate()
+			// #endif
 		},
 		onShow: function() {
-			console.log('App Show')
 			// rem()
 		},
 		onHide: function() {
-			console.log('App Hide')
 		}
 	}
 </script>
