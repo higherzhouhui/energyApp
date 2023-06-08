@@ -62,28 +62,53 @@ export default {
             })
         },
         dataURLtoBlob(dataurl) {
-            var arr = this.qrdImg.split(',');
-            //注意base64的最后面中括号和引号是不转译的   
-            var _arr = arr[1].substring(0, arr[1].length - 2);
-            var mime = arr[0].match(/:(.*?);/)[1],
-                bstr = atob(_arr),
-                n = bstr.length,
-                u8arr = new Uint8Array(n);
-            while (n--) {
-                u8arr[n] = bstr.charCodeAt(n);
-            }
-            let blob = new Blob([u8arr], {
-                type: mime
-            });
-
-            // 从blob对象中创建url
-            let src_blob1 = URL.createObjectURL(blob);
-            this.downloadQrd(src_blob1)
-
+			let bitmap = new plus.nativeObj.Bitmap("test");
+				bitmap.loadBase64Data(this.qrdImg, function() {
+					let time = Date.now()
+					let url = '_downloads/yflPic' + time + '.png';
+					// uni.hideLoading()
+					bitmap.save(url, {}, function(i) {
+						console.log('保存图片成功：' + JSON.stringify(i));
+						// 保存图片到相册
+						uni.saveImageToPhotosAlbum({
+							filePath: url,
+							success: function() {
+								uni.showToast({
+									title: '图片保存成功',
+									icon: 'none'
+								})
+								// 图片保存成功后，将临时保存的图片删除
+								plus.io.resolveLocalFileSystemURL(
+									url,
+									function(entry) {
+										entry.getMetadata(function(metadata) {
+											// console.log("fileCount=" + metadata.fileCount);
+											entry
+												.remove(); //删除单个文件 _downloads/改文件名
+ 
+										});
+									},
+									function(error) {
+										// uni.showToast({ title: "下载文件" });
+										console.log("error" + error);
+									}
+								);
+								bitmap.clear()
+							}
+						});
+						bitmap.clear();
+					}, function(e) {
+						onsole.log('保存图片失败：' + JSON.stringify(e));
+						bitmap.clear();
+					});
+				}, function() {
+					console.log('加载Base64图片数据失败：' + JSON.stringify(e));
+					bitmap.clear();
+				});
         },
         downloadQrd(url) {
             uni.saveImageToPhotosAlbum({
-                filePath: url,
+                filePath: 'blob:http://localhost:8080/6c198cbc-86e7-4f99-a5e8-615e4ed7ceb8',
                 success: function () {
                     uni.showToast({
                         title: '保存成功',
