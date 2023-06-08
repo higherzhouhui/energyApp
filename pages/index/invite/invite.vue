@@ -27,19 +27,6 @@ import {
     USER_INFO
 } from '@/common/util/constants.js'
 
-const times = new Date().getTime();
-let userPath = '';
-// #ifdef MP-ALIPAY
-userPath = my.env.USER_DATA_PATH;
-// #endif
-// #ifdef MP-WEIXIN
-userPath = wx.env.USER_DATA_PATH;
-// #endif
-// #ifdef MP-BAIDU
-userPath = swan.env.USER_DATA_PATH;
-// #endif
-
-let filePath = userPath + '/' + times + '.png';
 
 export default {
     data() {

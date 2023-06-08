@@ -69,7 +69,7 @@ export default {
 				msg = '重复输入密码不一致'
 			}
 			if (msg) {
-				uni.showToast({ title: msg, icon: 'error' })
+				uni.showToast({ title: msg, icon: 'none' })
 			}
 			return bol
 		},
@@ -86,7 +86,7 @@ export default {
 						}, 1000)
 
 					} else {
-						uni.showToast({ title: rt.message || '修改失败', icon: 'error' })
+						uni.showToast({ title: rt.message || '修改失败', icon: 'none' })
 					}
 				})
 			}

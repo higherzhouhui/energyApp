@@ -3,8 +3,12 @@
 		<view class="topContent">
 			<view class="userInfo">
 				<view class="left">
+<<<<<<< HEAD
 					<img v-if="$store.state.userInfo.avatar" :src="$store.state.userInfo.avatar || '../../static/wode/avatar.png'" class="avatar" @error=""/>
 					<image v-else src="../../static/wode/avatar.png" class="avatar" @error="avatarUrlError=false"></image>
+=======
+					<image :src="$store.state.userInfo.avatar || '../../static/wode/avatar.png'" class="avatar"></image>
+>>>>>>> 8722f193c9aa78a93938f8c40a5516667ef58563
 					<view class="info">
 						<view class="name">{{ $store.state.userInfo.name || '未实名' }}</view>
 						<view class="ziliao" @tap="handleRouteTo('userInfo')">个人资料</view>
@@ -154,7 +158,7 @@ import appUpdate from 'common/util/appUpdate.js'
 					if(rt.code == 200) {
 						uni.showToast({title: '签到成功！'})
 					}else{
-						uni.showToast({title: rt.message || '签到失败！', icon: 'error'})
+						uni.showToast({title: rt.message || '签到失败！', icon: 'none'})
 					}
 				})
 			},

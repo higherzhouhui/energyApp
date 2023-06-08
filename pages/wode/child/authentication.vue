@@ -58,23 +58,23 @@ export default {
 				msg = '请输入身份证号'
 			}
 			if(msg) {
-				uni.showToast({ title: msg, icon: 'error' })
+				uni.showToast({ title: msg, icon: 'none' })
 			}
 			return bol
 		},
 		formSubmit() {
 			if (this.volid()) {
 				realName({name: this.name, idCard: this.idCard}).then(rt=>{
-					if (rt.data) {
+					if (rt.code === 200) {
 						uni.showToast({ title: '认证成功' })
+						this.$store.commit('SET_USERINFO', {...this.$store.state.userInfo, name: this.name})
 						setTimeout(() => {
 							uni.navigateBack({
 								delta: 1
 							});
 						}, 1000)
-
 					} else {
-						uni.showToast({ title: '认证失败', icon: 'error' })
+						uni.showToast({ title: rt.message, icon: 'none' })
 					}
 				})
 			}

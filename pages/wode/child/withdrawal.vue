@@ -52,9 +52,9 @@ import {walletWithdraw} from '@/api/user'
 		methods: {
 			withdrawal() {
 				if(!this.txPrice) {
-					return uni.showToast({ title: '请填写提现金额', icon: 'error' })
+					return uni.showToast({ title: '请填写提现金额', icon: 'none' })
 				}else if(this.txPrice > this.amount) {
-					return uni.showToast({ title: '提现金额不可大于可提现金额', icon: 'error' })
+					return uni.showToast({ title: '提现金额不可大于可提现金额', icon: 'none' })
 				}
 				walletWithdraw({amount: this.txPrice, type: this.type}).then(rt=>{
 					if (rt.data) {
@@ -66,7 +66,7 @@ import {walletWithdraw} from '@/api/user'
 						}, 1000)
 
 					} else {
-						uni.showToast({ title: rt.message || '提现失败', icon: 'error' })
+						uni.showToast({ title: rt.message || '提现失败', icon: 'none' })
 					}
 				})
 			}
