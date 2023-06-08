@@ -102,6 +102,7 @@ export default {
                 success: function () {
                     uni.showToast({
                         title: '已复制到剪贴板',
+						icon: 'none'
                     });
                 },
                 fail: function () {

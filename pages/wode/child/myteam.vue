@@ -2,7 +2,7 @@
 	<view>
 		<view class="tabs">
 			<view class="tabs-item" @tap="type = item.type" :class="item.type == type && 'active'" v-for="item in tabs" :index="item.type" >
-				<view class="txt">{{item.label}}({{ length }})</view>
+				<view class="txt">{{item.label}}({{ item.length }})</view>
 			</view>
 		</view>
 		<view class="container">
@@ -35,7 +35,7 @@
 					@scrolltolower="lower" @scroll="scroll">
 					<view v-for="(item, index) in list" :key="index"  class="scroll-view-item table-item">
 						<view class="name item">
-							{{item.name}}
+							{{item.name || '—'}}
 						</view>
 						<view class="phone item">
 							{{item.mobilePhone}}
@@ -72,13 +72,16 @@
 				type: 1,
 				tabs: [{
 					type: 1,
-					label: '一级'
+					label: '一级',
+					length: 0
 				},{
 					type: 2,
-					label: '二级'
+					label: '二级',
+					length: 0
 				},{
 					type: 3,
-					label: '三级'
+					label: '三级',
+					length: 0
 				}],
 				settingOptions: {
 					scrollTop: 0,
@@ -96,10 +99,6 @@
 			list() {
 				let {teamOne, teamThree, teamTwo} = this.info
 				return [teamOne, teamTwo, teamThree][this.type - 1]
-			},
-			length() {
-				let {teamOne, teamThree, teamTwo} = this.info
-				return [teamOne, teamTwo, teamThree][this.type - 1].length || 0
 			}
 		},
 		onLoad() {
@@ -113,7 +112,12 @@
 			getMyTeam() {
 				myTeam().then(rt=>{
 					uni.stopPullDownRefresh()
-					this.info = rt.data
+					if (rt.code === 200) {
+						this.info = rt.data
+						this.tabs[0].length = rt.data.teamOne.length
+						this.tabs[1].length = rt.data.teamTwo.length
+						this.tabs[2].length = rt.data.teamThree.length
+					}
 				})
 				
 			},
