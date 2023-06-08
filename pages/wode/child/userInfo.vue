@@ -115,8 +115,9 @@ export default {
 				    'user': 'test'
 				  },
 				  success: function (res) {
+					  const response = JSON.parse((res.data))
 				    updateAvatarRequest({
-						avatar: res.data,
+						avatar: response.data,
 						idCard: that.info.idCard,
 						name: that.info.name
 					}).then(avatarRes => {
