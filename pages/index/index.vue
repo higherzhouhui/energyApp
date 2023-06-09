@@ -70,6 +70,7 @@
 		getNewsListRequest,
 		getHomeBaseRequest
 	} from '@/api/home.js'
+	import poster from '../../static/home/cover.png'
 	export default {
 		data() {
 			return {
@@ -91,7 +92,7 @@
 				total: 0,
 				course: '',
 				// 视频封面图
-				poster: '../../static/home/cover.png',
+				poster,
 			}
 		},
 		components: {
