@@ -1,9 +1,8 @@
 <template>
 	<view class="main">
-		<image src="https://ossimg.fbs55.com/common/common_1686194816000_49273.png" alt="logo" class="logo"/>
 		<view class="bottom">
 		  <a download="正泰新能源.apk " :href="versionInfo.downUrl" class="download">立即下载</a>
-		  <view class="version">{{versionInfo.version}}</view>
+		  <view class="version">版本号:{{versionInfo.version}}</view>
 		</view>
 	</view>
 </template>
@@ -16,8 +15,10 @@
 				versionInfo: {}
 			}
 		},
-		onLoad() {
-			this.int()
+		onLoad(options) {
+			if (!options.useH5) {
+				this.int()
+			}
 			this.getVersion()
 		},
 		methods: {
@@ -42,17 +43,11 @@
 
 <style scoped lang="scss">
   .main {
-    display: flex;
     width: 100%;
-    height: 100vh;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    background-image: url('https://ossimg.fbs55.com/common/common_1686194780000_44957.png');
+    height: calc(100vh - 44px);
+    background-image: url('../../static/start.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    padding: 80px 0 120px 0;
-    box-sizing: border-box;
   }
   .logo {
     width: 200px;
@@ -62,6 +57,9 @@
 	  display: flex;
 	  flex-direction: column;
 	  align-items: center;
+	  position: fixed;
+	  bottom: 80px;
+	  width: 100%;
   }
   .download {
     width: 256px;
@@ -74,12 +72,13 @@
     line-height: 50px;
     color: #fff;
     font-size: 18px;
+
   }
   .version {
-    font-size: 13px;
+    font-size: 15px;
     font-family: PingFang SC-Regular, PingFang SC;
     font-weight: 400;
     color: #FFFFFF;
-	margin-top: 12px;
-  }
+		margin-top: 12px;
+	}
 </style>

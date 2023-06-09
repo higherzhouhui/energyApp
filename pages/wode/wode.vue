@@ -81,6 +81,7 @@ import appUpdate from 'common/util/appUpdate.js'
 					{title: '银行卡', logo: 'yhk', link: 'bankcardbind'},
 					{title: '实名认证', logo: 'smrz', link: 'authentication'},
 					{title: '检查更新', logo: 'update', link: 'update', hidden: document ? true : false},
+					{title: '下载APP', logo: 'download', link: 'download', hidden: document ? false : true},
 				],
 				wallet: {
 					bonus: 0, // 分红钱包
@@ -121,6 +122,12 @@ import appUpdate from 'common/util/appUpdate.js'
 			handleRouteTo(link) {
 				if (link === 'update') {
 					appUpdate(true)
+					return
+				}
+				if (link === 'download') {
+					uni.navigateTo({
+						url:`/pages/download/download?useH5=1`
+					})
 					return
 				}
 				uni.navigateTo({
@@ -306,6 +313,7 @@ import appUpdate from 'common/util/appUpdate.js'
 			border-bottom: 1px solid #EBECED;
 			.left {
 				display: flex;
+				align-items: center;
 				.logo {
 					width: 24px;
 					height: 24px;

@@ -35,7 +35,7 @@
 			</view>
 			<view class="bg-video">
 				<view v-show="ruleVisible" class="cover" />
-				<video v-show="!ruleVisible" class="video" :src="videoUrl" loop controls
+				<video v-show="!ruleVisible" class="video" :src="videoUrl" loop controls autoplay
 				:show-mute-bt="true" play-btn-position="middle"
 				mobilenet-hint-type="1" :enable-play-gesture="true" :poster="poster"></video>
 			</view>
@@ -51,7 +51,7 @@
 						公告信息
 					</view>
 				</view>
-				<view class="box-content">{{notice.content}}<text class="notice-time">{{notice.createTime}}</text></view>
+				<view class="box-content">{{notice.content}}</text></view>
 				<image @click="toggle(false)" class="close" src="../../static/tuiguang/close.png"></image>
 			</view>
 		</view>
@@ -397,7 +397,7 @@
 			max-width: 100%;
 			max-height: 500px;
 			overflow: auto;
-			min-height: 200px;
+			min-height: 100px;
 			font-size: 13px;
 			line-height: 21px;
 			.notice-time {

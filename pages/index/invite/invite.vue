@@ -5,13 +5,19 @@
     </view>
     <view class="content">
         <view class="inviteWrapper">
-            <view class="title">我的邀请码</view>
+			<view class="rulesWrapper">
+				<view class="ruleTitle">活动规则</view>
+				<view class="ruleList" v-for="item in rules" :key="item.id">
+					<text class="normal">推荐</text><text class="res">{{item.inviteNum}}</text>
+					<text class="normal">人，</text><text class="normal">赠送推广金</text><text class="red">{{item.amount}}</text>
+					<text class="normal">元</text>
+				</view>
+			</view>
+            <view class="title"></view>
             <view class="ecode-box">
                 <canvas ref="ecode" id="qrcode" class="ecode" style="width: 120px;" canvas-id="qrcode"></canvas>
             </view>
-
-            <!-- <image src="../../../static/yaoqing/qrd.png" mode="scaleToFill" show-menu-by-longpress class="qrdImg"> -->
-            <!-- </image> -->
+			<view class="inviteCode">您的邀请码: {{inviteCode}}</view>
             <view class="btnGroup">
                 <view class="btn" @tap="dataURLtoBlob">下载二维码</view>
                 <view class="btn" @tap="copyInviteLink()">复制推广链接</view>
@@ -26,24 +32,40 @@ import UQrcode from '@/common/util/ecode'
 import {
     USER_INFO
 } from '@/common/util/constants.js'
-
+import { getExpandList } from '@/api/promotion'
 
 export default {
     data() {
         return {
             qrdImg: '',
-            linkUrl: ''
+            linkUrl: '',
+			inviteCode: '',
+			rules: [],
         }
     },
     onLoad() {
         const {
             inviteCode
         } = uni.getStorageSync(USER_INFO)
+		this.inviteCode = inviteCode
         const url = `http://web.zhengtaixinnengyuan.com?inviteCode=${inviteCode}/#/pages/register/register`
         this.linkUrl = url
         this.qrFun(url)
+		this.getRules()
     },
     methods: {
+		getRules() {
+			getExpandList().then(res => {
+				if (res.code === 200) {
+					this.rules = res.data
+				} else {
+					uni.showToast({
+						title:res.message,
+						icon: 'none'
+					})
+				}
+			})
+		},
         qrFun(text) {
             let that = this
             UQrcode.make({
@@ -126,7 +148,7 @@ export default {
         position: relative;
         width: 100%;
         height: 0;
-        padding-bottom: 116%;
+        padding-bottom: 71%;
     }
 
     .inviteImg {
@@ -149,7 +171,7 @@ export default {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 32px 0;
+            padding: 24px 0;
 
             .title {
                 font-size: 18px;
@@ -162,9 +184,14 @@ export default {
             .qrdImg {
                 width: 185px;
                 height: 185px;
-                margin-bottom: 32px;
             }
-
+			.inviteCode {
+				font-size: 15px;
+				font-family: PingFang SC-Regular, PingFang SC;
+				font-weight: 600;
+				color: #17191A;
+				margin: -10px 0 15px 0;
+			}
             .btnGroup {
                 display: flex;
 
@@ -186,6 +213,29 @@ export default {
                 }
             }
         }
+		.rulesWrapper {
+			.ruleTitle {
+				font-size: 18px;
+				font-family: PingFang SC-Semibold, PingFang SC;
+				font-weight: 600;
+				color: #17191A;
+				line-height: 30px;
+				text-align: center;
+				margin-bottom: 20px;
+			}
+			.ruleList {
+				line-height: 26px;
+				font-size: 16px;
+				letter-spacing: 0.1rem;
+				font-family: PingFang SC-Semibold, PingFang SC;
+			}
+			.normal {
+				color: #17191A;
+			}
+			.red {
+				color: #FF4B4B;
+			}
+		}
     }
 }
 </style>

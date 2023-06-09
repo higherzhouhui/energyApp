@@ -15,7 +15,7 @@
 						</view>
 					</view>
 				</view> -->
-				<view class="box-content">{{ rules }}</view>
+				<view class="box-content" v-html="rules"></view>
 				<image @tap="ruleHide" class="close" src="../../static/tuiguang/close.png"></image>
 			</view>
 
