@@ -37,7 +37,7 @@
 				<view v-show="ruleVisible" class="cover" />
 				<video v-show="!ruleVisible" class="video" :src="videoUrl" loop controls autoplay
 				:show-mute-bt="true" play-btn-position="middle"
-				mobilenet-hint-type="1" :enable-play-gesture="true" :poster="poster"></video>
+				mobilenet-hint-type="1" :enable-play-gesture="true" poster="../../static/home/cover.png"></video>
 			</view>
 			<view class="newsContainer">
 				<text class="title">新闻动态</text>
@@ -70,7 +70,6 @@
 		getNewsListRequest,
 		getHomeBaseRequest
 	} from '@/api/home.js'
-	import poster from '../../static/home/cover.png'
 	export default {
 		data() {
 			return {
@@ -92,7 +91,7 @@
 				total: 0,
 				course: '',
 				// 视频封面图
-				poster,
+				poster: '',
 			}
 		},
 		components: {
