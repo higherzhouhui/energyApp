@@ -75,7 +75,6 @@ export default {
         return {
             href: 'https://uniapp.dcloud.io/component/README?id=uniui',
             newsList: [],
-            timer: '',
             ruleVisible: '',
             notice: {
                 content: '',
@@ -208,9 +207,6 @@ export default {
             })
         },
     },
-    destroyed() {
-        clearInterval(this.timer)
-    }
 }
 </script>
 
