@@ -47,8 +47,7 @@
 							{{item.registerDate}}
 						</view>
 					</view>
-					<view class="no-data">暂无数据</view>
-					
+					<view v-if="!tabs[this.type - 1].length" class="no-data">暂无数据</view>
 				</scroll-view>
 			</view>
 		</view>
