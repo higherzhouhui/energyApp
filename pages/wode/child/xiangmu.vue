@@ -54,7 +54,6 @@ export default {
         this.hasmore = true
         this.pageNum = 1
         this.getList()
-
     },
     methods: {
         getList() {

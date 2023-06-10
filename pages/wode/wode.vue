@@ -15,32 +15,32 @@
 				</view>
 			</view>
 			<view class="moneyContainer">
-				<view class="list" @tap="withdrawal('bonus', wallet.bonus)">
+				<view class="list" @tap="withdrawal('bonus', wallet.bonus, '分红')">
 					<view class="title">分红钱包（元）</view>
 					<view class="bot">
 						<view class="jine">{{ wallet.bonus }}</view>
-						<view class="tixian" @tap="handleWithDraw('fenhong')">提现</view>
+						<view class="tixian">提现</view>
 					</view>
 				</view>
-				<view class="list" @tap="withdrawal('extend', wallet.extend)">
+				<view class="list" @tap="withdrawal('extend', wallet.extend, '推广')">
 					<view class="title">推广钱包（元）</view>
 					<view class="bot">
 						<view class="jine">{{ wallet.extend }}</view>
-						<view class="tixian" @tap="handleWithDraw('tuiguang')">提现</view>
+						<view class="tixian">提现</view>
 					</view>
 				</view>
-				<view class="list" @tap="withdrawal('earnings', wallet.earnings)">
+				<view class="list" @tap="withdrawal('earnings', wallet.earnings, '收益')">
 					<view class="title">收益钱包（元）</view>
 					<view class="bot">
 						<view class="jine">{{ wallet.earnings }}</view>
-						<view class="tixian" @tap="handleWithDraw('shouyi')">提现</view>
+						<view class="tixian">提现</view>
 					</view>
 				</view>
-				<view class="list" @tap="withdrawal('chnt', wallet.chnt)">
+				<view class="list" @tap="withdrawal('chnt', wallet.chnt, '正泰补贴')">
 					<view class="title">正泰补贴金（元）</view>
 					<view class="bot">
 						<view class="jine">{{ wallet.chnt }}</view>
-						<view class="tixian" @tap="handleWithDraw('zhengtai')">提现</view>
+						<view class="tixian">提现</view>
 					</view>
 				</view>
 			</view>
@@ -164,9 +164,33 @@ import appUpdate from 'common/util/appUpdate.js'
 					}
 				})
 			},
-			withdrawal(type, amount) {
+			withdrawal(type, amount, title) {
+				// 分红钱包
+				if (type === 'bonus' ||type === 'chnt') {
+					uni.showToast({
+						title: '即将上市，敬请期待',
+						icon: 'none'
+					})
+					return
+				}
+				// 如果没有购买产品，推广用户所得也不能提现
+				if (type === 'extend' && this.wallet.earnings === 0) {
+					uni.showModal({ 
+						title: '提示',
+						content: '需要认购产品激活此钱包',
+						confirmText: '去认购',
+						success: (res) => {
+							if (res.confirm) {
+								this.$Router.replaceAll({name: 'xiangmu'})
+							} else {
+								console.log("取消")
+							}
+						},
+					})
+					return
+				}
 				uni.navigateTo({
-					url:`/pages/wode/child/withdrawal?type=${type}&amount=${amount}`
+					url:`/pages/wode/child/withdrawal?type=${type}&amount=${amount}&title=${title}`
 				})
 			}
 		}

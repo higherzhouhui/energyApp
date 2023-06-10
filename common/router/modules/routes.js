@@ -165,7 +165,7 @@ const routes = [
 		path: "/pages/wode/child/withdrawal",
 		name: 'authentication',
 			meta: {
-				title: '分红提现',
+				title: '提现',
 			}
 	},
 	{
