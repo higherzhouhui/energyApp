@@ -68,10 +68,19 @@ import { getQueryString } from "@/utils/common.js"
 				// 注册类型 1:app注册 2:连接注册
 				this.registerType = 2
 				this.inviteCode = inviteCode
+				this.int()
 			}
 		},
 		methods: {
 			...mapActions(["PhoneLogin"]),
+			int(){
+				// #ifdef H5
+				var a = document.getElementsByClassName('uni-page-head-hd')
+				if (a.length) {
+					a[0].style.display = 'none';
+				}
+				// #endif
+			},
 			formSubmit(data) {
 				// 正在请求不再向下执行
 				if (this.loading) {

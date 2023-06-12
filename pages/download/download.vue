@@ -45,7 +45,7 @@
   .main {
     width: 100%;
     height: calc(100vh - 44px);
-    background-image: url('../../static/start.png');
+    background-image: url('../../static/downloadBg.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
   }
