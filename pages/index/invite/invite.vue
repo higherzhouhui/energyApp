@@ -101,7 +101,7 @@ export default {
             // 从blob对象中创建url
             let src_blob1 = URL.createObjectURL(blob);
             this.downloadQrd(src_blob1)
-
+		
         },
         downloadQrd(url) {
             uni.saveImageToPhotosAlbum({

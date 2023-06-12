@@ -4,7 +4,7 @@
         <view class="item" v-for="item in list" :key="item.id">
             <view class="top-info">
                 <view class="avatar-box">
-                    <img class="avatar" :onerror="`this.src='${avatar}'`" :src="item.image" alt="">
+					<image class="avatar" :src="item.image || '/static/xiangmu/project.png'">
                     <view class="avatar-info">
                         <view class="name">{{ item.title }}</view>
                         <view class="num">
@@ -40,7 +40,7 @@ import {
 export default {
     data() {
         return {
-            avatar: 'https://alipic.lanhuapp.com/web475b3b1e-96fa-4a25-be45-7c2868ddce63',
+            avatar: '',
             list: [],
             pageNum: 1,
             hasmore: true,
@@ -54,7 +54,6 @@ export default {
         this.hasmore = true
         this.pageNum = 1
         this.getList()
-
     },
     methods: {
         getList() {
