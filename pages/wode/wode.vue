@@ -156,12 +156,18 @@ import appUpdate from 'common/util/appUpdate.js'
 				});
 			},
 			signToday() {
+				uni.showLoading({
+					title: '签到中'
+				})
 				insert().then(rt=>{
+					uni.hideLoading()
 					if(rt.code == 200) {
 						uni.showToast({title: '签到成功！'})
 					}else{
 						uni.showToast({title: rt.message || '签到失败！', icon: 'none'})
 					}
+				}).catch(() => {
+					uni.hideLoading()
 				})
 			},
 			withdrawal(type, amount, title) {
