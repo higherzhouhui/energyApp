@@ -70,6 +70,7 @@
 <script>
 import { mapActions } from "vuex"
 import {getUserWallet, insert, personalInfoRequest} from '@/api/user'
+import {getMyProjectList} from '@/api/project'
 import appUpdate from 'common/util/appUpdate.js'
 	export default {
 		data() {
@@ -90,6 +91,7 @@ import appUpdate from 'common/util/appUpdate.js'
 					chnt: 0 //正泰补贴金
 				},
 				avatarUrlError: false,
+				isBugProjectFlag: false,
 			}
 		},
 		onLoad() {
@@ -104,14 +106,46 @@ import appUpdate from 'common/util/appUpdate.js'
 		methods: {
 			...mapActions(["Logout"]),
 			async freshCurrentPage() {
-				const res = await Promise.all([personalInfoRequest(), getUserWallet()])
-				uni.stopPullDownRefresh()
-				this.$store.commit('SET_USERINFO', res[0].data)
-				this.wallet = res[1].data
+				Promise.all([personalInfoRequest(), getUserWallet(), getMyProjectList({pageNum: 1, pageSize: 5})]).then(res => {
+					uni.stopPullDownRefresh()
+					if (res[0].code === 200) {
+						this.$store.commit('SET_USERINFO', res[0].data)
+					} else {
+						uni.showToast({
+							title: res[0].message,
+							icon: 'none'
+						})
+					}
+					if (res[1].code === 200) {
+						this.wallet = res[1].data
+					} else {
+						uni.showToast({
+							title: res[1].message,
+							icon: 'none'
+						})
+					}
+					if (res[2].code === 200) {
+						this.isBugProjectFlag = res[2].data.list.length > 0 ? true : false
+					} else {
+						uni.showToast({
+							title: res[2].message || res[2].msg,
+							icon: 'none'
+						})
+					}
+				}).catch((error) => {
+					uni.showToast({
+						title: error,
+						icon: 'none'
+					})
+					uni.stopPullDownRefresh()
+				})
 			},
 			getWallet() {
 				getUserWallet().then(rt=>{
 					this.wallet = rt.data
+					if (rt.data.earnings) {
+						this.isBugProjectFlag = true
+					}
 				})
 			},
 			handleWithDraw(type) {
@@ -172,7 +206,7 @@ import appUpdate from 'common/util/appUpdate.js'
 			},
 			withdrawal(type, amount, title) {
 				// 分红钱包
-				if (type === 'bonus' ||type === 'chnt') {
+				if (type === 'bonus') {
 					uni.showToast({
 						title: '即将上市，敬请期待',
 						icon: 'none'
@@ -180,7 +214,7 @@ import appUpdate from 'common/util/appUpdate.js'
 					return
 				}
 				// 如果没有购买产品，推广用户所得也不能提现
-				if (type === 'extend' && this.wallet.earnings === 0) {
+				if ((type === 'extend' || type === 'chnt') && !this.isBugProjectFlag) {
 					uni.showModal({ 
 						title: '提示',
 						content: '需要认购产品激活此钱包',
