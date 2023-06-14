@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import MinCache from'./common/util/MinCache.js'
-import configService from'./common/service/config.service.js'
 
 import router from './common/router'
 import {RouterMount} from './plugin/uni-simple-router/index.js'
@@ -14,12 +13,7 @@ Vue.use(MinCache,{timeout: 6})
 // store
 Vue.prototype.$store=store;
 // tip
-// config
-Vue.prototype.$config=configService;
 
-// request请求
-import { http } from '@/common/service/service.js' 
-Vue.prototype.$http = http
 
 
 // import VConsole from './js_sdk/vconsole.min'
