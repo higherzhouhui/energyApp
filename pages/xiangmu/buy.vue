@@ -53,6 +53,17 @@
                     </view>
 
                 </view>
+                <view class="pay-item" @tap="bankbuy">
+                    <view>
+                        <image class="icon" src="../../static/xiangmu/yinhangka.png" alt=""></image>
+                        银行卡支付
+                    </view>
+                    <view>
+                        <image class="choice" v-if="payType == 3" src="../../static/xiangmu/choice-active.png"></image>
+                        <image class="choice" v-else src="../../static/xiangmu/choice.png"></image>
+                    </view>
+
+                </view>
             </view>
         </view>
         <view class="sure-btn" :class="loading && 'loading'" @tap="onPay">
@@ -81,8 +92,11 @@ export default {
 
     },
     methods: {
+        bankbuy() {
+            uni.navigateTo({ url: "/pages/xiangmu/buybank"});
+        },
         onPay() {
-            if(this.loading) return
+            if (this.loading) return
             this.loading = true
             buyProject({ payType: this.payType, id: this.item.id, returnUrl: '/pages/xiangmu/xiangmu?status=1' }).then(rt => {
                 this.loading = false
@@ -94,7 +108,7 @@ export default {
                 else {
                     uni.showToast({ title: rt.message || '购买失败', icon: 'none' })
                 }
-            }).catch(err=>{
+            }).catch(err => {
                 this.loading = false
             })
         }
@@ -129,9 +143,10 @@ export default {
             font-family: PingFang SC-Regular, PingFang SC;
             font-weight: 400;
             color: #17191A;
+            border-bottom: 1px solid #EBECED;
 
-            &:first-child {
-                border-bottom: 1px solid #EBECED;
+            &:last-child {
+                border-bottom: unset;
             }
 
             .icon {
@@ -243,5 +258,4 @@ export default {
     text-align: center;
     border-radius: 24px;
 }
-
 </style>

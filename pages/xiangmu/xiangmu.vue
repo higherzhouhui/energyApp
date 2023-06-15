@@ -3,7 +3,7 @@
 		<view class="item" v-for="item in list" :key="item.id">
 			<view class="top-info">
 				<view class="avatar-box">
-					<image class="avatar" :src="item.image || '/static/xiangmu/project.png'">
+					<image class="avatar" :src="item.image || '/static/xiangmu/project.png'"></image>
 					<view class="avatar-info">
 						<view class="name">{{ item.title }}</view>
 						<view class="num">

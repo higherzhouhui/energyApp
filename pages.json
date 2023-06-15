@@ -110,6 +110,14 @@
 				"enablePullDownRefresh": false,
 				"navigationBarBackgroundColor": "#fff"
 			}
+		},{
+			"path": "pages/xiangmu/buybank",
+			"style": {
+				"navigationBarTitleText": "银行卡支付",
+				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff"
+			}
+
 		}, {
 			"path": "pages/xiangmu/xiangmu",
 			"style": {
