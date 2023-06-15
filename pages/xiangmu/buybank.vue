@@ -39,7 +39,7 @@ export default {
                 bankCode: '',
                 name: '',
                 bankName: '',
-                voucher: '22'
+                voucher: ''
             },
         }
     },
