@@ -26,10 +26,11 @@
                         <view class="value">{{ item.period }}</view>
                         <view class="txt">周期(天)</view>
                     </view>
-                    <view class="time-box" v-if="item.createTime || item.endTime">
-                        <view v-if="item.createTime">购买时间：{{ item.createTime }}</view>
-                        <view v-if="item.endTime" class="b-txt">开始时间：{{ item.endTime }}</view>
-                    </view>
+
+                </view>
+                <view class="time-box" v-if="item.createTime || item.endTime">
+                    <view v-if="item.createTime">购买时间：{{ item.createTime }}</view>
+                    <view v-if="item.endTime" class="b-txt">开始时间：{{ item.endTime }}</view>
                 </view>
             </view>
         </scroll-view>
@@ -148,6 +149,21 @@ export default {
             }
         }
 
+        .time-box {
+            margin-top: 2px;
+            padding: 8px;
+            background-color: #F5F6F7;
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: PingFang SC-Regular, PingFang SC;
+            font-weight: 400;
+            color: #4F5459;
+
+            .bt-txt {
+                margin-top: 4px;
+            }
+        }
+
         .botton-info {
             display: flex;
             align-items: center;
@@ -157,20 +173,7 @@ export default {
             background-color: #F6FAFF;
             border-radius: 4px;
 
-            .time-box {
-                margin-top: 2px;
-                padding: 8px;
-                background-color: #F5F6F7;
-                border-radius: 8px;
-                font-size: 12px;
-                font-family: PingFang SC-Regular, PingFang SC;
-                font-weight: 400;
-                color: #4F5459;
 
-                .bt-txt {
-                    margin-top: 4px;
-                }
-            }
 
             .in-item {
                 text-align: center;
