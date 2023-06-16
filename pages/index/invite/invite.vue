@@ -19,7 +19,7 @@
             </view>
 			<view class="inviteCode">您的邀请码: {{inviteCode}}</view>
             <view class="btnGroup">
-                <view class="btn" @tap="dataURLtoBlob">下载二维码</view>
+                <view class="btn" @tap="saveBaseImgFile">下载二维码</view>
                 <view class="btn" @tap="copyInviteLink()">复制推广链接</view>
             </view>
         </view>
@@ -82,6 +82,41 @@ export default {
                     that.qrdImg = res
                 }
             })
+        },
+        saveBaseImgFile() {
+            let base64 = this.qrdImg;
+            const bitmap = new plus.nativeObj.Bitmap("base64");
+            bitmap.loadBase64Data(base64, function () {
+                const url = "_doc/" + new Date().getTime() + ".png";
+                console.log('saveHeadImgFile', url)
+                bitmap.save(url, {
+                    overwrite: true, // 是否覆盖
+                    // quality: 'quality'  // 图片清晰度
+                }, (i) => {
+                    uni.saveImageToPhotosAlbum({
+                        filePath: url,
+                        success: function () {
+                            uni.showToast({
+                                title: '图片保存成功',
+                                icon: 'none'
+                            })
+                            bitmap.clear()
+                        }
+                    });
+                }, (e) => {
+                    uni.showToast({
+                        title: '图片保存失败',
+                        icon: 'none'
+                    })
+                    bitmap.clear()
+                });
+            }, (e) => {
+                uni.showToast({
+                    title: '图片保存失败',
+                    icon: 'none'
+                })
+                bitmap.clear()
+            });
         },
         dataURLtoBlob(dataurl) {
             var arr = this.qrdImg.split(',');
