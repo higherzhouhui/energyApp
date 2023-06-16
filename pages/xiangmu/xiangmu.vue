@@ -11,8 +11,8 @@
 						</view>
 					</view>
 				</view>
-				<view class="button" @tap="toBuy(item)">
-					立即购买
+				<view class="button" :class="item.state != 1 && 'sq'" @tap="toBuy(item, 1)">
+					{{ item.state == 1 ? '立即购买' : '已售罄' }}
 				</view>
 			</view>
 			<view class="botton-info">
@@ -122,6 +122,9 @@ export default {
 				font-weight: 400;
 				color: #FFFFFF;
 				border-radius: 16px;
+				&.sq{
+					opacity: 0.5;
+				}
 			}
 		}
 
@@ -158,4 +161,5 @@ export default {
 			}
 		}
 	}
-}</style>
+}
+</style>
