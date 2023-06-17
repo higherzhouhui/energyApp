@@ -133,8 +133,8 @@ export default {
                     })
                     break;
                 case 'zxkf':
-                    this.$Router.replaceAll({
-                        name: 'kefu'
+                    uni.switchTab({
+                    	url: '/pages/kefu/kefu'
                     })
                     break;
                 case 'gfql':
