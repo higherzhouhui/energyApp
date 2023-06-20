@@ -101,10 +101,11 @@ export default {
     onReady: function (res) {
         this.videoContext = uni.createVideoContext('myVideo')
     },
-
     //离开页面时暂停视频播放
     onHide() {
-        this.videoContext.pause();
+		if (this.videoContext) {
+			this.videoContext.pause();
+		}
     },
 
     onLoad() {
