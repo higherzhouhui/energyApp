@@ -4,7 +4,7 @@
 			<image class="avatartImg" :src="groupPhoto"></image>
 			<view class="title">{{groupName}}</view>
 			<view class="code">{{groupNum}}</view>
-			<image class="qrdImg" :src="officialGroup"></image>
+			<image class="qrdImg" :src="officialGroup" @longtap="downloadImage"></image>
 			<view class="joinText">扫一扫二维码加入群聊</view>
 		</view>
 	</view>
@@ -22,17 +22,60 @@
 		},
 		onLoad(options) {
 			// 获取相关信息
-			const {groupPhoto, groupName, groupNum, officialGroup} = options
+			const {
+				groupPhoto,
+				groupName,
+				groupNum,
+				officialGroup
+			} = options
 			this.groupPhoto = groupPhoto
 			this.groupName = groupName
 			this.groupNum = groupNum
 			this.officialGroup = officialGroup
 		},
 		methods: {
-			
+			downloadImage(event) {
+				// #ifdef APP-PLUS
+				// 长按下载
+				uni.showModal({
+					title: '提示',
+					content: '下载该二维码',
+					success: (showResult) => {
+						if (showResult.confirm) {
+							uni.downloadFile({
+								url: event.target.src,
+								success: (res) => {
+									uni.saveImageToPhotosAlbum({
+										filePath: res.tempFilePath,
+										success: () => {
+											uni.showToast({
+												title: '保存成功'
+											});
+										},
+										fail: () => {
+											uni.showToast({
+												icon: 'none',
+												title: '保存失败'
+											});
+										},
+									});
+								},
+								fail: () => {
+									uni.showToast({
+										icon: 'none',
+										title: '下载失败'
+									});
+								},
+							});
+						}
+					}
+				})
+				// #endif
+			},
 		}
 	}
 </script>
+
 
 <style scoped lang="scss">
 .container {

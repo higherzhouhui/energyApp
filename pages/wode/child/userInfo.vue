@@ -11,7 +11,7 @@
 				姓名
 			</view>
 			<view class="value">
-				{{ info.authenticated  ? info.name : '未实名' }}
+				{{ info.name || '未实名' }}
 			</view>
 		</view>
 		<view class="item">
@@ -49,7 +49,9 @@
 import { updateAvatarRequest } from '@/api/user'
 import { hideMiddlePhone } from "@/utils/common"
 import { mapActions } from "vuex"
-
+import {
+    URL
+} from '@/config/index.js'
 export default {
 	data() {
 		return {
@@ -113,8 +115,11 @@ export default {
 			uni.chooseImage({
 			  success(res) {
 				const tempFilePaths = res.tempFilePaths[0];
+				uni.showLoading({
+					title: '上传中...'
+				})
 				uni.uploadFile({
-				  url: 'http://www.zhengtaixinnengyuan.com/admin/upload/uploadImage',
+				  url: `${URL}/admin/upload/uploadImage`,
 				  filePath: tempFilePaths,
 				  name: 'file',
 				  formData: {
@@ -122,6 +127,7 @@ export default {
 				  },
 				  success: function (res) {
 					  const response = JSON.parse((res.data))
+					  uni.hideLoading()
 				    updateAvatarRequest({
 						avatar: response.data,
 						idCard: that.info.idCard,
@@ -135,6 +141,7 @@ export default {
 				  },
 				  fail: function (res) {
 				    console.log('上传失败：', res);
+					uni.hideLoading()
 				  }
 				});
 			  }
