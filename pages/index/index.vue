@@ -24,18 +24,19 @@
                 <view class="text">邀请好友</view>
             </view>
         </view>
-        <view class="gonggao">
+        <view class="gonggao" @tap="toggle(true)">
             <image class="ggImg" src="../../static/home/gonggao.png"></image>
-            <view id="scroll_div" class="fl" ref="scrollDiv">
+        	<TextRoll :text="removeHtmlTag(notice.content)"></TextRoll>
+        	<!--   <view id="scroll_div" class="fl" ref="scrollDiv">
                 <view id="scroll_begin" ref="scrollBegin" @tap="toggle(true)">
                     {{notice.content}}
                 </view>
                 <view id="scroll_end" ref="scrollEnd"></view>
-            </view>
+            </view> -->
         </view>
-        <view class="bg-video">
-            <view v-show="ruleVisible" class="cover" />
-            <video id="myVideo" v-show="!ruleVisible" class="video" :src="videoUrl" loop autoplay controls :show-mute-bt="true" play-btn-position="middle" mobilenet-hint-type="1" :enable-play-gesture="true" poster="../../static/home/cover.png"></video>
+       <view class="bg-video">
+            <image @tap="vplay" src="../../static/home/cover.png" v-show="!played || ruleVisible || isShowProgress" class="video"></image>
+            <video id="myVideo" v-show="played && !ruleVisible && !isShowProgress"  class="video" ref="video" :src="videoUrl" loop controls :show-mute-bt="true" play-btn-position="middle" mobilenet-hint-type="1" :enable-play-gesture="true" poster="../../static/home/cover.png"></video>
         </view>
         <view class="newsContainer">
             <text class="title">新闻动态</text>
@@ -49,7 +50,7 @@
                     公告信息
                 </view>
             </view>
-            <view class="box-content">{{notice.content}}</view>
+            <view class="box-content" v-html="notice.content"></view>
             <image class="close" src="../../static/tuiguang/close.png"></image>
         </view>
     </view>
@@ -58,11 +59,14 @@
 
 <script>
 import newProduct from '@/components/newProduct.vue'
+import TextRoll from '@/components/beyondGod-roll/text-roll.vue'
 import {
     HOME_NOTICE
 } from '@/common/util/constants.js'
 import {
-    stitchUrl
+    stitchUrl,
+    Local,
+	removeHtmlTag
 } from '@/utils/common.js'
 import {
     getBannerListRequest,
@@ -73,14 +77,15 @@ import {
 export default {
     data() {
         return {
-            newsList: [],
-            ruleVisible: '',
+            played: false,
+			newsList: Local('newsList') || [],
+            ruleVisible: true,
             notice: {
-                content: '',
+                content: Local('noticecontent') || '',
                 createTime: ''
             },
             pageNum: 1,
-            pageSize: 10,
+            pageSize: 20,
             videoUrl: '',
             gfql: {
                 groupName: '',
@@ -88,15 +93,17 @@ export default {
                 groupPhoto: '',
                 officialGroup: '',
             },
-            bannersList: [],
+            bannersList: Local('bannersList') || [],
             total: 0,
             course: '',
             // 视频封面图
             poster: '',
+			removeHtmlTag: removeHtmlTag,
         }
     },
     components: {
         newProduct,
+		TextRoll
     },
     onReady: function (res) {
         this.videoContext = uni.createVideoContext('myVideo')
@@ -116,6 +123,10 @@ export default {
         this.getHomeData()
     },
     methods: {
+		vplay() {
+		    this.played = true
+		    this.videoContext.play()
+		},
         toggle(bol) {
             this.ruleVisible = bol;
             if (bol) uni.hideTabBar()
@@ -174,13 +185,14 @@ export default {
                 if (banner.code === 200) {
                     const data = banner.data
                     this.bannersList = data
+					Local('bannersList', data)
                 }
                 if (newsList.code === 200) {
                     const {
                         list
                     } = newsList.data
-                    const temp = list
-                    this.newsList = temp
+                    this.newsList = list
+					Local('newsList', list)
                 }
                 if (baseInfo.code === 200) {
                     const data = baseInfo.data
@@ -199,7 +211,10 @@ export default {
                     const storageNotice = uni.getStorageSync(HOME_NOTICE)
                     // if (storageNotice !== this.notice.content) {
                     // 	uni.setStorageSync(HOME_NOTICE, noticeInfo.data.content)
-                    this.toggle(true)
+					if (!Local('noticecontent')) {
+						this.toggle(true)
+					}
+					Local('noticecontent', noticeInfo.data)
                     // }
                 }
             }).catch(() => {
@@ -285,19 +300,20 @@ export default {
 }
 
 .gonggao {
-    background: #FFFFFF;
+    background: #fff;
     border-radius: 8px;
-    padding: 12px;
     position: relative;
     margin-top: 12px;
-
+	display: flex;
+	align-content: center;
+	overflow: hidden;
     .ggImg {
         width: 34px;
         height: 20px;
         min-width: 34px;
         min-height: 20px;
         object-fit: fill;
-        margin-top: 5px;
+		margin-top: 5px;
     }
 }
 

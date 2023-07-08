@@ -48,7 +48,7 @@ export default {
             inviteCode
         } = uni.getStorageSync(USER_INFO)
 		this.inviteCode = inviteCode
-        const url = `http://www.zhengtaixinnengyuan.com?inviteCode=${inviteCode}/#/pages/register/register`
+        const url = `http://web.zhtxny.com?inviteCode=${inviteCode}/#/pages/register/register`
         this.linkUrl = url
         this.qrFun(url)
 		this.getRules()

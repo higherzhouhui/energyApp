@@ -26,8 +26,11 @@ export default new Vuex.Store({
             uni.setStorageSync(USER_INFO,userInfo);
             // commit('SET_USERINFO', userInfo)
 			state.userInfo = userInfo
-          }
-          resolve(response)
+          } else {
+			uni.removeStorageSync(ACCESS_TOKEN)
+			uni.removeStorageSync(USER_INFO)
+		  }
+		resolve(response)
         }).catch((error) => {
 			reject(error)
 		})
